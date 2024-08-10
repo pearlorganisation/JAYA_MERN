@@ -6,7 +6,7 @@ const Layout = () => {
     return (
         <div className='h-screen gird grid-cols-2 w-full'>
             <div className='relative bg-red-400'>
-                {/* <Sidebar />1 */}1
+                {/* <Sidebar />1 */}
             </div>
             <div className='bg-yellow-300'>
                 {<Outlet />}
