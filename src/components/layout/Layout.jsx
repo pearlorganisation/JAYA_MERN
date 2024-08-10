@@ -4,11 +4,11 @@ import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
     return (
-        <div className='h-screen gird grid-cols-2 w-full'>
-            <div className='relative bg-red-400'>
-                {/* <Sidebar />1 */}
+        <div className='grid lg:grid-cols-[18rem_auto]'>
+            <div className='relative '>
+                <Sidebar />
             </div>
-            <div className='bg-yellow-300'>
+            <div className=''>
                 {<Outlet />}
             </div>
         </div>

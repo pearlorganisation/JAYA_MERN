@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage/AboutPage'
 import Layout from './components/layout/Layout'
 import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
+import Schemes from './pages/Schemes/Schemes';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,12 @@ const router = createBrowserRouter([
       {
         path:'signup', 
         element:<Signup/>
-      }
+      },
+      {
+        path: 'schemes',
+        element: <Schemes />,
+        
+      },
     ],
   },
 ]);
