@@ -23,14 +23,7 @@ const router = createBrowserRouter([
         path: 'about',
         element: <AboutPage />,
       },
-      {
-        path: 'signin',
-        element: <Signin />
-      },
-      {
-        path: 'signup',
-        element: <Signup />
-      },
+
       {
         path: 'schemes',
         element: <Schemes />,
@@ -45,13 +38,22 @@ const router = createBrowserRouter([
         element: <ProfilePage />
       },
       {
-        path:"mydocuments",
-        element:<DocumentPage/>
+        path: "mydocuments",
+        element: <DocumentPage />
 
       }
 
 
     ],
+
+  },
+  {
+    path: 'signin',
+    element: <Signin />
+  },
+  {
+    path: 'signup',
+    element: <Signup />
   },
 ]);
 function App() {
