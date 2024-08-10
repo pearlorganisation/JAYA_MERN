@@ -1,4 +1,4 @@
-import  { useState } from 'react'
+import { useState } from 'react'
 import ProfileSavedCard from '../../components/ProfileSavedCard/ProfileSavedCard';
 
 
@@ -63,7 +63,7 @@ const ProfilePage = () => {
                                         <ProfileSavedCard key={index} />
                                     ))}
                                 </div>
-                                : <div> this is document</div>
+                                : <div className='min-h-[18rem] grid place-items-center'> Comming Soon...</div>
                         }
                     </div>
 
