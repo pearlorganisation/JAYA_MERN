@@ -4,6 +4,7 @@ import HomePage from './pages/Home/HomePage'
 import AboutPage from './pages/AboutPage/AboutPage'
 import Layout from './components/layout/Layout'
 import Schemes from './pages/Schemes/Schemes';
+import SchemeDetail from './pages/SchemeDetail/SchemeDetail';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'schemes',
         element: <Schemes />,
+      },
+      {
+        path: 'schemeDetail',
+        element: <SchemeDetail />,
       },
     ],
   },
