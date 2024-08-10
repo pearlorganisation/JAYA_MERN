@@ -62,8 +62,8 @@ const Sidebar = () => {
                     <div>
                         <ul className="flex flex-1 flex-col gap-1 py-3">
                             <li className="px-3">
-                                <a
-                                    href="#"
+                                <Link
+                                    to="/"
                                     className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 aria-[current=page]:bg-emerald-50 aria-[current=page]:text-emerald-500 "
                                 >
                                     <div className="flex items-center self-center">
@@ -87,7 +87,7 @@ const Sidebar = () => {
                                     <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
                                         Dashboard
                                     </div>
-                                </a>
+                                </Link>
                             </li>
                             <li className="px-3">
                                 <a
@@ -157,7 +157,7 @@ const Sidebar = () => {
                             </li>
                             <li className="px-3">
                                 <Link to="/mydocuments"
-                                    
+
                                     className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 aria-[current=page]:bg-emerald-50 aria-[current=page]:text-emerald-500 "
                                 >
                                     <div className="flex items-center self-center ">
