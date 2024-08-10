@@ -1,48 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-
-const Schemes = () => {
-    return (
-        <div>
-            <div className="p-4 md:p-8">
-                <Link to='/'>
-                    <button className="flex items-center text-green-600 font-semibold mb-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 mr-2"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M15 19l-7-7 7-7"
-                            />
-                        </svg>
-                        Back
-                    </button>
-                </Link>
-
-                <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-4">
-                        <img
-                            src="./bot_face.svg" // Replace with the path to your icon image
-                            alt="Icon"
-                            className="w-full h-full rounded-full"
-                        />
-                    </div>
-                    <p className="text-lg font-medium">
-                        Great! You have eligibility for <span className="font-bold">158 schemes</span> provided by state and central government.
-                    </p>
-                </div>
-
-                <div className='space-y-5'>
-                    {
-                        Array.from({ length: 3 }).map(item => {
-                            return <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+const ProfileSavedCard = () => {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
                                 <p className="text-gray-500 text-sm font-semibold mb-2">
                                     Ministry Of Women Welfare Department
                                 </p>
@@ -76,12 +37,7 @@ const Schemes = () => {
                                 </div>
 
                             </div>
-                        })
-                    }
-                </div>
-            </div>
-        </div>
-    )
+  )
 }
 
-export default Schemes
+export default ProfileSavedCard

@@ -7,6 +7,8 @@ import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
 import Schemes from './pages/Schemes/Schemes';
 import SchemeDetail from './pages/SchemeDetail/SchemeDetail';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import DocumentPage from './pages/DocumentPage/DocumentPage';
 
 const router = createBrowserRouter([
   {
@@ -22,22 +24,33 @@ const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path:'signin', 
-        element:<Signin/>
+        path: 'signin',
+        element: <Signin />
       },
       {
-        path:'signup', 
-        element:<Signup/>
+        path: 'signup',
+        element: <Signup />
       },
       {
         path: 'schemes',
         element: <Schemes />,
-        
+
       },
       {
         path: 'schemeDetail',
         element: <SchemeDetail />,
       },
+      {
+        path: 'profile',
+        element: <ProfilePage />
+      },
+      {
+        path:"mydocuments",
+        element:<DocumentPage/>
+
+      }
+
+
     ],
   },
 ]);
