@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 const HomePage = () => {
     return (
         <div className='min-h-screen  w-full grid place-items-center py-10'>
-            <div className="min-h-screen flex flex-col justify-center items-center  w-full">
-                <div className="bg-white  rounded-lg  p-6">
+            <div className=" flex flex-col justify-center items-center  w-full">
+                <div className="bg-white  rounded-lg  p-6 ">
                     {/* Chatbot Header */}
                     <div className="flex items-center justify-center mb-8">
                         <div className=" p-4">
                             {/* Chatbot Avatar */}
                             <img src="./Bot.svg" alt="" />
                         </div>
-                        <div className="ml-4 relative text-left text-4xl font-semibold max-w-lg -translate-x-[5rem] -translate-y-[5rem] bg-[#668DCB] text-white p-6 rounded-md">
+                        <div className="ml-4  relative text-left text-sm md:text-4xl font-semibold !w-full md:max-w-lg -translate-x-[4rem] md:-translate-x-[5rem] -translate-y-[4rem] md:-translate-y-[5rem] bg-[#668DCB] text-white p-3 md:p-6 rounded-md">
                             <p className=" ">Hi,</p>
                             <p className=" ">I am sahaya</p>
                             <p className=" ">I am here to help you with</p>

@@ -9,6 +9,7 @@ import Schemes from './pages/Schemes/Schemes';
 import SchemeDetail from './pages/SchemeDetail/SchemeDetail';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import DocumentPage from './pages/DocumentPage/DocumentPage';
+import ChatBotForm from './pages/ChatBotForm/ChatBotForm';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
       {
         path: "mydocuments",
         element: <DocumentPage />
+
+      },
+      {
+        path: "/chatBotForm",
+        element: <ChatBotForm />
 
       }
 
