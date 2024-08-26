@@ -24,7 +24,6 @@ const router = createBrowserRouter([
         path: 'about',
         element: <AboutPage />,
       },
-
       {
         path: 'schemes',
         element: <Schemes />,
@@ -51,7 +50,6 @@ const router = createBrowserRouter([
 
 
     ],
-
   },
   {
     path: 'signin',
