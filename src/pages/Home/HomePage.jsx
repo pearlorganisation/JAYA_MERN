@@ -6,7 +6,7 @@ const HomePage = () => {
     return (
         <div className='h-screen  w-full grid place-items-center'>
             <div className="min-h-screen flex flex-col justify-center items-center  w-full">
-                <div className="bg-white shadow-md rounded-lg  p-6">
+                <div className="bg-white  rounded-lg  p-6">
                     {/* Chatbot Header */}
                     <div className="flex items-center justify-center mb-8">
                         <div className=" p-4">

@@ -9,6 +9,11 @@ import Schemes from './pages/Schemes/Schemes';
 import SchemeDetail from './pages/SchemeDetail/SchemeDetail';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import DocumentPage from './pages/DocumentPage/DocumentPage';
+import DefaultLayout from './admin/components/DefaultLayout/DefaultLayout';
+import Scheme from './admin/pages/Scheme/Scheme';
+import ViewScheme from './admin/pages/Scheme/ViewScheme/ViewScheme';
+import Editscheme from './admin/pages/Scheme/EditScheme/Editscheme';
+import CreateScheme from './admin/pages/Scheme/CreateScheme/CreateScheme';
 
 const router = createBrowserRouter([
   {
@@ -37,14 +42,13 @@ const router = createBrowserRouter([
         element: <ProfilePage />
       },
       {
-        path:"mydocuments",
-        element:<DocumentPage/>
+        path: "mydocuments",
+        element: <DocumentPage />
 
       }
 
 
     ],
-    
   },
   {
     path: 'signin',
@@ -54,6 +58,28 @@ const router = createBrowserRouter([
     path: 'signup',
     element: <Signup />
   },
+  {
+    path:'admin',
+    element:<DefaultLayout/>,
+    children : [
+      {
+        index:true,
+        element:<Scheme/>
+      },
+      {
+        path:'viewScheme',
+        element:<ViewScheme/>
+      },
+      {
+        path:'createScheme',
+        element:<CreateScheme/>
+      },
+      {
+        path:'editScheme',
+        element:<Editscheme/>
+      }
+    ]
+  }
 ]);
 function App() {
   return <RouterProvider router={router} />;

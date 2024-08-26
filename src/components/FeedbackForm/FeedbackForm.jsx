@@ -21,8 +21,7 @@ const FeedbackForm = () => {
     };
 
     return (
-        <div className="p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-4">
-            <h2 className="text-lg font-semibold">Rate Us</h2>
+        <div className=" max-w-4xl bg-white  space-y-2 ">
             <div className="flex items-center space-x-1">
                 {Array.from({ length: 5 }, (_, index) => (
                     <svg
@@ -31,8 +30,7 @@ const FeedbackForm = () => {
                             }`}
                         fill="currentColor"
                         viewBox="0 0 24 24"
-                        onMouseOver={() => handleMouseOver(index + 1)}
-                        onMouseOut={handleMouseOut}
+
                         onClick={() => handleClick(index + 1)}
                     >
                         <path
@@ -41,21 +39,20 @@ const FeedbackForm = () => {
                     </svg>
                 ))}
             </div>
-            <div>
-                <p className="text-gray-600">You rated: {rating} star{rating !== 1 ? 's' : ''}</p>
-            </div>
+
             <div>
                 <textarea
-                    className="w-full p-2 border border-gray-300 rounded-lg mt-2"
+                    className="w-full border border-gray-300 rounded-lg outline-none px-3"
                     rows="4"
                     placeholder="Leave your comments here..."
                     value={comment}
                     onChange={handleChange}
                 />
+                <button className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg">
+                    Submit
+                </button>
             </div>
-            <div>
-                <p className="text-gray-600">Your comment: {comment}</p>
-            </div>
+
         </div>
     );
 };

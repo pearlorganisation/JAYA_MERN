@@ -135,41 +135,14 @@ const SchemeDetail = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-center mt-6">
-                        <div className="flex items-center space-x-2">
+                    <div className="flex justify-between items-center  w-full">
+                        <div className=" w-full space-y-2">
                             <span className="text-green-700 font-semibold">Was it helpful?</span>
-                            <div className="flex items-center">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 text-green-600"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-8V7a1 1 0 112 0v3a1 1 0 01-2 0zm0 4a1 1 0 012 0v1a1 1 0 01-2 0v-1z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 text-gray-400"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-8V7a1 1 0 112 0v3a1 1 0 01-2 0zm0 4a1 1 0 012 0v1a1 1 0 01-2 0v-1z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            </div>
+
                             <FeedbackForm />
                         </div>
 
-                        <button className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg">
-                            Submit
-                        </button>
+
                     </div>
                 </div>
             </div>
