@@ -1,19 +1,16 @@
-import Sidebar from '../Sidebar/Sidebar'
-import { Outlet } from 'react-router-dom'
-import Footer from './Footer/Footer'
+import Sidebar from "../Sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
+import Footer from "./Footer/Footer";
 
 const Layout = () => {
-    return (
-        <div className='grid lg:grid-cols-[18rem_auto]'>
-            <div className='relative '>
-                <Sidebar />
-            </div>
-            <div className=''>
-                {<Outlet />}
-                <Footer />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="grid lg:grid-cols-[18rem_auto]">
+      <div className="relative ">
+        <Sidebar />
+      </div>
+      <div className="">{<Outlet />}</div>
+    </div>
+  );
+};
 
-export default Layout
+export default Layout;

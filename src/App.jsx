@@ -1,19 +1,20 @@
-
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from './pages/Home/HomePage'
-import AboutPage from './pages/AboutPage/AboutPage'
-import Layout from './components/layout/Layout'
-import Signin from './pages/Signin/Signin';
-import Signup from './pages/Signup/Signup';
-import Schemes from './pages/Schemes/Schemes';
-import SchemeDetail from './pages/SchemeDetail/SchemeDetail';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
-import DocumentPage from './pages/DocumentPage/DocumentPage';
-import ChatBotForm from './pages/ChatBotForm/ChatBotForm';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/Home/HomePage";
+import AboutPage from "./pages/AboutPage/AboutPage";
+import Layout from "./components/layout/Layout";
+import Signin from "./pages/Signin/Signin";
+import Signup from "./pages/Signup/Signup";
+import Schemes from "./pages/Schemes/Schemes";
+import SchemeDetail from "./pages/SchemeDetail/SchemeDetail";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import DocumentPage from "./pages/DocumentPage/DocumentPage";
+import ChatBotForm from "./pages/ChatBotForm/ChatBotForm";
+import NewChatBotForm from "./pages/ChatBotForm/NewChatBotForm";
+import SchemesFormPage from "./pages/SchemesPage/SchemesPage";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       {
@@ -21,47 +22,50 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'about',
+        path: "about",
         element: <AboutPage />,
       },
       {
-        path: 'schemes',
+        path: "schemes",
         element: <Schemes />,
-
       },
       {
-        path: 'schemeDetail',
+        path: "schemeDetail",
         element: <SchemeDetail />,
       },
       {
-        path: 'profile',
-        element: <ProfilePage />
+        path: "profile",
+        element: <ProfilePage />,
       },
       {
         path: "mydocuments",
-        element: <DocumentPage />
-
+        element: <DocumentPage />,
       },
       {
         path: "/chatBotForm",
-        element: <ChatBotForm />
-
-      }
-
-
+        element: <ChatBotForm />,
+      },
+      {
+        path: "/newchatbot",
+        element: <NewChatBotForm />,
+      },
+      {
+        path: "/schemesForm",
+        element: <SchemesFormPage />,
+      },
     ],
   },
   {
-    path: 'signin',
-    element: <Signin />
+    path: "signin",
+    element: <Signin />,
   },
   {
-    path: 'signup',
-    element: <Signup />
+    path: "signup",
+    element: <Signup />,
   },
 ]);
 function App() {
   return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
