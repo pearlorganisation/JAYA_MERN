@@ -17,7 +17,7 @@ const Signup = () => {
               htmlFor="username"
               className="block mb-2 text-base font-medium text-[#668DCB]"
             >
-              {" "}
+           
               User name
             </label>
             <input
