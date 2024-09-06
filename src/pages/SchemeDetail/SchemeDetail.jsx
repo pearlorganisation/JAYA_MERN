@@ -7,7 +7,7 @@ import Bot from ".././../assets/Bot.jpg";
 
 const SchemeDetail = () => {
   return (
-    <div className="mt-16 md:mt-0">
+    <div className="mt-0">
       <div className="">
         <div className="bg-white rounded-lg space-y-3 shadow-md py-6 px-1 border border-gray-200">
           <div className=" px-6">

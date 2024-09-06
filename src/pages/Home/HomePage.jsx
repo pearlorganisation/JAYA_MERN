@@ -5,7 +5,7 @@ import Footer from "../../components/layout/Footer/Footer";
 
 const HomePage = () => {
   return (
-    <div className=" w-full grid place-items-center px-4 py-16 md:py-10 md:px-16">
+    <div className=" w-full grid place-items-center px-4 md:py-10 md:px-16">
       <div className=" flex flex-col lg:justify-center justify-start lg:items-center">
         <div className="bg-white  rounded-lg  lg:py-6 py-6 px-2 lg:w-[80%] lg:mt-0 mt-4">
           {/* Chatbot Header */}
