@@ -10,6 +10,7 @@ import SchemeDetail from './pages/SchemeDetail/SchemeDetail';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import DocumentPage from './pages/DocumentPage/DocumentPage';
 import ChatBotForm from './pages/ChatBotForm/ChatBotForm';
+import NewChatBotForm from './pages/ChatBotForm/NewChatBotForm';
 import DefaultLayout from './admin/components/DefaultLayout/DefaultLayout';
 import Scheme from './admin/pages/Scheme/Scheme';
 import ViewScheme from './admin/pages/Scheme/ViewScheme/ViewScheme';
@@ -53,7 +54,7 @@ function App() {
         },
         {
           path: "/chatBotForm",
-          element: <ChatBotForm />
+          element: <NewChatBotForm />
 
         }
 
@@ -94,4 +95,4 @@ function App() {
   return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
