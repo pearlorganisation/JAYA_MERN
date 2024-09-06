@@ -9,7 +9,7 @@ const Layout = () => {
             <div className="relative ">
                 <Sidebar2 />
             </div>
-            <div className="py-16">{<Outlet />}</div>
+            <div className="py-16 lg:py-0">{<Outlet />}</div>
         </div>
     );
 };
