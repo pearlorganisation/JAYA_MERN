@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authslice";
+import documentReducer from "./slices/uploadDocumentSlice";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
@@ -23,6 +24,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   auth: authReducer,
+  document: documentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

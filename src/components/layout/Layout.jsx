@@ -4,6 +4,7 @@ import Footer from "./Footer/Footer";
 import Sidebar2 from "../Sidebar/Sidebar2";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./Header/Header";
 
 const Layout = () => {
   return (
@@ -11,7 +12,10 @@ const Layout = () => {
       <div className="relative ">
         <Sidebar2 />
       </div>
-      <div className="py-16 lg:py-0">{<Outlet />}</div>
+      <div className="py-16 lg:py-0">
+        <Header />
+        {<Outlet />}
+      </div>
 
       <ToastContainer
         position="top-right"

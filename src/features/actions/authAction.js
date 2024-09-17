@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../services/axiosInterceptor";
-import { toast } from "react-toastify";
 
 export const signUp = createAsyncThunk(
   "signUp",
@@ -9,26 +8,26 @@ export const signUp = createAsyncThunk(
       const response = await instance.post(`/auth/signup`, {
         ...data,
       });
-
+      console.log(response, "response");
       return response.data;
     } catch (error) {
-      toast.error(error?.response?.data?.message);
-      rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
+
 export const signIn = createAsyncThunk(
   "signIn",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await instance.post(`/auth/signin`, {
-        ...data,
-      });
-
+      const response = await instance.post(`/auth/signin`, data);
+      console.log(response);
       return response.data;
     } catch (error) {
-      toast.error(error?.response?.data?.message);
-      rejectWithValue(error.message);
+      console.error("Error during sign in:", error);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Something went wrong"
+      );
     }
   }
 );

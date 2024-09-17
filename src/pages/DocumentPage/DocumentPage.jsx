@@ -1,20 +1,39 @@
-import DropdownBasic from "../../components/Dropdown/Dropdown";
+import DropdownBasic from "../../components/Dropdown cop/Dropdown";
 import { useRef, useState } from "react";
 import Bot from "../../assets/Bot.jpg";
+import { useSelector } from "react-redux";
 
 const DocumentPage = () => {
+  const { isUserLoggedIn, userData } = useSelector((state) => state.auth);
   const [uploadImage, setUploadImage] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [docuemnt, setDocument] = useState("");
+  const [personName, setPersonName] = useState(userData?.user?.username || "");
 
   const [x, setX] = useState(0);
 
   const fileInputRef = useRef();
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
+  const handleChange = (event) => {
+    event.preventDefault();
+    const fileData = event.target.files[0];
+    setDocument(fileData);
+    if (fileData) {
+      setShowModal(true);
+    }
 
     setX(x + 1);
+  };
+  const handleDocument = () => {
+    const formData = new FormData();
+    formData.append("documentTitle", fileName);
+    formData.append("name", personName);
+    formData.append("user", userData?.user?._id);
+    formData.append("document", document);
+    console.log(docuemnt);
+
+    console.log(Object.fromEntries(formData.entries()));
   };
   return (
     <div className="min-h-screen">
@@ -79,14 +98,7 @@ const DocumentPage = () => {
                       />
                     </div>
 
-                    <div className="px-6 mt-2 mb-2 w-full hidden">
-                      <button
-                        className="bg-[#419A62] text-white active:bg-text-red-400 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={() => setShowModal(true)}
-                      >
-                        Open regular modal
-                      </button>
+                    <div className="px-6 mt-2 mb-2 w-full">
                       {showModal ? (
                         <div>
                           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -112,6 +124,10 @@ const DocumentPage = () => {
                                       </h1>{" "}
                                       <input
                                         type="text"
+                                        value={fileName}
+                                        onChange={(e) => {
+                                          setFileName(e.target.value);
+                                        }}
                                         placeholder="File Name"
                                         className="border-2 border-green-200 rounded-md p-1"
                                       />
@@ -124,6 +140,10 @@ const DocumentPage = () => {
                                       </h1>{" "}
                                       <input
                                         type="text"
+                                        value={personName}
+                                        onChange={(e) => {
+                                          setPersonName(e.target.value);
+                                        }}
                                         placeholder="Person Name"
                                         className="border-2 border-green-200 rounded-md p-1"
                                       />
@@ -135,7 +155,7 @@ const DocumentPage = () => {
                                   <button
                                     className="bg-[#419A62] w-full text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                     type="button"
-                                    onClick={() => setShowModal(false)}
+                                    onClick={handleDocument}
                                   >
                                     Save
                                   </button>

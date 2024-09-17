@@ -1,8 +1,10 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../features/actions/authAction";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const signUpSchema = yup.object({
   username: yup.string().required("Username is required"),
@@ -17,7 +19,10 @@ const signUpSchema = yup.object({
 });
 
 const Signup = () => {
+  const { isUserLoggedIn, userData } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -27,9 +32,16 @@ const Signup = () => {
     },
     validationSchema: signUpSchema,
     onSubmit: (values) => {
+      console.log(values, "values");
       dispatch(signUp(values));
     },
   });
+
+  useEffect(() => {
+    if (userData?.status) {
+      navigate("/signin");
+    }
+  }, [userData]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2  lg:gap-12 px-10 ">

@@ -1,22 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { logout, signIn, signUp } from "../actions/authAction";
 import { PURGE } from "redux-persist";
 import { toast } from "sonner";
-import { signIn, signUp } from "../actions/authAction";
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
   isLoading: false,
   isUserLoggedIn: false,
   userData: null,
-  error: false,
-  message: "",
-  isSuccess: false,
+  error: "",
 };
 const authSlice = createSlice({
   name: "authslice",
   initialState,
   reducers: {
-    clearUser: (state) => {
+    clearUser: (state, action) => {
       state.isUserLoggedIn = false;
       state.userData = null;
     },
@@ -29,47 +26,23 @@ const authSlice = createSlice({
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.isUserLoggedIn = true;
         state.userData = action.payload;
-
-        console.log("Login Data", action.payload);
-
-        if (action?.payload?.status === true) {
-          toast.success("Login Successful!!", { position: "top-center" });
-          localStorage.setItem("token", action?.payload?.token);
-          useNavigate("/signIn");
-        } else if (action?.payload?.response?.data?.success === false) {
-          toast.error(action?.payload?.response?.data?.message, {
-            position: "top-center",
-          });
-        }
+        toast.success("Login Successful!!", { position: "top-center" });
       })
       .addCase(signIn.rejected, (state, action) => {
+        console.log(action?.payload, "action.payload");
+        toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
-        state.isSuccess = false;
-        state.error = true;
-        state.message = action.error;
-
-        console.log("State Error", state.message);
+        state.error = action.payload;
       })
       //signUp
-      .addCase(signUp.pending, (state) => {
+      .addCase(signUp.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
-
-        if (action?.payload?.status === true) {
-          toast.success("Successful Created!!", { position: "top-center" });
-          localStorage.setItem("token", action?.payload?.token);
-        } else if (action?.payload?.response?.data?.success === false) {
-          toast.error(action?.payload?.response?.data?.message, {
-            position: "top-center",
-          });
-        }
-
+        toast.success("Successful Created!!", { position: "top-center" });
         state.userData = action.payload;
       })
       .addCase(signUp.rejected, (state, action) => {
@@ -77,29 +50,9 @@ const authSlice = createSlice({
         state.error = action.payload;
       });
 
-    // builder.addCase(PURGE, () => {
-    //   return initialState;
-    // });
-
-    // // Logout lifecycle methods
-    // .addCase(logout.pending, (state, action) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(logout.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.isUserLoggedIn = false;
-    //   localStorage.clear();
-    //   sessionStorage.clear();
-    //   toast.success("Logout Successfully", {
-    //     position: "top-center",
-    //   });
-    // })
-    // .addCase(logout.rejected, (state, action) => {
-    //   state.error = action.payload;
-    //   toast.error(state?.errorMessage, {
-    //     position: "top-right",
-    //   });
-    // });
+    builder.addCase(PURGE, () => {
+      return initialState;
+    });
   },
 });
 
