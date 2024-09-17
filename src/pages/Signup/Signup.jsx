@@ -1,4 +1,36 @@
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+import { useDispatch } from "react-redux";
+import { signUp } from "../../features/actions/authAction";
+
+const signUpSchema = yup.object({
+  username: yup.string().required("Username is required"),
+  email: yup
+    .string()
+    .nullable()
+    .email("Email should be valid")
+    .required("Email is required"),
+
+  phoneNumber: yup.string().required("Phone number is required"),
+  password: yup.string().required("Password is required"),
+});
+
 const Signup = () => {
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    },
+    validationSchema: signUpSchema,
+    onSubmit: (values) => {
+      dispatch(signUp(values));
+    },
+  });
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2  lg:gap-12 px-10 ">
       <div className="lg:mt-20 mt-6 md:border-r-2">
@@ -11,13 +43,16 @@ const Signup = () => {
           If you are already a member you can login with your email address and
           password.
         </p>
-        <form className="space-y-1 md:space-y-2" action="#">
+        <form
+          className="space-y-1 md:space-y-2"
+          onSubmit={formik.handleSubmit}
+          action=""
+        >
           <div>
             <label
               htmlFor="username"
               className="block mb-2 text-base font-medium text-[#668DCB]"
             >
-           
               User name
             </label>
             <input
@@ -26,8 +61,13 @@ const Signup = () => {
               id="username"
               className="bg-white border border-[#9b9b9b] text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=""
-              required=""
+              value={formik.values.username}
+              onChange={formik.handleChange("username")}
+              onBlur={formik.handleBlur("username")}
             />
+            <div className="text-red-500">
+              {formik.touched.username && formik.errors.username}
+            </div>
           </div>
           <div>
             <label
@@ -43,8 +83,13 @@ const Signup = () => {
               id="email"
               className="bg-white border border-[#9b9b9b] text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=""
-              required=""
+              value={formik.values.email}
+              onChange={formik.handleChange("email")}
+              onBlur={formik.handleBlur("email")}
             />
+            <div className="text-red-500">
+              {formik.touched.email && formik.errors.email}
+            </div>
           </div>
           <div>
             <label
@@ -60,8 +105,14 @@ const Signup = () => {
               id="phone"
               className="bg-white border border-[#9b9b9b] text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=""
-              required=""
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange("phoneNumber")}
+              onBlur={formik.handleBlur("phoneNumber")}
             />
+
+            <div className="text-red-500">
+              {formik.touched.phoneNumber && formik.errors.phoneNumber}
+            </div>
           </div>
           <div>
             <label
@@ -75,9 +126,15 @@ const Signup = () => {
               name="password"
               id="password"
               placeholder=""
+              value={formik.values.password}
+              onChange={formik.handleChange("password")}
+              onBlur={formik.handleBlur("password")}
               className="bg-white border border-[#9b9b9b] text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required=""
             />
+
+            <div className="text-red-500">
+              {formik.touched.password && formik.errors.password}
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-center">
@@ -87,7 +144,6 @@ const Signup = () => {
                   aria-describedby="remember"
                   type="checkbox"
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                  required=""
                 />
               </div>
               <div className=" ml-1 text-sm">
@@ -102,12 +158,12 @@ const Signup = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md"
+            className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md mt-1 lg:mt-0"
           >
             Register Account
           </button>
           <div className="flex items-center justify-center">
-            <p className="text-base font-medium text-[#696F79] ">
+            <p className="text-base font-medium text-[#696F79] mt-1 lg:mt-0 mb-4">
               Already have an account ?{" "}
               <a
                 href="signup"

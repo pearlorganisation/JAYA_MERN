@@ -11,6 +11,7 @@ import DocumentPage from "./pages/DocumentPage/DocumentPage";
 import ChatBotForm from "./pages/ChatBotForm/ChatBotForm";
 import NewChatBotForm from "./pages/ChatBotForm/NewChatBotForm";
 import SchemesFormPage from "./pages/SchemesPage/SchemesPage";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,12 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </>
+  );
 }
 
 export default App;

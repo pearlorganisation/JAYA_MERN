@@ -7,9 +7,9 @@ import Bot from ".././../assets/Bot.jpg";
 
 const SchemeDetail = () => {
   return (
-    <div className="mt-0">
+    <div className="mt-0 lg:py-12 lg:px-8">
       <div className="">
-        <div className="bg-white rounded-lg space-y-3 shadow-md py-6 px-1 border border-gray-200">
+        <div className="bg-white rounded-lg space-y-3 py-6 px-1">
           <div className=" px-6">
             <div className="flex flex-col lg:flex-row justify-between items-start mb-4">
               <p className="text-[#393939] text-base font-light order-2 lg:order-1 mt-3 lg:mt-0">
@@ -79,7 +79,7 @@ const SchemeDetail = () => {
             </div>
           </div>
 
-          <div className="text-gray-700 px-2">
+          <div className="text-gray-700 lg:px-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[#107536]">
                 About

@@ -2,6 +2,8 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer/Footer";
 import Sidebar2 from "../Sidebar/Sidebar2";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = () => {
   return (
@@ -10,6 +12,19 @@ const Layout = () => {
         <Sidebar2 />
       </div>
       <div className="py-16 lg:py-0">{<Outlet />}</div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

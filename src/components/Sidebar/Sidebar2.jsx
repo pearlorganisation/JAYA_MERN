@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { FaRegBookmark } from "react-icons/fa6";
-import { GrDocument } from "react-icons/gr";
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/mysahaya.png";
 
 // const userNavigation = [
 //     {
@@ -73,14 +72,14 @@ const Sidebar2 = () => {
       <aside
         id="nav-menu-1"
         aria-label="Side navigation"
-        className={`fixed top-0 bottom-0 left-0 z-40 flex w-72 flex-col border-r border-r-slate-200 bg-white transition-transform lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-40 flex lg:w-60 w-72 flex-col border-r border-r-slate-200 bg-white transition-transform lg:translate-x-0 ${
           isSideNavOpen ? "translate-x-0" : " -translate-x-full"
         }`}
       >
         <Link
           to="/"
           aria-label="logo"
-          className="flex items-center gap-2 whitespace-nowrap p-6 text-xl font-medium focus:outline-none"
+          className="flex items-start gap-2 whitespace-nowrap px-6 py-2 text-xl font-medium focus:outline-none"
         >
           <img src={Logo} alt="" className="hidden lg:block" />
         </Link>
@@ -103,16 +102,13 @@ const Sidebar2 = () => {
           </svg>
         </button>
 
-        <nav
-          aria-label="side navigation"
-          className="flex-1 divide-y divide-slate-100 overflow-auto"
-        >
+        <nav aria-label="side navigation" className="">
           <div>
-            <ul className="flex flex-1 flex-col gap-1 py-3">
-              <li className="px-3">
+            <ul className="flex flex-col gap-1">
+              <li className="px-6 py-[7.5px]">
                 <a
                   href="#"
-                  className="flex items-center gap-3 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
+                  className="flex items-center gap-2 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
                   aria-current="page"
                 >
                   <div className="flex items-center self-center ">
@@ -129,12 +125,12 @@ const Sidebar2 = () => {
                       />
                     </svg>
                   </div>
-                  <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                  <div className="flex w-[80%] text-[#419A62] flex-col items-start justify-center gap-0  truncate text-sm">
                     Explore
                   </div>
                 </a>
               </li>
-              <li className="px-3">
+              <li className="px-6 py-[7.5px]">
                 <a
                   href="#"
                   className="flex items-center gap-3 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 "
@@ -155,13 +151,13 @@ const Sidebar2 = () => {
                   </div>
                   <Link
                     to={"/profile"}
-                    className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm"
+                    className="flex w-full flex-1 text-[#419A62]  flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm"
                   >
                     Profile
                   </Link>
                 </a>
               </li>
-              <li className="px-3">
+              <li className="px-6 py-[7.5px]">
                 <a
                   href="#"
                   className="flex items-center  gap-3 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
@@ -180,12 +176,12 @@ const Sidebar2 = () => {
                       />
                     </svg>
                   </div>
-                  <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                  <div className="flex w-full text-[#419A62]  flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
                     Saved
                   </div>
                 </a>
               </li>
-              <li className="px-3">
+              <li className="px-6 py-[7.5px]">
                 <Link
                   to="/mydocuments"
                   className="flex items-center gap-3 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
@@ -204,13 +200,13 @@ const Sidebar2 = () => {
                       />
                     </svg>
                   </div>
-                  <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                  <div className="flex w-full  flex-col text-[#419A62]  items-start justify-center gap-0 overflow-hidden truncate text-sm">
                     My Documents
                   </div>
                 </Link>
               </li>
 
-              <li className="px-3">
+              <li className="px-6 py-[7.5px]">
                 <a
                   href="#"
                   className="flex items-center gap-3 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
@@ -229,7 +225,7 @@ const Sidebar2 = () => {
                       />
                     </svg>
                   </div>
-                  <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                  <div className="flex w-full flex-col text-[#419A62]  items-start justify-center gap-0 overflow-hidden truncate text-sm">
                     Notification
                   </div>
                 </a>
