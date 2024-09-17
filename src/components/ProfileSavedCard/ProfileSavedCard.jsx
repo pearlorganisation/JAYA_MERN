@@ -47,9 +47,9 @@ const ProfileSavedCard = () => {
             Scholarship
           </span>
         </div>
-        <div className="flex items-center justify-center hover:text-[#419A62]  lg:w-fit w-[90%] bg-[#419A62] hover:bg-white text-white border-2 border-green-100 rounded-md">
+        <div className="flex items-center justify-center hover:text-[#419A62]  lg:w-fit w-[100%] bg-[#419A62] hover:bg-white text-white border-2 border-green-100 rounded-md">
           <Link to="/schemeDetail">
-            <button className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md">
+            <button className=" text-center min-w-max  font-semibold  px-6 py-2 rounded-md">
               Check Eligibility
             </button>
           </Link>

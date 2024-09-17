@@ -11,23 +11,26 @@ export const signUp = createAsyncThunk(
       console.log(response, "response");
       return response.data;
     } catch (error) {
-      console.log(error);
-      rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
-export const signIn = createAsyncThunk("signIn", async (data) => {
-  try {
-    const response = await instance.post(`/auth/signin`, {
-      ...data,
-    });
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    rejectWithValue(error.message);
+
+export const signIn = createAsyncThunk(
+  "signIn",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await instance.post(`/auth/signin`, data);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error("Error during sign in:", error);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Something went wrong"
+      );
+    }
   }
-});
+);
 
 // logout -- logout action to call the logout api
 export const logout = createAsyncThunk(

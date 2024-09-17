@@ -7,9 +7,9 @@ import Bot from ".././../assets/Bot.jpg";
 
 const SchemeDetail = () => {
   return (
-    <div className="mt-0">
+    <div className="mt-0 lg:py-12 lg:px-8">
       <div className="">
-        <div className="bg-white rounded-lg space-y-3 shadow-md py-6 px-1 border border-gray-200">
+        <div className="bg-white rounded-lg space-y-3 py-6 px-1">
           <div className=" px-6">
             <div className="flex flex-col lg:flex-row justify-between items-start mb-4">
               <p className="text-[#393939] text-base font-light order-2 lg:order-1 mt-3 lg:mt-0">
@@ -79,48 +79,7 @@ const SchemeDetail = () => {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row  lg:justify-between items-center">
-            <div className="flex flex-wrap  justify-start gap-2 mb-4 lg:w-[80%]">
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                1000/month
-              </span>
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                70% Reservation
-              </span>
-
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                Scholarship
-              </span>
-
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                1000/month
-              </span>
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                70% Reservation
-              </span>
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                Scholarship
-              </span>
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                1000/month
-              </span>
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                70% Reservation
-              </span>
-              <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md">
-                Scholarship
-              </span>
-            </div>
-            <div className="flex items-center justify-center text-[#419A62]  lg:w-fit w-[90%] hover:bg-[#419A62] hover:text-white border-2 border-green-100 rounded-md">
-              <Link to="/schemeDetail">
-                <button className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md">
-                  Check Eligibility
-                </button>
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-gray-700 space-y-4">
+          <div className="text-gray-700 lg:px-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[#107536]">
                 About

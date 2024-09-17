@@ -1,22 +1,33 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { signIn } from "../../features/actions/authAction";
 
-const Signin = () => {
-  const dispatch = useDispatch()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+const signInSchema = yup.object({
+  email: yup
+    .string()
+    .email("Email should be valid")
+    .required("Email is required"),
 
-  const onSubmit = (data) => {
-    console.log(data);
-    dispatch(signIn(data))
-    // Handle form submission
-  };
+  password: yup.string().required("Password is required"),
+});
+
+const Signin = () => {
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: signInSchema,
+    onSubmit: (values) => {
+      dispatch(signIn(values));
+      {
+        /**/
+      }
+    },
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2  lg:gap-12 px-10 ">
@@ -30,7 +41,11 @@ const Signin = () => {
           If you are already a member you can login with your email address and
           password.
         </p>
-        <form className="space-y-4 md:space-y-6" action="#">
+        <form
+          className="space-y-4 md:space-y-6"
+          action=""
+          onSubmit={formik.handleSubmit}
+        >
           <div>
             <label
               htmlFor="email"
@@ -45,8 +60,13 @@ const Signin = () => {
               id="email"
               className="bg-white border border-[#9b9b9b] text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=""
-              required=""
+              value={formik.values.email}
+              onChange={formik.handleChange("email")}
+              onBlur={formik.handleBlur("email")}
             />
+            <div className="text-red-500">
+              {formik.touched.email && formik.errors.email}
+            </div>
           </div>
           <div>
             <label
@@ -60,11 +80,16 @@ const Signin = () => {
               name="password"
               id="password"
               placeholder=""
+              value={formik.values.password}
+              onChange={formik.handleChange("password")}
+              onBlur={formik.handleBlur("password")}
               className="bg-white border border-[#9b9b9b] text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required=""
             />
+            <div className="text-red-500">
+              {formik.touched.password && formik.errors.password}
+            </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-1 lg:mt-0">
             <div className="flex items-center justify-center">
               <div className="flex items-center h-5">
                 <input
@@ -87,12 +112,12 @@ const Signin = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md"
+            className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md mt-1 lg:mt-0"
           >
             Sign In
           </button>
           <div className="flex items-center justify-center">
-            <p className="text-sm font-light text-[#696F79] ">
+            <p className="text-sm font-light text-[#696F79] mt-2">
               Don’t have an account ?{" "}
               <a
                 href="signup"

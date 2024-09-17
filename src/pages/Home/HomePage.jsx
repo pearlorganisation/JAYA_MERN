@@ -132,7 +132,10 @@ const HomePage = () => {
         <div className="space-y-5">
           {Array.from({ length: 2 }).map((item) => {
             return (
-              <div className="flex flex-col lg:flex-row lg:space-x-6 items-center">
+              <div
+                key={item}
+                className="flex flex-col lg:flex-row lg:space-x-6 items-center"
+              >
                 <div className="bg-gray-200 lg:w-1/3 w-full h-52 rounded-lg"></div>
 
                 <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">

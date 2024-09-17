@@ -5,9 +5,9 @@ const ProfilePage = () => {
   const [documentSwitch, setDocumentSwitch] = useState(0);
 
   return (
-    <div className="lg:py-12 py-10 lg:px-20 space-y-6">
+    <div className="lg:py-12 lg:px-20">
       <div className="w-full items-center justify-center flex">
-        <div className="rounded-lg  bg-white px-4 pt-8 pb-10 w-[80%]">
+        <div className="rounded-lg  bg-white pt-8 pb-10 w-[90%] lg:w-[80%]">
           <div className="flex flex-col  justify-center lg:flex-row gap-3">
             <div className="flex items-center justify-center">
               <div className="">
@@ -32,7 +32,7 @@ const ProfilePage = () => {
               </h3>
             </div>
 
-            <div className="flex ">
+            <div className="flex flex-row justify-between">
               <p className=" text-base leading-6 text-[#393939] font-normal hover:text-gray-600 lg:ml-6 lg:mt-8">
                 91+ 6379470141
               </p>
@@ -61,9 +61,9 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className=" bg-white p-5">
+      <div className=" bg-white px-2 lg:p-5">
         <div className="flex items-center justify-center">
-          <div className=" grid grid-cols-2 overflow-hidden w-[80%] ">
+          <div className=" grid grid-cols-2 overflow-hidden w-[100%] lg:w-[80%] ">
             <button
               onClick={() => setDocumentSwitch(0)}
               className={`${

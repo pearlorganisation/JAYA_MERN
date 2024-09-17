@@ -31,6 +31,8 @@ const authSlice = createSlice({
         toast.success("Login Successful!!", { position: "top-center" });
       })
       .addCase(signIn.rejected, (state, action) => {
+        console.log(action?.payload, "action.payload");
+        toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
         state.error = action.payload;
       })
@@ -51,26 +53,6 @@ const authSlice = createSlice({
     builder.addCase(PURGE, () => {
       return initialState;
     });
-
-    // // Logout lifecycle methods
-    // .addCase(logout.pending, (state, action) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(logout.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.isUserLoggedIn = false;
-    //   localStorage.clear();
-    //   sessionStorage.clear();
-    //   toast.success("Logout Successfully", {
-    //     position: "top-center",
-    //   });
-    // })
-    // .addCase(logout.rejected, (state, action) => {
-    //   state.error = action.payload;
-    //   toast.error(state?.errorMessage, {
-    //     position: "top-right",
-    //   });
-    // });
   },
 });
 
