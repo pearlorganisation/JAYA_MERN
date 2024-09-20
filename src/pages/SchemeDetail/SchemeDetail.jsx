@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa";
 import { GoShareAndroid } from "react-icons/go";
@@ -6,6 +7,81 @@ import FeedbackForm from "../../components/FeedbackForm/FeedbackForm";
 import Bot from ".././../assets/Bot.jpg";
 
 const SchemeDetail = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const [isShowing, setIsShowing] = useState(false);
+
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsShowing(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
+
+  useEffect(() => {
+    let html = document.querySelector("html");
+
+    if (html) {
+      if (isShowing && html) {
+        html.style.overflowY = "hidden";
+
+        const focusableElements =
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+        const modal = document.querySelector("#modal"); // select the modal by it's id
+
+        const firstFocusableElement =
+          modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+
+        const focusableContent = modal.querySelectorAll(focusableElements);
+
+        const lastFocusableElement =
+          focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+
+        document.addEventListener("keydown", function (e) {
+          if (e.keyCode === 27) {
+            setIsShowing(false);
+          }
+
+          let isTabPressed = e.key === "Tab" || e.keyCode === 9;
+
+          if (!isTabPressed) {
+            return;
+          }
+
+          if (e.shiftKey) {
+            // if shift key pressed for shift + tab combination
+            if (document.activeElement === firstFocusableElement) {
+              lastFocusableElement.focus(); // add focus for the last focusable element
+              e.preventDefault();
+            }
+          } else {
+            // if tab key is pressed
+            if (document.activeElement === lastFocusableElement) {
+              // if focused has reached to last focusable element then focus first focusable element after pressing tab
+              firstFocusableElement.focus(); // add focus for the first focusable element
+              e.preventDefault();
+            }
+          }
+        });
+
+        firstFocusableElement.focus();
+      } else {
+        html.style.overflowY = "visible";
+      }
+    }
+  }, [isShowing]);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   return (
     <div className="mt-0 lg:py-12 lg:px-8">
       <div className="">
@@ -71,11 +147,371 @@ const SchemeDetail = () => {
               </div>
               <div className="flex items-center justify-center hover:text-[#419A62]  lg:w-fit w-[90%] bg-[#419A62] hover:bg-white text-white border-2 border-green-100 rounded-md">
                 <Link to="/schemeDetail">
-                  <button className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md">
+                  <button
+                    className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md"
+                    data-modal-target="top-right-modal"
+                    data-modal-toggle="top-right-modal"
+                    onClick={() => setIsShowing(true)}
+                  >
                     Check Eligibility
                   </button>
                 </Link>
               </div>
+
+              {isShowing && typeof document !== "undefined"
+                ? ReactDOM.createPortal(
+                    <div
+                      className="fixed top-0 left-0 z-20 flex h-screen w-screen  justify-end bg-slate-300/20 backdrop-blur-sm"
+                      aria-labelledby="header-4a content-4a"
+                      aria-modal="true"
+                      tabindex="-1"
+                      role="dialog"
+                    >
+                      {/*    <!-- Modal --> */}
+                      <div
+                        ref={wrapperRef}
+                        className="flex max-h-[100vh] w-[50%]  flex-col gap-4 overflow-hidden rounded bg-white p-6 text-slate-500 shadow-xl shadow-slate-700/10"
+                        id="modal"
+                        role="document"
+                      >
+                        {/*        <!-- Modal header --> */}
+                        <header id="header-4a" className="flex items-center">
+                          <h3 className="flex-1 text-lg font-medium text-slate-700">
+                            Check Eligibility
+                          </h3>
+
+                          <button
+                            onClick={() => setIsShowing(false)}
+                            className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide  text-emerald-500 transition duration-300 hover:bg-emerald-100 hover:text-emerald-600 focus:bg-emerald-200 focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-emerald-300 disabled:shadow-none disabled:hover:bg-transparent"
+                            aria-label="close dialog"
+                          >
+                            <span className="relative only:-mx-5">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                role="graphics-symbol"
+                                aria-labelledby="title-79 desc-79"
+                              >
+                                <title id="title-79">Icon title</title>
+                                <desc id="desc-79">
+                                  A more detailed description of the icon
+                                </desc>
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </header>
+
+                        <h1 className="mt-3 text-[#419A62]">
+                          Financial Assistance To Disabled Students Pursuing
+                          (10th, 11th, 12th Equivalent Exams)
+                        </h1>
+                        {/*        <!-- Modal body --> */}
+                        <div id="content-4a" className="">
+                          <div className="flex flex-col gap-6">
+                            <h1> Are you a resident of Kerela State ?*</h1>
+                            <div className="relative max-w-sm flex w-full flex-col rounded-xl bg-white shadow">
+                              <nav className="flex min-w-[240px] flex-row gap-1 p-2">
+                                <div
+                                  role="button"
+                                  className="flex items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="react-horizontal"
+                                    className="flex cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="react-horizontal"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="react-horizontal"
+                                          checked
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="react-horizontal"
+                                      >
+                                        Yes
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                                <div
+                                  role="button"
+                                  className="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="vue-horizontal"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="vue-horizontal"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="vue-horizontal"
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="vue-horizontal"
+                                      >
+                                        No
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                              </nav>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div id="content-4a" className="">
+                          <div className="flex flex-col">
+                            <h1> Are you a differently-abled student?*</h1>
+
+                            <div className="relative max-w-sm flex w-full flex-col rounded-xl bg-white shadow">
+                              <nav className="flex min-w-[240px] flex-row gap-1 p-2">
+                                <div
+                                  role="button"
+                                  className="flex items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="react-horizontal"
+                                    className="flex cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="react-horizontal"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="react-horizontal"
+                                          checked
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="react-horizontal"
+                                      >
+                                        Yes
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                                <div
+                                  role="button"
+                                  className="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="vue-horizontal"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="vue-horizontal"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="vue-horizontal"
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="vue-horizontal"
+                                      >
+                                        No
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                              </nav>
+                            </div>
+                            {/*                <!-- Input field --> */}
+                          </div>
+                        </div>
+
+                        <div id="content-4a" className="">
+                          <div className="flex flex-col">
+                            <h1> Do you have 40% or more disability?*</h1>
+                            <div className="relative max-w-sm flex w-full flex-col rounded-xl bg-white shadow">
+                              <nav className="flex min-w-[240px] flex-row gap-1 p-2">
+                                <div
+                                  role="button"
+                                  className="flex items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="react-horizontal"
+                                    className="flex cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="react-horizontal"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="react-horizontal"
+                                          checked
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="react-horizontal"
+                                      >
+                                        Yes
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                                <div
+                                  role="button"
+                                  className="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="vue-horizontal"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="vue-horizontal"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="vue-horizontal"
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="vue-horizontal"
+                                      >
+                                        No
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                              </nav>
+                            </div>
+                            {/*                <!-- Input field --> */}
+                          </div>
+                        </div>
+
+                        <div id="content-4a" className="">
+                          <div className="flex flex-col">
+                            <h1>
+                              {" "}
+                              Do you belong to the Above Poverty Line (APL) or
+                              Below Poverty Line (BPL) category?*
+                            </h1>
+                            <div className="relative max-w-sm flex w-full flex-col rounded-xl bg-white shadow">
+                              <nav className="flex min-w-[240px] flex-row gap-1 p-2">
+                                <div
+                                  role="button"
+                                  className="flex items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="bp-yes"
+                                    className="flex cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="bp-yes"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="bp-yes"
+                                          checked
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="bp-yes"
+                                      >
+                                        Yes
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                                <div
+                                  role="button"
+                                  className="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                                >
+                                  <label
+                                    for="bp-no"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                  >
+                                    <div className="inline-flex items-center">
+                                      <label
+                                        className="relative flex items-center cursor-pointer"
+                                        for="bp-no"
+                                      >
+                                        <input
+                                          name="framework-horizontal"
+                                          type="radio"
+                                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+                                          id="bp-no"
+                                        />
+                                        <span className="absolute bg-[#419A62] w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                                      </label>
+                                      <label
+                                        className="ml-2 text-slate-600 cursor-pointer text-sm"
+                                        for="bp-no"
+                                      >
+                                        No
+                                      </label>
+                                    </div>
+                                  </label>
+                                </div>
+                              </nav>
+                            </div>
+                            {/*                <!-- Input field --> */}
+                          </div>
+                        </div>
+                        {/*        <!-- Modal actions --> */}
+                      </div>
+                    </div>,
+                    document.body
+                  )
+                : null}
             </div>
           </div>
 
@@ -155,9 +591,9 @@ const SchemeDetail = () => {
                   <li className="font-normal text-base text-[#393939]">
                     All post-matriculation level non-degree courses for which
                     entrance qualification is High School (Class X), e.g. senior
-                    secondary certificate (class XI and XII); both general and
-                    vocational stream, ITI courses, 3-year diploma courses in
-                    Polytechnics, etc.
+                    secondary certificate (className XI and XII); both general
+                    and vocational stream, ITI courses, 3-year diploma courses
+                    in Polytechnics, etc.
                   </li>
                   <li className="font-normal text-base text-[#393939]">
                     Rate of Maintenance Allowance (₹ per month): Hostellers:

@@ -1,8 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileSavedCard from "../../components/ProfileSavedCard/ProfileSavedCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getBookmarksAction } from "../../features/actions/bookMarkAction";
 
 const ProfilePage = () => {
   const [documentSwitch, setDocumentSwitch] = useState(0);
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.auth);
+  const { bookmarks } = useSelector((state) => state.bookmarks);
+
+  useEffect(() => {
+    dispatch(getBookmarksAction(userData.user._id));
+  }, []);
+
+  useEffect(() => {
+    console.log("object", bookmarks);
+  }, [bookmarks]);
 
   return (
     <div className="lg:py-12 lg:px-20">
@@ -89,9 +102,10 @@ const ProfilePage = () => {
           <div>
             {documentSwitch === 0 ? (
               <div className="flex flex-col py-4 gap-5">
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <ProfileSavedCard key={index} />
-                ))}
+                {bookmarks.bookmarks &&
+                  bookmarks.bookmarks.map((el, index) => (
+                    <ProfileSavedCard data={el} key={index} />
+                  ))}
               </div>
             ) : (
               <div className="min-h-[18rem] grid place-items-center">

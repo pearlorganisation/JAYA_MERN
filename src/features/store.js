@@ -1,10 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authslice";
 import documentReducer from "./slices/uploadDocumentSlice";
+import blogReducer from "./slices/blogSlice";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
+import schemesReducer from "./slices/schemesSlice";
+import bookmarksReducers from "./slices/bookMarkSlice";
 
 const persistConfig = {
   key: "root",
@@ -24,7 +27,10 @@ const persistConfig = {
 
 const reducer = combineReducers({
   auth: authReducer,
+  bookmarks: bookmarksReducers,
   document: documentReducer,
+  blog: blogReducer,
+  schemes: schemesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

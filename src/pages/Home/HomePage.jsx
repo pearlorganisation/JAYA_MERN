@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LuSendHorizonal } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import Footer from "../../components/layout/Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { getBlogs } from "../../features/actions/blogAction";
+import moment from "moment";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+
+  const blogsState = useSelector((state) => state.blog.blogs);
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const fetchBlogs = () => {
+    dispatch(getBlogs());
+  };
+  console.log(blogsState, "Home Page Blogs State");
   return (
     <div className=" w-full grid place-items-center px-4 md:py-10 md:px-16">
       <div className=" flex flex-col lg:justify-center justify-start lg:items-center">
@@ -98,7 +113,23 @@ const HomePage = () => {
           <div className="flex items-center lg:justify-end -translate-x-[1rem] lg:-translate-x-[6rem] mt-16 lg:mt-0 ">
             <div className="flex flex-row gap-6">
               <button className="bg-[#668DCB] text-white text-[14px] lg:text-base px-6 py-2 rounded-lg font-semibold shadow hover:bg-blue-600 transition">
-                Explore now !
+                <div className="flex flex-row gap-3">
+                  <span>Explore now !</span>
+                  <span>
+                    <svg
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M22.5471 11.2978L6.14081 1.93452C5.89845 1.80022 5.62102 1.74273 5.34525 1.76966C5.06949 1.79659 4.80841 1.90667 4.59662 2.08531C4.38483 2.26396 4.23231 2.50274 4.15928 2.77002C4.08625 3.0373 4.09616 3.32046 4.18768 3.58198L7.19354 12.5L4.18085 21.4189C4.1079 21.6251 4.08547 21.8457 4.11544 22.0623C4.14541 22.279 4.22691 22.4852 4.35309 22.6638C4.47928 22.8424 4.64646 22.9882 4.84062 23.0888C5.03478 23.1894 5.25025 23.242 5.46893 23.2421C5.70612 23.2416 5.93918 23.1801 6.14569 23.0634L22.5431 13.6816C22.7547 13.5627 22.9308 13.3896 23.0534 13.1802C23.176 12.9707 23.2406 12.7324 23.2406 12.4897C23.2406 12.247 23.176 12.0087 23.0534 11.7992C22.9308 11.5898 22.7547 11.4167 22.5431 11.2978H22.5471ZM21.966 12.665L5.56659 22.0439C5.53188 22.0633 5.49205 22.0717 5.45245 22.0679C5.41285 22.0641 5.37535 22.0483 5.34498 22.0226C5.31461 21.9969 5.29281 21.9625 5.2825 21.9241C5.27219 21.8857 5.27386 21.845 5.28729 21.8076C5.28768 21.8043 5.28768 21.801 5.28729 21.7978L8.2326 13.0859H14.0627C14.2181 13.0859 14.3671 13.0242 14.477 12.9143C14.5869 12.8044 14.6486 12.6554 14.6486 12.5C14.6486 12.3446 14.5869 12.1955 14.477 12.0856C14.3671 11.9757 14.2181 11.914 14.0627 11.914H8.2326L5.29022 3.20308C5.29077 3.19984 5.29077 3.19654 5.29022 3.19331C5.27493 3.15605 5.27238 3.11478 5.28298 3.07592C5.29358 3.03707 5.31672 3.0028 5.34881 2.97847C5.37742 2.9511 5.41423 2.93388 5.45358 2.92947C5.49292 2.92506 5.53263 2.9337 5.56659 2.95405L21.9728 12.3183C22.0031 12.335 22.0283 12.3596 22.0455 12.3896C22.0627 12.4195 22.0714 12.4537 22.0705 12.4882C22.0707 12.524 22.061 12.5591 22.0426 12.5898C22.0242 12.6204 21.9977 12.6454 21.966 12.6621V12.665Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </button>
             </div>
             <div className="flex items-center">
@@ -130,39 +161,37 @@ const HomePage = () => {
           assistance to farmers).
         </p>
         <div className="space-y-5">
-          {Array.from({ length: 2 }).map((item) => {
+          {blogsState?.data?.map((item) => {
             return (
               <div
                 key={item}
                 className="flex flex-col lg:flex-row lg:space-x-6 items-center"
               >
-                <div className="bg-gray-200 lg:w-1/3 w-full h-52 rounded-lg"></div>
+                <div className="bg-gray-200 lg:w-1/3 w-full h-52 rounded-lg">
+                  <img src={item.blogImage} />
+                </div>
 
                 <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
                   <div className="mt-0">
                     <h2 className="text-2xl font-semibold text-[#393939] mb-2">
-                      Financial Assistance under Odisha Working Journalist
-                      Welfare Scheme
+                      {item?.title}
                     </h2>
                     <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
-                      "Dr. Ambedkar Centrally Sponsored Scheme of Post-Matric
-                      Scholarships for the Economically Backward Class (EBC)
-                      Students" is a Scholarship.
+                      {item?.description}
                     </p>
                     <div className="flex lg:space-x-2 mt-4">
-                      <span className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm">
-                        1000/month
-                      </span>
-                      <span className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm">
-                        70% Reservation
-                      </span>
-                      <span className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm">
-                        Scholarship
-                      </span>
+                      {item?.tags?.map((tag) => (
+                        <span
+                          key={tag}
+                          className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                   <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
-                    28 June, 2024
+                    {moment(item?.date).format("DD-MM-YYYY")}
                   </p>
                 </div>
               </div>

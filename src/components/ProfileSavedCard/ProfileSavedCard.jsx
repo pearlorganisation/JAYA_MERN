@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from "react";
+import { FaEllipsis } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const ProfileSavedCard = () => {
+const ProfileSavedCard = ({ data }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 border border-green-100">
       <div className="flex justify-between">
@@ -27,26 +29,25 @@ const ProfileSavedCard = () => {
       </div>
 
       <h2 className="text-[#12813B] text-2xl leading-9 font-semibold mb-2">
-        Moovalur Ramamirtham Ammaiyar Higher Education Assurance Scheme
+        {data.miniTitle || "something is wrong contact shubham sir "}
       </h2>
       <p className="text-[#5e5e5e] text-base font-normal leading-6 mb-4">
-        The Scheme “Moovalur Ramamirtham Ammaiyar Higher Education Assurance
-        Scheme” Was Launched By The Department Of Social Welfare & Women...
+        {data.title || "something is wrong contact shubham sir "}
       </p>
 
       <div className="flex flex-col lg:flex-row  lg:justify-between items-center">
-        <div className="flex flex-wrap  justify-start gap-2 mb-4 lg:w-[80%]">
-          <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-1 py-1 rounded-md">
-            1000/month
-          </span>
-          <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-1 py-1 rounded-md">
-            70% Reservation
-          </span>
-
-          <span className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-1 py-1 rounded-md">
-            Scholarship
-          </span>
+        <div className="flex flex-wrap justify-start gap-2 mb-4 lg:w-[80%]">
+          {data.tags &&
+            data.tags.map((el, index) => (
+              <span
+                className="text-[#419A62]  p-2 bg-white border border-[#419A62] rounded-md"
+                key={index}
+              >
+                {el}
+              </span>
+            ))}
         </div>
+
         <div className="flex items-center justify-center hover:text-[#419A62]  lg:w-fit w-[100%] bg-[#419A62] hover:bg-white text-white border-2 border-green-100 rounded-md">
           <Link to="/schemeDetail">
             <button className=" text-center min-w-max  font-semibold  px-6 py-2 rounded-md">

@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { PURGE } from "redux-persist";
 import { toast } from "sonner";
-import { uploadDocument } from "../actions/uploadDocumentAction";
+import {
+  getDocumentByUserId,
+  uploadDocument,
+} from "../actions/uploadDocumentAction";
 
 const initialState = {
   isLoading: false,
@@ -26,6 +29,22 @@ const uploadDocumentSlice = createSlice({
         toast.success("Uploaded Successful!!", { position: "top-center" });
       })
       .addCase(uploadDocument.rejected, (state, action) => {
+        console.log(action?.payload, "action.payload");
+        toast.error(action.payload, { position: "top-center" });
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      //   getDocumentByUserId
+      .addCase(getDocumentByUserId.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getDocumentByUserId.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isUserLoggedIn = true;
+        state.documentData = action.payload;
+      })
+      .addCase(getDocumentByUserId.rejected, (state, action) => {
         console.log(action?.payload, "action.payload");
         toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
