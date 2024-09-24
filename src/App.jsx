@@ -43,7 +43,7 @@ function App() {
           element: <Schemes />,
         },
         {
-          path: "schemeDetail/:id",
+          path: "schemes/:id",
           element: <SchemeDetail />,
         },
         {

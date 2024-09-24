@@ -18,7 +18,7 @@ const HomePage = () => {
   const fetchBlogs = () => {
     dispatch(getBlogs());
   };
-  console.log(blogsState, "Home Page Blogs State");
+  // console.log(blogsState, "Home Page Blogs State");
   return (
     <div className=" w-full grid place-items-center px-4 md:py-10 md:px-16">
       <div className=" flex flex-col lg:justify-center justify-start lg:items-center">

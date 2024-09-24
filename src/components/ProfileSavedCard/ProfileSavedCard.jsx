@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect } from "react";
 import { FaEllipsis } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const ProfileSavedCard = ({ data }) => {

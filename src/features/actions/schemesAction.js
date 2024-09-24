@@ -3,7 +3,9 @@ import axios from "axios";
 
 export const getSchemes = createAsyncThunk("schemes/get", async (thunkAPI) => {
   try {
-    const { data } = await axios.get("http://localhost:8000/api/v1/schemes");
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme`
+    );
 
     return data;
   } catch (error) {
@@ -11,12 +13,27 @@ export const getSchemes = createAsyncThunk("schemes/get", async (thunkAPI) => {
   }
 });
 
+export const getScheme = createAsyncThunk(
+  "singleschemes/get",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`
+      );
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const addSchemeToBookmark = createAsyncThunk(
   "addScheme/put",
   async (payload, thunkAPI) => {
     try {
       const { data } = await axios.put(
-        "http://localhost:8000/api/v1/schemes/addScheme",
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/addScheme`,
         payload
       );
 
@@ -32,7 +49,7 @@ export const removeFromBookmark = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const { data } = await axios.put(
-        "http://localhost:8000/api/v1/schemes/removeScheme"
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/removeScheme`
       );
 
       return data;
@@ -47,7 +64,7 @@ export const createScheme = createAsyncThunk(
   async (userdata, thunkAPI) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/schemes",
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme`,
         userdata
       );
 
@@ -63,7 +80,7 @@ export const updateScheme = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/api/v1/schemes/${id}`
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`
       );
 
       return data;
@@ -78,7 +95,7 @@ export const deleteScheme = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:8000/api/v1/schemes/${id}`
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`
       );
 
       return data;

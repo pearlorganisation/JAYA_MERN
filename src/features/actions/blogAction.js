@@ -3,7 +3,9 @@ import axios from "axios";
 
 export const getBlogs = createAsyncThunk("blog/get", async (thunkAPI) => {
   try {
-    const { data } = await axios.get("http://localhost:8000/api/v1/blogs");
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/blogs`
+    );
 
     return data;
   } catch (error) {

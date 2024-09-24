@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBookmarksAction } from "../actions/bookMarkAction";
+import {
+  addBookmarksAction,
+  getBookmarksAction,
+} from "../actions/bookMarkAction";
 
 const intialState = {
   bookmarks: [],
@@ -15,6 +18,7 @@ const bookMarkSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //  get bookmarks of user
       .addCase(getBookmarksAction.pending, (state) => {
         state.isLoading = true;
       })
@@ -25,6 +29,22 @@ const bookMarkSlice = createSlice({
         state.bookmarks = action.payload;
       })
       .addCase(getBookmarksAction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      // add scheme to bookmark
+      .addCase(addBookmarksAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addBookmarksAction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.bookmarks = action.payload;
+      })
+      .addCase(addBookmarksAction.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

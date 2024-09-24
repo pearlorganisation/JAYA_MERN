@@ -1,12 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa";
 import { GoShareAndroid } from "react-icons/go";
 import FeedbackForm from "../../components/FeedbackForm/FeedbackForm";
 import Bot from ".././../assets/Bot.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getScheme } from "../../features/actions/schemesAction";
 
 const SchemeDetail = () => {
+  const schemeData = useSelector((state) => state.schemes);
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchScheme();
+  }, []);
+
+  const fetchScheme = () => {
+    dispatch(getScheme(id));
+  };
+
   const [showModal, setShowModal] = useState(false);
 
   const [isShowing, setIsShowing] = useState(false);
@@ -181,7 +196,7 @@ const SchemeDetail = () => {
                           </h3>
 
                           <button
-                            onClick={() => setIsShowing(false)}
+                            // onClick={() => setIsShowing(false)}
                             className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide  text-emerald-500 transition duration-300 hover:bg-emerald-100 hover:text-emerald-600 focus:bg-emerald-200 focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-emerald-300 disabled:shadow-none disabled:hover:bg-transparent"
                             aria-label="close dialog"
                           >
