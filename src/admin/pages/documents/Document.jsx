@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../documents/modal'; 
-const Scheme= () => {
+const Document = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -100,4 +100,4 @@ const Scheme= () => {
   );
 };
 
-export default Scheme;
+export default Document;

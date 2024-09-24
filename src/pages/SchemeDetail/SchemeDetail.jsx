@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa";
 import { GoShareAndroid } from "react-icons/go";
 import FeedbackForm from "../../components/FeedbackForm/FeedbackForm";
 import Bot from ".././../assets/Bot.jpg";
+import SchemeModal from "./SchemeModel";
 
 const SchemeDetail = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="mt-0 lg:py-12 lg:px-8">
       <div className="">
@@ -70,11 +81,18 @@ const SchemeDetail = () => {
                 </span>
               </div>
               <div className="flex items-center justify-center hover:text-[#419A62]  lg:w-fit w-[90%] bg-[#419A62] hover:bg-white text-white border-2 border-green-100 rounded-md">
-                <Link to="/schemeDetail">
-                  <button className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md">
-                    Check Eligibility
-                  </button>
-                </Link>
+              <Link to="/schemeDetail">
+        <button
+          className="text-center min-w-full font-semibold px-6 py-2 rounded-md"
+          onClick={(e) => {
+            e.preventDefault();
+            openModal();
+            console.log("onclick");
+          }}
+        >
+          Check Eligibility
+        </button>
+      </Link>
               </div>
             </div>
           </div>
@@ -423,6 +441,11 @@ const SchemeDetail = () => {
           </div>
         </div>
       </div>
+      
+        <div>
+   <SchemeModal isOpen={isModalOpen} onClose={closeModal} />
+        </div>
+      
     </div>
   );
 };
