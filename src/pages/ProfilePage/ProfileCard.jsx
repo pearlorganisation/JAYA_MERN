@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "./Modal";
 
 const ProfileCard = () => {
   const { userData } = useSelector((state) => state.auth);
