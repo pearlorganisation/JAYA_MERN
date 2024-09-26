@@ -50,3 +50,34 @@ export const logout = createAsyncThunk(
     }
   }
 );
+
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async ({ email, username, password, phoneNumber }, { rejectWithValue }) => {
+    try {
+      const response = await instance.put(`/auth/profile/${email}`, {
+        username,
+        password,
+        phoneNumber,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const getProfile = createAsyncThunk(
+  "auth/getProfile",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      console.log("asfas", email);
+      const { data } = await instance.get(`/auth/profile/${email}`);
+      console.log(data, "asdasdasda");
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

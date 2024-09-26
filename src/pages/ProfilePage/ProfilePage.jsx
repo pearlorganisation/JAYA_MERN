@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBookmarksAction } from "../../features/actions/bookMarkAction";
 import ProfileCard from "./ProfileCard";
 import SchemeCard from "../Schemes/SchemeCard";
+import { getProfile } from "../../features/actions/authAction";
 
 const ProfilePage = () => {
   const [documentSwitch, setDocumentSwitch] = useState(0);
@@ -19,7 +20,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     let map = new Map();
-    schemeState.forEach((element) => {
+    schemeState?.forEach((element) => {
       map.set(element._id, element);
     });
 
@@ -33,11 +34,9 @@ const ProfilePage = () => {
 
   useEffect(() => {
     dispatch(getBookmarksAction(userData.user._id));
+    dispatch(getProfile(userData.user.email));
+    console.log("sdfgsdfg", userData.user.email);
   }, []);
-
-  useEffect(() => {
-    console.log("object", bookmarks);
-  }, [bookmarks]);
 
   return (
     <div className="lg:py-12 lg:px-20">

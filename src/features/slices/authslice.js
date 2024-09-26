@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logout, signIn, signUp } from "../actions/authAction";
+import {
+  getProfile,
+  logout,
+  signIn,
+  signUp,
+  updateProfile,
+} from "../actions/authAction";
 import { PURGE } from "redux-persist";
 import { toast } from "sonner";
 
@@ -8,12 +14,16 @@ const initialState = {
   isUserLoggedIn: false,
   userData: null,
   error: "",
+  isSuccess: false,
+  isError: false,
+  message: "",
+  profile: null,
 };
 const authSlice = createSlice({
   name: "authslice",
   initialState,
   reducers: {
-    clearUser: (state, action) => {
+    clearUser: (state) => {
       state.isUserLoggedIn = false;
       state.userData = null;
     },
@@ -21,7 +31,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //signIn
-      .addCase(signIn.pending, (state, action) => {
+      .addCase(signIn.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
@@ -37,7 +47,7 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       //signUp
-      .addCase(signUp.pending, (state, action) => {
+      .addCase(signUp.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(signUp.fulfilled, (state, action) => {
@@ -48,6 +58,36 @@ const authSlice = createSlice({
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(getProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      .addCase(getProfile.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.profile = action.payload;
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.profile = action.payload;
       });
 
     builder.addCase(PURGE, () => {

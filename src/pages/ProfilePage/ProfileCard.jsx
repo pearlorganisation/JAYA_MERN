@@ -1,32 +1,47 @@
+import { useSelector } from "react-redux";
+
 const ProfileCard = () => {
+  const { userData } = useSelector((state) => state.auth);
+
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="flex flex-col  justify-center lg:flex-row gap-3">
       <div className="flex items-center justify-center">
-        <div className="">
-          <svg
-            width="122"
-            height="122"
-            viewBox="0 0 122 122"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="61" cy="61" r="61" fill="#D9D9D9" />
-          </svg>
-        </div>
+        {!userData?.user?.image ? (
+          <div className="">
+            <svg
+              width="122"
+              height="122"
+              viewBox="0 0 122 122"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="61" cy="61" r="61" fill="#D9D9D9" />
+            </svg>
+          </div>
+        ) : (
+          <div>{!userData?.user?.image}</div>
+        )}
+      </div>
+
+      <div>
+        <button onClick={() => setShowModal(true)}>Open Modal</button>
+        {showModal && <Modal />}
       </div>
 
       <div className="flex justify-center flex-col items-start gap-3 mt-3">
         <h1 className="  text-base font-normal leading-6 text-[#393939]">
-          Jayavarshan ss
+          {userData?.user?.username}
         </h1>
         <h3 className="text-base font-normal leading-6  text-[#393939]">
-          jayavarshan.off@gmail.com
+          {userData?.user?.email}
         </h3>
       </div>
 
       <div className="flex flex-row justify-between">
         <p className=" text-base leading-6 text-[#393939] font-normal hover:text-gray-600 lg:ml-6 lg:mt-8">
-          91+ 6379470141
+          {userData?.user?.phoneNumber}
         </p>
 
         <div className="flex flex-row gap-2 lg:ml-6 lg:mt-8">
@@ -43,7 +58,6 @@ const ProfileCard = () => {
               fill="#668DCB"
             />
           </svg>
-
           <h3 className="text-center text-base leading-6 text-[#393939] font-medium hover:cursor-pointer hover:text-gray-600">
             Edit
           </h3>

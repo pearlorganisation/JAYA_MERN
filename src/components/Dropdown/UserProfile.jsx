@@ -9,7 +9,7 @@ const UserProfile = ({ user }) => {
   return (
     <div>
       <div className="space-x-3 relative">
-        <span className="font-medium capitalize">{user.username}</span>{" "}
+        <span className="font-medium capitalize">{user?.username}</span>{" "}
         <img
           onClick={() => setDropdown(!dropdown)}
           className="cursor-pointer inline-block size-[46px] rounded-full"
