@@ -9,7 +9,7 @@ export const getBookmarksAction = createAsyncThunk(
         `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/${id}`
       );
 
-      return data.data;
+      return data?.data[0].bookmarks;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

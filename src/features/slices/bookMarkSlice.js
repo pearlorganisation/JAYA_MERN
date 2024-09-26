@@ -5,7 +5,7 @@ import {
 } from "../actions/bookMarkAction";
 
 const intialState = {
-  bookmarks: [],
+  bookmarksData: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -15,7 +15,11 @@ const intialState = {
 const bookMarkSlice = createSlice({
   name: "bookmarks",
   initialState: intialState,
-  reducers: {},
+  reducers: {
+    resetIsSuccess: (state, action) => {
+      state.isSuccess = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       //  get bookmarks of user
@@ -26,7 +30,7 @@ const bookMarkSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.bookmarks = action.payload;
+        state.bookmarksData = action.payload;
       })
       .addCase(getBookmarksAction.rejected, (state, action) => {
         state.isLoading = false;
@@ -42,7 +46,7 @@ const bookMarkSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.bookmarks = action.payload;
+        state.bookmarksData = action.payload;
       })
       .addCase(addBookmarksAction.rejected, (state, action) => {
         state.isLoading = false;
@@ -53,4 +57,5 @@ const bookMarkSlice = createSlice({
   },
 });
 
+export const { resetIsSuccess } = bookMarkSlice.actions;
 export default bookMarkSlice.reducer;

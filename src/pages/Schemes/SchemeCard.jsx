@@ -1,20 +1,27 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   addSchemeToBookmark,
   removeFromBookmark,
 } from "../../features/actions/schemesAction";
 import { useDispatch, useSelector } from "react-redux";
+import { resetIsSuccess } from "../../features/slices/bookMarkSlice";
+import { getBookmarksAction } from "../../features/actions/bookMarkAction";
 
-const SchemeCard = ({ scheme, isBookmarked }) => {
+const SchemeCard = ({ scheme, map }) => {
   const { userData } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    console.log("object", userData);
-  }, [userData]);
+  const { isSuccess } = useSelector((state) => state.bookmarks);
 
-  const bookMarkColor = isBookmarked ? "bg-[#419A62] " : "bg-white ";
+  const dispatch = useDispatch();
+
+  const bookMarkColor = useMemo(() => {
+    return map?.get(scheme._id) ? "bg-[#419A62]" : "bg-white";
+  }, [map, scheme._id]);
+
+  const isBookmarked = useMemo(() => {
+    return map?.get(scheme._id) ? true : false;
+  }, [map, scheme._id]);
 
   const addBookmark = () => {
     dispatch(
@@ -24,6 +31,13 @@ const SchemeCard = ({ scheme, isBookmarked }) => {
       })
     );
   };
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     dispatch(getBookmarksAction(userData.user._id));
+  //     dispatch(resetIsSuccess(false));
+  //   }
+  // }, [isSuccess]);
 
   return (
     <div

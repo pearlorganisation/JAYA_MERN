@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getSchemes } from "../../features/actions/schemesAction";
 import SchemeCard from "./SchemeCard";
 import { getBookmarksAction } from "../../features/actions/bookMarkAction";
+import { resetIsSuccess } from "../../features/slices/bookMarkSlice";
 
 const Schemes = () => {
   const dispatch = useDispatch();
@@ -11,10 +12,10 @@ const Schemes = () => {
   const schemeState = useSelector((state) => state.schemes.schemes.data);
 
   const { userData } = useSelector((state) => state.auth);
-  const { bookmarks } = useSelector((state) => state.bookmarks);
+  const { bookmarksData, isSuccess } = useSelector((state) => state.bookmarks);
   const [bookmarkMap, setBookmarkMap] = useState(new Map());
 
-  console.log("Bookmarks", bookmarks);
+  console.log("Bookmarks", bookmarksData);
 
   useEffect(() => {
     if (userData?.user?._id) {
@@ -23,21 +24,21 @@ const Schemes = () => {
   }, [userData]);
 
   useEffect(() => {
-    // Populate the map whenever bookmarks change
-    const newMap = new Map();
-    bookmarks?.bookmarks?.forEach((element) =>
-      newMap.set(element._id, element)
-    );
-    setBookmarkMap(newMap);
-  }, [bookmarks]);
+    if (isSuccess) {
+      dispatch(resetIsSuccess(false));
+    }
+  }, [isSuccess]);
 
   useEffect(() => {
-    fetchSchemes();
-  }, []);
+    // Populate the map whenever bookmarks change
+    const newMap = new Map();
+    bookmarksData?.forEach((element) => newMap.set(element._id, element));
+    setBookmarkMap(newMap);
+  }, [bookmarksData]);
 
-  const fetchSchemes = () => {
+  useEffect(() => {
     dispatch(getSchemes());
-  };
+  }, []);
 
   return (
     <div>
@@ -84,7 +85,7 @@ const Schemes = () => {
           {Array.isArray(schemeState) && schemeState.length > 0
             ? schemeState.map((scheme) => (
                 <SchemeCard
-                  isBookmarked={bookmarkMap.has(scheme._id)}
+                  map={bookmarkMap}
                   scheme={scheme}
                   key={scheme._id}
                 />
