@@ -34,8 +34,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     dispatch(getBookmarksAction(userData.user._id));
-    dispatch(getProfile(userData.user.email));
-    console.log("sdfgsdfg", userData.user.email);
+    // console.log("sdfgsdfg", userData.user.email);
   }, []);
 
   return (

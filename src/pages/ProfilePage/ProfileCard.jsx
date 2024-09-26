@@ -27,11 +27,6 @@ const ProfileCard = () => {
         )}
       </div>
 
-      <div>
-        <button onClick={() => setShowModal(true)}>Open Modal</button>
-        {showModal && <Modal />}
-      </div>
-
       <div className="flex justify-center flex-col items-start gap-3 mt-3">
         <h1 className="  text-base font-normal leading-6 text-[#393939]">
           {userData?.user?.username}
@@ -70,3 +65,8 @@ const ProfileCard = () => {
 };
 
 export default ProfileCard;
+
+// <div>
+//         <button onClick={() => setShowModal(true)}>Open Modal</button>
+//         {showModal && <Modal />}
+//       </div>
