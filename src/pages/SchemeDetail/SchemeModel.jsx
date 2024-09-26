@@ -11,13 +11,12 @@ const SchemeModal = ({ isOpen, onClose }) => {
 
   const handleYesChange = () => {
     setIsYesChecked(true);
-    setIsNoChecked(false); // Uncheck "No" if "Yes" is checked
+    setIsNoChecked(false); 
   };
 
   const handleNoChange = () => {
     setIsNoChecked(true);
-    setIsYesChecked(false); // Uncheck "Yes" if "No" is checked
-  };
+    setIsYesChecked(false); };
   return (
     <div
       className={
