@@ -1,102 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa";
 import { GoShareAndroid } from "react-icons/go";
 import FeedbackForm from "../../components/FeedbackForm/FeedbackForm";
 import Bot from ".././../assets/Bot.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { getScheme } from "../../features/actions/schemesAction";
+import SchemeModal from "./SchemeModel";
 
 const SchemeDetail = () => {
-  const schemeData = useSelector((state) => state.schemes);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { id } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetchScheme();
-  }, []);
-
-  const fetchScheme = () => {
-    dispatch(getScheme(id));
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const [showModal, setShowModal] = useState(false);
-
-  const [isShowing, setIsShowing] = useState(false);
-
-  const wrapperRef = useRef(null);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setIsShowing(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [wrapperRef]);
-
-  useEffect(() => {
-    let html = document.querySelector("html");
-
-    if (html) {
-      if (isShowing && html) {
-        html.style.overflowY = "hidden";
-
-        const focusableElements =
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-
-        const modal = document.querySelector("#modal"); // select the modal by it's id
-
-        const firstFocusableElement =
-          modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
-
-        const focusableContent = modal.querySelectorAll(focusableElements);
-
-        const lastFocusableElement =
-          focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
-
-        document.addEventListener("keydown", function (e) {
-          if (e.keyCode === 27) {
-            setIsShowing(false);
-          }
-
-          let isTabPressed = e.key === "Tab" || e.keyCode === 9;
-
-          if (!isTabPressed) {
-            return;
-          }
-
-          if (e.shiftKey) {
-            // if shift key pressed for shift + tab combination
-            if (document.activeElement === firstFocusableElement) {
-              lastFocusableElement.focus(); // add focus for the last focusable element
-              e.preventDefault();
-            }
-          } else {
-            // if tab key is pressed
-            if (document.activeElement === lastFocusableElement) {
-              // if focused has reached to last focusable element then focus first focusable element after pressing tab
-              firstFocusableElement.focus(); // add focus for the first focusable element
-              e.preventDefault();
-            }
-          }
-        });
-
-        firstFocusableElement.focus();
-      } else {
-        html.style.overflowY = "visible";
-      }
-    }
-  }, [isShowing]);
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
+
   return (
     <div className="mt-0 lg:py-12 lg:px-8">
       <div className="">
@@ -163,10 +83,12 @@ const SchemeDetail = () => {
               <div className="flex items-center justify-center hover:text-[#419A62]  lg:w-fit w-[90%] bg-[#419A62] hover:bg-white text-white border-2 border-green-100 rounded-md">
                 <Link to="/schemeDetail">
                   <button
-                    className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md"
-                    data-modal-target="top-right-modal"
-                    data-modal-toggle="top-right-modal"
-                    onClick={() => setIsShowing(true)}
+                    className="text-center min-w-full font-semibold px-6 py-2 rounded-md"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openModal();
+                      console.log("onclick");
+                    }}
                   >
                     Check Eligibility
                   </button>
@@ -873,6 +795,10 @@ const SchemeDetail = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div>
+        <SchemeModal isOpen={isModalOpen} onClose={closeModal} />
       </div>
     </div>
   );

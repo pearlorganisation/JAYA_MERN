@@ -22,6 +22,8 @@ import ViewScheme from "./admin/pages/Scheme/ViewScheme/ViewScheme";
 import Editscheme from "./admin/pages/Scheme/EditScheme/Editscheme";
 import CreateScheme from "./admin/pages/Scheme/CreateScheme/CreateScheme";
 import { useSelector } from "react-redux";
+import Document from "./admin/pages/documents/Document";
+import User from "./admin/pages/user.jsx/user";
 
 function App() {
   const { isUserLoggedIn } = useSelector((state) => state.auth);
@@ -82,7 +84,11 @@ function App() {
       children: [
         {
           index: true,
-          element: <Scheme />,
+          element: <div>dashboard</div>
+        },
+        {
+          path:"schemes",
+          element:<Scheme/>
         },
         {
           path: "viewScheme",
@@ -95,6 +101,15 @@ function App() {
         {
           path: "editScheme",
           element: <Editscheme />,
+        },
+        {
+          path: "document",
+          element: <Document />,
+        },
+        //user routes
+        {
+          path: "users",
+          element: <User/>,
         },
       ],
     },
