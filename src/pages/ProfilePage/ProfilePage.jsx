@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const schemeState = useSelector((state) => state.schemes.schemes.data);
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.auth);
-  const { bookmarksData } = useSelector((state) => state.bookmarks);
+  const { bookmarksData , isSuccess } = useSelector((state) => state.bookmarks);
   const [schemeMap, setSchemeMap] = useState(new Map());
 
   useEffect(() => {
@@ -26,6 +26,14 @@ const ProfilePage = () => {
   useEffect(() => {
     dispatch(getBookmarksAction(userData?.user?._id));
   }, []);
+
+
+  useEffect(()=>{
+     if(isSuccess)
+     {
+      dispatch(getBookmarksAction(userData?.user?._id))
+     }
+  },[isSuccess])
 
 
   

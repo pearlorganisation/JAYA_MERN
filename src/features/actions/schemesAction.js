@@ -28,28 +28,14 @@ export const getScheme = createAsyncThunk(
   }
 );
 
-export const addSchemeToBookmark = createAsyncThunk(
-  "addScheme/put",
-  async (payload, thunkAPI) => {
-    try {
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/addScheme`,
-        payload
-      );
 
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
 
 export const removeFromBookmark = createAsyncThunk(
   "removeScheme/put",
   async (payload,thunkAPI) => {
     try {
       const { data } = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/removeScheme`,
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/schemes/removeScheme`,
         payload
       );
 

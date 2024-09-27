@@ -9,7 +9,7 @@ export const getBookmarksAction = createAsyncThunk(
         `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/${id}`
       );
 
-      return data?.data[0].bookmarks;
+      return data?.data.length > 0 ? data?.data[0].bookmarks :[];
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -23,6 +23,23 @@ export const addBookmarksAction = createAsyncThunk(
     try {
       const { data } = await axios.put(
         `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/addScheme`,
+        bookmarkData
+      );
+
+      return data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const removeBookmarksAction = createAsyncThunk(
+  "removeBookmarksAction",
+  async (bookmarkData, thunkAPI) => {
+    console.log("shubvham bhai jindABAD", bookmarkData);
+    try {
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/removeScheme`,
         bookmarkData
       );
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getSchemes } from "../../features/actions/schemesAction";
@@ -13,32 +13,38 @@ const Schemes = () => {
 
   const { userData } = useSelector((state) => state.auth);
   const { bookmarksData, isSuccess } = useSelector((state) => state.bookmarks);
-  const [bookmarkMap, setBookmarkMap] = useState(new Map());
+  // const [bookmarkMap, setBookmarkMap] = useState(new Map());
+   
 
-  console.log("Bookmarks", bookmarksData);
-
-  useEffect(() => {
-    if (userData?.user?._id) {
+  useEffect(()=>{
+    
+    if(isSuccess)
       dispatch(getBookmarksAction(userData?.user?._id));
-    }
-  }, [userData]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(resetIsSuccess(false));
-    }
-  }, [isSuccess]);
+  },[isSuccess]);
 
-  useEffect(() => {
-    // Populate the map whenever bookmarks change
+
+  console.log("scvhemshfsjkhfksdjsadfsdfhjsdhfsd");
+
+  const bookmarkMap = useMemo(() => {
     const newMap = new Map();
-    bookmarksData?.forEach((element) => newMap.set(element._id, element));
-    setBookmarkMap(newMap);
+    if (bookmarksData && bookmarksData.length > 0) {
+      bookmarksData.forEach((element) => newMap.set(element._id, element));
+    }
+    return newMap;
   }, [bookmarksData]);
 
   useEffect(() => {
     dispatch(getSchemes());
+    if (userData?.user?._id) {
+      dispatch(getBookmarksAction(userData?.user?._id));
+      
+    }
   }, []);
+
+
+
+
 
   return (
     <div>

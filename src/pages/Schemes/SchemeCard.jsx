@@ -1,29 +1,24 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  addSchemeToBookmark,
-  removeFromBookmark,
-} from "../../features/actions/schemesAction";
 import { useDispatch, useSelector } from "react-redux";
-import { resetIsSuccess } from "../../features/slices/bookMarkSlice";
-import { getBookmarksAction } from "../../features/actions/bookMarkAction";
+import { addBookmarksAction,  removeBookmarksAction } from "../../features/actions/bookMarkAction";
 
-const SchemeCard = ({ scheme, map }) => {
+const memoizedComponent = memo((function ({ scheme, map })  {
   const { userData } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
   
   const bookMarkColor =  map.get(scheme._id) ? "bg-[#419A62]" : "bg-white";
   
 
   const isBookmarked = map.get(scheme._id) ? true : false;
-  console.log("asdsad",isBookmarked);
+
+  //  console.log("sdad",isBookmarked);
 
 
   const addBookmark = () => {
     dispatch(
-      addSchemeToBookmark({
+      addBookmarksAction({
         userId: userData.user._id,
         schemeId: scheme._id,
       })
@@ -31,8 +26,22 @@ const SchemeCard = ({ scheme, map }) => {
   };
 
 
+  console.log("scvhemshfsjkhfksdjsadfsdfhjsdhfsd scheme carddd");
+  // useEffect(()=>{
+
+  //   if(isSuccess)
+  //   {
+  //     dispatch(resetIsSuccess(false));
+  //   }
+
+  // },[isSuccess]);
+
+
+ 
+
+
   const removeBookMark = ()=>{
-    dispatch(removeFromBookmark({
+    dispatch(removeBookmarksAction({
       userId: userData.user._id,
         schemeId: scheme._id,
     }))
@@ -49,16 +58,9 @@ const SchemeCard = ({ scheme, map }) => {
         addBookmark();
   }
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     dispatch(getBookmarksAction(userData.user._id));
-  //     dispatch(resetIsSuccess(false));
-  //   }
-  // }, [isSuccess]);
-
+  
   return (
     <div
-      key={scheme._id}
       className="bg-white rounded-lg shadow-md px-4 py-4 border-2 border-green-100"
     >
       <>
@@ -122,6 +124,10 @@ const SchemeCard = ({ scheme, map }) => {
       </>
     </div>
   );
-};
+}));
+
+const SchemeCard = memoizedComponent;
+
+
 
 export default SchemeCard;
