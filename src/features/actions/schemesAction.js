@@ -46,10 +46,11 @@ export const addSchemeToBookmark = createAsyncThunk(
 
 export const removeFromBookmark = createAsyncThunk(
   "removeScheme/put",
-  async (thunkAPI) => {
+  async (payload,thunkAPI) => {
     try {
       const { data } = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/removeScheme`
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/removeScheme`,
+        payload
       );
 
       return data;

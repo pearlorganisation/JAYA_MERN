@@ -11,26 +11,43 @@ import { getBookmarksAction } from "../../features/actions/bookMarkAction";
 
 const SchemeCard = ({ scheme, map }) => {
   const { userData } = useSelector((state) => state.auth);
-  const { isSuccess } = useSelector((state) => state.bookmarks);
 
   const dispatch = useDispatch();
+  
+  const bookMarkColor =  map.get(scheme._id) ? "bg-[#419A62]" : "bg-white";
+  
 
-  const bookMarkColor = useMemo(() => {
-    return map?.get(scheme._id) ? "bg-[#419A62]" : "bg-white";
-  }, [map, scheme._id]);
+  const isBookmarked = map.get(scheme._id) ? true : false;
+  console.log("asdsad",isBookmarked);
 
-  const isBookmarked = useMemo(() => {
-    return map?.get(scheme._id) ? true : false;
-  }, [map, scheme._id]);
 
   const addBookmark = () => {
     dispatch(
       addSchemeToBookmark({
-        userId: userData?.user?._id,
-        schemeId: scheme?._id,
+        userId: userData.user._id,
+        schemeId: scheme._id,
       })
     );
   };
+
+
+  const removeBookMark = ()=>{
+    dispatch(removeFromBookmark({
+      userId: userData.user._id,
+        schemeId: scheme._id,
+    }))
+  }
+
+
+  function handleBookMark()
+  {
+
+    console.log("we are comming here ")
+      if(isBookmarked)
+        removeBookMark();
+      else
+        addBookmark();
+  }
 
   // useEffect(() => {
   //   if (isSuccess) {
@@ -41,18 +58,18 @@ const SchemeCard = ({ scheme, map }) => {
 
   return (
     <div
-      key={scheme?._id}
+      key={scheme._id}
       className="bg-white rounded-lg shadow-md px-4 py-4 border-2 border-green-100"
     >
       <>
         <div className="flex justify-between">
           <p className="text-[#9b9b9b] text-base font-normal mb-2">
-            {scheme?.miniTitle}
+            {scheme.miniTitle}
           </p>
           <div
             // style={{ backgroundColor: ` ${bookMarkColor} ` }}
             className={`p-2  ${bookMarkColor}  group border-2  hover:cursor-pointer  hover:bg-[#419A62 border-green-100 rounded-full`}
-            onClick={addBookmark}
+            onClick={handleBookMark}
           >
             <svg
               width="13"
@@ -73,9 +90,9 @@ const SchemeCard = ({ scheme, map }) => {
           </div>
         </div>
 
-        <Link to={`/schemes/${scheme?._id}`}>
+        <Link to={`/schemes/${scheme._id}`}>
           <h2 className="text-[#12813B] text-2xl font-semibold mb-2">
-            {scheme?.title}
+            {scheme.title}
           </h2>
           <p className="text-[#5e5e5e] font-normal text-base mb-4">
             The Scheme “Moovalur Ramamirtham Ammaiyar Higher Education Assurance

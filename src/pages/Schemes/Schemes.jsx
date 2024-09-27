@@ -19,7 +19,7 @@ const Schemes = () => {
 
   useEffect(() => {
     if (userData?.user?._id) {
-      dispatch(getBookmarksAction(userData.user._id));
+      dispatch(getBookmarksAction(userData?.user?._id));
     }
   }, [userData]);
 

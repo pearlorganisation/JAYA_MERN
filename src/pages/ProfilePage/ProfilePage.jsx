@@ -27,6 +27,9 @@ const ProfilePage = () => {
     dispatch(getBookmarksAction(userData?.user?._id));
   }, []);
 
+
+  
+
   return (
     <div className="lg:py-12 lg:px-20">
       <div className="w-full items-center justify-center flex">
@@ -68,8 +71,7 @@ const ProfilePage = () => {
                   bookmarksData.map((el, index) => (
                     <SchemeCard
                       key={index}
-                      scheme={schemeMap.get(el._id)}
-                      // isBookmarked={false}
+                      scheme={el}
                       map={schemeMap}
                     />
                   ))}
