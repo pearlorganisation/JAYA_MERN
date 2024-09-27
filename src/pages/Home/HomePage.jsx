@@ -5,6 +5,7 @@ import Footer from "../../components/layout/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../../features/actions/blogAction";
 import moment from "moment";
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -114,7 +115,8 @@ const HomePage = () => {
             <div className="flex flex-row gap-6">
               <button className="bg-[#668DCB] text-white text-[14px] lg:text-base px-6 py-2 rounded-lg font-semibold shadow hover:bg-blue-600 transition">
                 <div className="flex flex-row gap-3">
-                  <span>Explore now !</span>
+                <span className="text-base sm:text-1xl ">Explore now!</span>
+
                   <span>
                     <svg
                       width="25"
@@ -132,12 +134,12 @@ const HomePage = () => {
                 </div>
               </button>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center mt-20">
               <div className="relative">
                 <div className="absolute -top-20 -right-14 lg:-top-16 lg:-right-28 bg-[#668DCB] text-white p-3 rounded-lg lg:w-[12rem] w-[7rem]  lg:h-20 h-24 text-left clip-polygon">
                   Know what you are eligible for !
                   <img
-                    className="-bottom-3 -left-2 absolute"
+                    className="-bottom-3 -left-2 absolute sm:w-50"
                     src="./Polygon.svg"
                     alt=""
                   />
@@ -208,16 +210,21 @@ const HomePage = () => {
         </div>
       </div>
       <div className="max-w-6xl mx-auto grid place-items-center w-[80%] mb-8">
-        <img src="./OurMission.png" alt="" />
-        <p className="text-center font-[20px] text-[#5e5e5e]">
-          {" "}
-          My sahaya was built with the aim of breaking inefficient service
-          barriers with Indian citizens and the Indian government. As a first
-          step, we step into schemes and forms provided by the central and state
-          governments by engaging awareness and gaining knowledge of them in a
-          better way.
-        </p>
-      </div>
+  <div className="relative">
+    <h1 className="text-7xl relative  text-[#668DCB] font-bold pr-16 mt-8 z-20">
+      <span className="text-[#668DCB]">
+      <FaQuoteLeft size={38} /></span>
+      Our Mission 
+      <span className="text-[#668DCB]"><FaQuoteRight size={38} /> </span>
+    </h1>
+    <img 
+      src="./mission.png" 
+      alt="mission" 
+      className="absolute w-24 h-24 right-24 z-10 top-1/2 transform translate-x-1/2 -translate-y-1/2" 
+    />
+  </div>
+</div>
+
       <Footer />
     </div>
   );

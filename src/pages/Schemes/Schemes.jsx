@@ -11,7 +11,7 @@ const Schemes = () => {
   const schemeState = useSelector((state) => state.schemes.schemes.data);
 
   const { userData } = useSelector((state) => state.auth);
-  const { bookmarks } = useSelector((state) => state.bookmarks);
+  const { bookmarks ,isSuccess,isLoading } = useSelector((state) => state.bookmarks);
   const [bookmarkMap, setBookmarkMap] = useState(new Map());
 
   console.log("Bookmarks", bookmarks);
@@ -20,7 +20,7 @@ const Schemes = () => {
     if (userData?.user?._id) {
       dispatch(getBookmarksAction(userData.user._id));
     }
-  }, [userData]);
+  }, []);
 
   useEffect(() => {
     // Populate the map whenever bookmarks change
@@ -29,11 +29,16 @@ const Schemes = () => {
       newMap.set(element._id, element)
     );
     setBookmarkMap(newMap);
-  }, [bookmarks]);
+  }, []);
 
   useEffect(() => {
     fetchSchemes();
   }, []);
+  
+
+
+
+
 
   const fetchSchemes = () => {
     dispatch(getSchemes());
@@ -81,10 +86,11 @@ const Schemes = () => {
         </div>
 
         <div className="space-y-5">
-          {Array.isArray(schemeState) && schemeState.length > 0
+          {Array.isArray(schemeState) && bookmarkMap &&  schemeState.length > 0
             ? schemeState.map((scheme) => (
                 <SchemeCard
-                  isBookmarked={bookmarkMap.has(scheme._id)}
+                 
+                  map={bookmarkMap}
                   scheme={scheme}
                   key={scheme._id}
                 />
