@@ -5,7 +5,7 @@ import {
 } from "../actions/bookMarkAction";
 
 const intialState = {
-  bookmarks: [],
+  bookmarksData: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -16,12 +16,9 @@ const bookMarkSlice = createSlice({
   name: "bookmarks",
   initialState: intialState,
   reducers: {
-    refreshState :(state,action)=>{
-
-
-      console.log("asfdasd refreshed");
+    resetIsSuccess: (state, action) => {
       state.isSuccess = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -33,8 +30,7 @@ const bookMarkSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.bookmarks = action.payload;
-        console.log("agfj bookmarks called");
+        state.bookmarksData = action.payload;
       })
       .addCase(getBookmarksAction.rejected, (state, action) => {
         state.isLoading = false;
@@ -51,8 +47,7 @@ const bookMarkSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.bookmarks = action.payload;
-        console.log("agfj bookmarks added");
+        state.bookmarksData = action.payload;
       })
       .addCase(addBookmarksAction.rejected, (state, action) => {
         state.isLoading = false;
@@ -64,6 +59,5 @@ const bookMarkSlice = createSlice({
 });
  
 
-
-export const {refreshState} = bookMarkSlice.actions;
+export const { resetIsSuccess } = bookMarkSlice.actions;
 export default bookMarkSlice.reducer;

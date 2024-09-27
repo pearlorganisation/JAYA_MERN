@@ -46,10 +46,11 @@ export const addSchemeToBookmark = createAsyncThunk(
 
 export const removeFromBookmark = createAsyncThunk(
   "removeScheme/put",
-  async (thunkAPI) => {
+  async (payload,thunkAPI) => {
     try {
       const { data } = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/removeScheme`
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/bookmarks/removeScheme`,
+        payload
       );
 
       return data;
@@ -77,15 +78,15 @@ export const createScheme = createAsyncThunk(
 
 export const updateScheme = createAsyncThunk(
   "schemes/put",
-  async (id, thunkAPI) => {
+  async ({id,data}, {rejectWithValue}) => {
     try {
       const { data } = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`
+        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`,data
       );
 
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );

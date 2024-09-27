@@ -5,21 +5,19 @@ import { IoClose } from "react-icons/io5";
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSchemes } from '../../../../features/actions/schemesAction';
+import { getScheme } from '../../../../features/actions/schemesAction';
 
-const Editscheme = () => {
+const AddScheme = () => {
     const editorRef = useRef('');
     const{id} = useParams()
     const{scheme}=useSelector(state=>state.schemes)
-    
     const dispatch= useDispatch()
-    console.log("schemn data",scheme)
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
-            title: scheme.data.miniTitle,
-            department: scheme.data.title,
-            benefits: [{ benefit: scheme.data.tags }],
-            editorContent: scheme.data.schemeBody,
+            title: '',
+            department: '',
+            benefits: [{ benefit: '' }],
+            editorContent: '',
         },
     });
 
@@ -50,23 +48,17 @@ const Editscheme = () => {
 
     useEffect(() => {
       if(id){
-        dispatch(getSchemes(id))
+        dispatch(getScheme(id))
       }
 
   
     }, [id])
     
-    useEffect(() => {
-    console.log("schemn data",scheme)
-    
-    
-    }, [])
-    
 
     return (
         <div className='container mx-auto flex flex-col justify-between p-10'>
             <h1 className='text-center font-bold text-2xl text-white rounded-md bg-green-300'>
-                Edit Scheme
+              Add Scheme
             </h1>
             <form onSubmit={handleSubmit(onSubmit)} className="h-[70vh] p-5">
                 <div className="mb-5">
@@ -149,4 +141,4 @@ const Editscheme = () => {
     );
 };
 
-export default Editscheme;
+export default AddScheme;

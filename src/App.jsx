@@ -24,6 +24,7 @@ import CreateScheme from "./admin/pages/Scheme/CreateScheme/CreateScheme";
 import { useSelector } from "react-redux";
 import Document from "./admin/pages/documents/Document";
 import User from "./admin/pages/user.jsx/user";
+import AddScheme from "./admin/pages/Scheme/AddScheme/AddScheme";
 
 function App() {
   const { isUserLoggedIn } = useSelector((state) => state.auth);
@@ -99,7 +100,7 @@ function App() {
           element: <CreateScheme />,
         },
         {
-          path: "editScheme",
+          path: "editScheme/:id",
           element: <Editscheme />,
         },
         {
@@ -111,6 +112,11 @@ function App() {
           path: "users",
           element: <User/>,
         },
+
+        {
+          path:"addscheme",
+          element:<AddScheme/>
+        }
       ],
     },
   ]);

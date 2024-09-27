@@ -10,33 +10,25 @@ const ProfilePage = () => {
   const [documentSwitch, setDocumentSwitch] = useState(0);
 
   const schemeState = useSelector((state) => state.schemes.schemes.data);
-
-  // console.log(schemeState, "asdasdxcv");
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.auth);
-  const { bookmarks } = useSelector((state) => state.bookmarks);
+  const { bookmarksData } = useSelector((state) => state.bookmarks);
   const [schemeMap, setSchemeMap] = useState(new Map());
-  // console.log("bookmarks", bookmarks);
 
   useEffect(() => {
     let map = new Map();
     schemeState?.forEach((element) => {
       map.set(element._id, element);
     });
-
-    console.log("fgdsajfsdmap", map);
     setSchemeMap(map);
   }, [schemeState]);
 
   useEffect(() => {
-    console.log("schmeamp", schemeMap);
-  }, [schemeMap]);
-
-  useEffect(() => {
-    dispatch(getBookmarksAction(userData.user._id));
-    dispatch(getProfile(userData.user.email));
-    console.log("sdfgsdfg", userData.user.email);
+    dispatch(getBookmarksAction(userData?.user?._id));
   }, []);
+
+
+  
 
   return (
     <div className="lg:py-12 lg:px-20">
@@ -74,13 +66,13 @@ const ProfilePage = () => {
           <div>
             {documentSwitch === 0 ? (
               <div className="flex flex-col py-4 gap-5">
-                {bookmarks.bookmarks &&
-                  bookmarks.bookmarks.map((el, index) => (
-                    // <ProfileSavedCard data={el} key={index} />
+                {bookmarksData &&
+                  schemeMap &&
+                  bookmarksData.map((el, index) => (
                     <SchemeCard
                       key={index}
-                      scheme={schemeMap.get(el._id)}
-                      isBookmarked={true}
+                      scheme={el}
+                      map={schemeMap}
                     />
                   ))}
               </div>

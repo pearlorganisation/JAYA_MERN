@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
+    "dompurify": "^3.1.7",
     "formik": "^2.4.6",
     "jodit-react": "^4.1.2",
     "moment": "^2.30.1",

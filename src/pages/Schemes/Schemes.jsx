@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getSchemes } from "../../features/actions/schemesAction";
 import SchemeCard from "./SchemeCard";
 import { getBookmarksAction } from "../../features/actions/bookMarkAction";
+import { resetIsSuccess } from "../../features/slices/bookMarkSlice";
 
 const Schemes = () => {
   const dispatch = useDispatch();
@@ -11,38 +12,33 @@ const Schemes = () => {
   const schemeState = useSelector((state) => state.schemes.schemes.data);
 
   const { userData } = useSelector((state) => state.auth);
-  const { bookmarks ,isSuccess,isLoading } = useSelector((state) => state.bookmarks);
+  const { bookmarksData, isSuccess } = useSelector((state) => state.bookmarks);
   const [bookmarkMap, setBookmarkMap] = useState(new Map());
 
-  console.log("Bookmarks", bookmarks);
+  console.log("Bookmarks", bookmarksData);
 
   useEffect(() => {
     if (userData?.user?._id) {
-      dispatch(getBookmarksAction(userData.user._id));
+      dispatch(getBookmarksAction(userData?.user?._id));
     }
   }, []);
 
   useEffect(() => {
-    // Populate the map whenever bookmarks change
-    const newMap = new Map();
-    bookmarks?.bookmarks?.forEach((element) =>
-      newMap.set(element._id, element)
-    );
-    setBookmarkMap(newMap);
-  }, []);
+    if (isSuccess) {
+      dispatch(resetIsSuccess(false));
+    }
+  }, [isSuccess]);
 
   useEffect(() => {
-    fetchSchemes();
-  }, []);
-  
+    // Populate the map whenever bookmarks change
+    const newMap = new Map();
+    bookmarksData?.forEach((element) => newMap.set(element._id, element));
+    setBookmarkMap(newMap);
+  }, [bookmarksData]);
 
-
-
-
-
-  const fetchSchemes = () => {
+  useEffect(() => {
     dispatch(getSchemes());
-  };
+  }, []);
 
   return (
     <div>
@@ -89,7 +85,6 @@ const Schemes = () => {
           {Array.isArray(schemeState) && bookmarkMap &&  schemeState.length > 0
             ? schemeState.map((scheme) => (
                 <SchemeCard
-                 
                   map={bookmarkMap}
                   scheme={scheme}
                   key={scheme._id}

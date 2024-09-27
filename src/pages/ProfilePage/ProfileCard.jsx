@@ -77,3 +77,8 @@ const ProfileCard = () => {
 };
 
 export default ProfileCard;
+
+// <div>
+//         <button onClick={() => setShowModal(true)}>Open Modal</button>
+//         {showModal && <Modal />}
+//       </div>

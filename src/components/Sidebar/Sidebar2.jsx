@@ -150,7 +150,7 @@ const Sidebar2 = () => {
                     </svg>
                   </div>
                   <Link
-                    to={"/profile"}
+                    to={"profile"}
                     className="flex w-full flex-1 text-[#419A62]  flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm"
                   >
                     Profile
