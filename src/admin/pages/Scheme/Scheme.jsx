@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../documents/modal'; 
-import { getSchemes } from '../../../features/actions/schemesAction';
+import { deleteScheme, getSchemes } from '../../../features/actions/schemesAction';
 import { Link } from 'react-router-dom';
+import { clearSuccessData } from '../../../features/slices/schemesSlice';
 const Scheme= () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -11,11 +12,14 @@ const Scheme= () => {
 const [scheme, setScheme] = useState(null)
 
 const {schemes}= useSelector(state=>state.schemes)
+console.log("first",schemes.data._id)
 const dispatch = useDispatch()
 
 useEffect(() => {
- dispatch(getSchemes())
 
+
+ dispatch(getSchemes())
+dispatch(clearSuccessData())
 }, [])
 useEffect(() => {
 console.log("schemes",schemes) 
@@ -72,7 +76,8 @@ console.log("schemes",schemes)
               {
                 item?.tags?.map(ite =>{
                   return <button className="bg-[#48DE80] text-[#ffffff] rounded-md px-4 py-2">
-                  {ite}
+                  {!ite?.benefit ? ite : ite.benefit}
+                
                 </button>
                 })
               }
@@ -99,12 +104,14 @@ console.log("schemes",schemes)
                 >
                   Edit
                 </Link>
-                <Link
+                <button
                   className="text-red-500 rounded-md bg-red-600/30 px-3 py-2 hover:text-red-600"
-                to="/admin/deleteScheme"
+             onClick={()=>{
+              dispatch(deleteScheme(item._id) )
+             }}
                 >
                   Delete
-                </Link>
+                </button>
               </div>
             </td>
           </tr>

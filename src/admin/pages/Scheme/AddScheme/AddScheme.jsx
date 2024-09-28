@@ -5,31 +5,43 @@ import { IoClose } from "react-icons/io5";
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getScheme } from '../../../../features/actions/schemesAction';
-
+import { createScheme, getScheme } from '../../../../features/actions/schemesAction';
+import { useNavigate } from 'react-router-dom';
 const AddScheme = () => {
     const editorRef = useRef('');
     const{id} = useParams()
-    const{scheme}=useSelector(state=>state.schemes)
+    const navigate=useNavigate()
+const {userData,}=useSelector(state=>state.auth)
+const {status}=useSelector(state=>state.schemes.scheme)
+
+
     const dispatch= useDispatch()
-    const { register, handleSubmit, control, formState: { errors } } = useForm({
-        defaultValues: {
-            title: '',
-            department: '',
-            benefits: [{ benefit: '' }],
-            editorContent: '',
-        },
-    });
+    const { register, handleSubmit, control, formState: { errors } } = useForm( );
 
     const { fields, append, remove } = useFieldArray({
         control,
         name: "benefits"
-    });
+    }); 
 
     const onSubmit = data => {
         console.log('Form Data:', data);
+        data['postedBy'] = userData?.user?._id;
+        data['tags']=data.benefits
         // Add your submission logic here
+        dispatch(createScheme(data)).then(
+            (res)=>{
+if(res?.payload?.status){
+    navigate('/admin/schemes')
+}
+            }
+        )
     };
+
+    // useEffect(()=>{
+    //     if(status){
+    //             navigate('/admin/schemes')
+    //         }
+    // },[status])
 
     // Jodit configuration
     const config = {
@@ -46,13 +58,15 @@ const AddScheme = () => {
         ],
     };
 
-    useEffect(() => {
-      if(id){
-        dispatch(getScheme(id))
-      }
+    // useEffect(() => {
+    //   if(id){
+    //     dispatch(getScheme(id))
+    //   }
 
   
-    }, [id])
+    // }, [id])
+
+        
     
 
     return (
@@ -74,15 +88,15 @@ const AddScheme = () => {
                 </div>
 
                 <div className="mb-5">
-                    <label htmlFor="department" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department Name</label>
+                    <label htmlFor="miniTitle" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department Name</label>
                     <input
                         type="text"
-                        id="department"
-                        {...register('department', { required: 'Department is required' })}
-                        className={`shadow-sm bg-gray-50 border ${errors.department ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
+                        id="miniTitle"
+                        {...register('miniTitle', { required: 'miniTitle is required' })}
+                        className={`shadow-sm bg-gray-50 border ${errors.miniTitle ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                         placeholder="Department Name"
                     />
-                    {errors.department && <p className="text-red-500 text-sm mt-1">{errors.department.message}</p>}
+                    {errors.miniTitle && <p className="text-red-500 text-sm mt-1">{errors.miniTitle.message}</p>}
                 </div>
 
                 <div className="mb-5">
@@ -107,7 +121,7 @@ const AddScheme = () => {
                                         size={24}
                                     />
                                 }
-                                {errors.benefits?.[index]?.benefit && <p className="text-red-500 text-sm mt-1">{errors.benefits[index].benefit.message}</p>}
+                                {errors.benefits?.[index]?.benefit && <p className="text-red-500 text-sm mt-1">{errors.benefits[index].benefits.message}</p>}
                             </div>
                         ))}
                     </div>
@@ -116,7 +130,7 @@ const AddScheme = () => {
                 <div className="mb-5">
                     <Controller
                         control={control}
-                        name="editorContent"
+                        name="schemeBody"
                         rules={{ required: 'Content is required' }}
                         render={({ field }) => (
                             <JoditEditor
@@ -127,7 +141,7 @@ const AddScheme = () => {
                             />
                         )}
                     />
-                    {errors.editorContent && <p className="text-red-500 text-sm mt-1">{errors.editorContent.message}</p>}
+                    {errors.schemeBody && <p className="text-red-500 text-sm mt-1">{errors.schemeBody.message}</p>}
                 </div>
 
                 <button

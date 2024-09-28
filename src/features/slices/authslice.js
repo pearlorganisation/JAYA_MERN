@@ -52,6 +52,7 @@ const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false;
+
         toast.success("Successful Created!!", { position: "top-center" });
         state.userData = action.payload;
       })

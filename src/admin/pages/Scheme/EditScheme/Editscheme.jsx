@@ -3,23 +3,23 @@ import JoditEditor from 'jodit-react';
 import { IoIosAdd } from 'react-icons/io';
 import { IoClose } from "react-icons/io5";
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSchemes } from '../../../../features/actions/schemesAction';
+import { getScheme, updateScheme } from '../../../../features/actions/schemesAction';
 
 const Editscheme = () => {
     const editorRef = useRef('');
     const{id} = useParams()
-    const{scheme}=useSelector(state=>state.schemes)
-    
+    const{scheme,isUpdated,isLoading}=useSelector(state=>state.schemes)
+    const navigate = useNavigate()
+
     const dispatch= useDispatch()
-    console.log("schemn data",scheme)
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
-            title: scheme.data.miniTitle,
-            department: scheme.data.title,
-            benefits: [{ benefit: scheme.data.tags }],
-            editorContent: scheme.data.schemeBody,
+            title: scheme?.data?.title,
+            department: scheme?.data?.miniTitle,
+            benefits: [{ benefit: scheme?.data?.tags }],
+            editorContent: scheme?.data?.schemeBody,
         },
     });
 
@@ -29,8 +29,11 @@ const Editscheme = () => {
     });
 
     const onSubmit = data => {
-        console.log('Form Data:', data);
-        // Add your submission logic here
+        console.log('Form Data:', data,id);
+        
+
+        dispatch(updateScheme({data,id}))
+        
     };
 
     // Jodit configuration
@@ -50,17 +53,19 @@ const Editscheme = () => {
 
     useEffect(() => {
       if(id){
-        dispatch(getSchemes(id))
+        dispatch(getScheme(id))
       }
 
   
     }, [id])
     
     useEffect(() => {
-    console.log("schemn data",scheme)
+    if(isUpdated){
+navigate('/admin/schemes')
+    }
     
     
-    }, [])
+    }, [isUpdated])
     
 
     return (
@@ -138,12 +143,20 @@ const Editscheme = () => {
                     {errors.editorContent && <p className="text-red-500 text-sm mt-1">{errors.editorContent.message}</p>}
                 </div>
 
-                <button
+                {
+                    isLoading ? <button
+                    disabled={isLoading}
+                    type="button"
+                    className="mt-5 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+                >
+                  Loading...
+                </button> : <button
                     type="submit"
                     className="mt-5 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
                 >
                     Save Scheme
                 </button>
+                }
             </form>
         </div>
     );
