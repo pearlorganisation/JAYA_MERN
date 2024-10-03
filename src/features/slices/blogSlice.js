@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBlogs, getSingleBlog } from "../actions/blogAction";
+import {
+  createBlogs,
+  getBlogs,
+  getSingleBlog,
+  updateBlog,
+} from "../actions/blogAction";
 
 const intialState = {
   blogs: [],
@@ -41,6 +46,40 @@ const blogSlice = createSlice({
         state.singleBlog = action.payload;
       })
       .addCase(getSingleBlog.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(updateBlog.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateBlog.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.isUpdated = true;
+        state.singleBlog = action.payload;
+      })
+      .addCase(updateBlog.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      //create BLOgs
+      .addCase(createBlogs.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createBlogs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.isUpdated = true;
+        state.singleBlog = action.payload;
+      })
+      .addCase(createBlogs.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
