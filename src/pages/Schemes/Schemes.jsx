@@ -19,8 +19,6 @@ const Schemes = () => {
     if (isSuccess) dispatch(getBookmarksAction(userData?.user?._id));
   }, [isSuccess]);
 
-  console.log("scvhemshfsjkhfksdjsadfsdfhjsdhfsd");
-
   const bookmarkMap = useMemo(() => {
     const newMap = new Map();
     if (bookmarksData && bookmarksData.length > 0) {

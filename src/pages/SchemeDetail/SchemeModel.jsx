@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const SchemeModal = ({ isOpen, onClose }) => {
   const [isResident, setIsResident] = useState();
@@ -7,9 +8,24 @@ const SchemeModal = ({ isOpen, onClose }) => {
 
   const [isBPL, setIsBPL] = useState();
 
-  const handleReset = () => {
-    setIsResident(null);
+  const { register, handleSubmit } = useForm();
+
+  const handleSubmission = (data) => {
+    console.log(data);
   };
+
+  // const [userdata, setUserdata] = useState({
+  //   isResident: null,
+  //   isDifferentlyAbled: null,
+  //   moreDisability: null,
+  //   isBPL: null,
+  // });
+
+  // const [resultModal, setResultModal] = useState();
+
+  // const handleSubmission = ()=> {
+  //   if()
+  // }
 
   return (
     <div
@@ -31,7 +47,7 @@ const SchemeModal = ({ isOpen, onClose }) => {
           </button>
 
           <div className="flex justify-center items-center gap-10 container mx-auto">
-            <div>
+            <form>
               <h1 className="text-start text-[#070707] text-xl mb-5 font-poppins font-[600]">
                 Check Eligibility
               </h1>
@@ -97,7 +113,7 @@ const SchemeModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              {isDifferentlyAbled && (
+              {isDifferentlyAbled && isResident && (
                 <div>
                   <p className="text-black mt-4">
                     Do you have 40% or more disability?*
@@ -125,7 +141,7 @@ const SchemeModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              {moreDisability && (
+              {moreDisability && isDifferentlyAbled && isResident && (
                 <div>
                   <p className="text-black mt-4">
                     Do you belong to the Above Poverty Line (APL) or Below
@@ -154,18 +170,34 @@ const SchemeModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
+              <input
+                {...register("Developer", { required: true })}
+                type="radio"
+                value="Yes"
+              />
+              <input
+                {...register("Developer", { required: true })}
+                type="radio"
+                value="No"
+              />
+
               <div className="flex flex-row gap-6 mt-8">
-                <button className="px-4 py-2 bg-[#419A62] rounded-md text-white">
-                  {" "}
-                  Submit{" "}
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#419A62] rounded-md text-white"
+                  onSubmit={handleSubmit(handleSubmission)}
+                >
+                  Submit
                 </button>
 
-                <button className="px-4 py-2 border border-black rounded-md">
-                  {" "}
-                  Reset{" "}
+                <button
+                  className="px-4 py-2 border border-black rounded-md"
+                  onClick={() => setIsResident(false)}
+                >
+                  Reset
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

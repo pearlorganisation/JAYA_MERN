@@ -622,7 +622,7 @@ const NewChatBotForm = () => {
               )}
             </form>
           </div>
-          <p> {userdata}</p>
+          {/*   <p> {userdata}</p>  */}
         </div>
       </div>
     </div>

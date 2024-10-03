@@ -100,13 +100,13 @@ const memoizedComponent = memo(function ({ scheme, map }) {
                     key={tag}
                     className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-3 py-1 rounded-md"
                   >
-                    {tag?.benefit}
+                    {tag}
                   </span>
                 );
               })}
             </div>
             <div className="flex items-center justify-center text-[#419A62]  lg:w-fit w-[90%] hover:bg-[#419A62] hover:text-white border-2 border-green-100 rounded-md">
-              <Link to="/schemeDetail">
+              <Link to="">
                 <button className=" text-center min-w-full  font-semibold  px-6 py-2 rounded-md">
                   Check Eligibility
                 </button>

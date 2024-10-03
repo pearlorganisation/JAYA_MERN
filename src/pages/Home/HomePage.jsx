@@ -160,7 +160,7 @@ const HomePage = () => {
           assistance to farmers).
         </p>
         <div className="space-y-5">
-          {blogs.slice(0, 2).map((blog) => {
+          {blogs.slice(0, 2)?.map((blog) => {
             return (
               <Link key={blog._id} to={`/blogs/${blog._id}`}>
                 <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-6">
