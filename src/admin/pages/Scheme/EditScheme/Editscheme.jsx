@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef,useState } from 'react';
 import JoditEditor from 'jodit-react';
 import { IoIosAdd } from 'react-icons/io';
 import { IoClose } from "react-icons/io5";
@@ -11,22 +11,39 @@ const Editscheme = () => {
     const editorRef = useRef('');
     const{id} = useParams()
     const{scheme,isUpdated,isLoading}=useSelector(state=>state.schemes)
+    
     const navigate = useNavigate()
+    useEffect(() => {
+      console.log("schikjkijkeme1",scheme)
+    
+
+    }, [scheme])
+    
 
     const dispatch= useDispatch()
-    const { register, handleSubmit, control, formState: { errors } } = useForm({
+    const { register, handleSubmit, control,reset, formState: { errors } } = useForm({
         defaultValues: {
-            title: scheme?.data?.title,
-            department: scheme?.data?.miniTitle,
-            benefits: [{ benefit: scheme?.data?.tags }],
-            editorContent: scheme?.data?.schemeBody,
+            title: '',
+            department: '',
+            tags: [],
+            editorContent: '',
         },
     });
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "benefits"
+        name: "tags"
     });
+     useEffect(() => {
+    if (scheme?.data) {
+      reset({
+        title: scheme.data.title || '',
+        department: scheme.data.miniTitle || '',
+        tags: scheme.data.tags ? scheme.data.tags.map(tag => (tag )) : [],
+        editorContent: scheme.data.schemeBody || '',
+      });
+    }
+  }, [scheme, reset]);
 
     const onSubmit = data => {
         console.log('Form Data:', data,id);
@@ -97,11 +114,11 @@ navigate('/admin/schemes')
                     />
                     {errors.department && <p className="text-red-500 text-sm mt-1">{errors.department.message}</p>}
                 </div>
-
                 <div className="mb-5">
                     <div className='flex flex-col gap-2 mb-2 text-sm font-medium text-gray-900'>
-                        <p className='flex justify-start items-center'>Benefits
-                            <button type='button' onClick={() => append({ benefit: '' })}>
+                        <p className='flex justify-start items-center'>
+                            Benefits
+                            <button type='button' onClick={() => append("")} className="ml-2">
                                 <IoIosAdd className='text-black hover:text-red-500' size={24} />
                             </button>
                         </p>
@@ -109,18 +126,22 @@ navigate('/admin/schemes')
                         {fields.map((item, index) => (
                             <div key={item.id} className="flex items-center mb-2">
                                 <input
-                                    {...register(`benefits.${index}.benefit`, { required: 'Benefit is required' })}
-                                    className={`shadow-sm bg-gray-50 border ${errors.benefits?.[index]?.benefit ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
+                                    {...register(`tags.${index}`, { required: 'Benefit is required' })}
+                                    className={`shadow-sm bg-gray-50 border ${
+                                        errors.tags?.[index]? 'border-red-500' : 'border-gray-300'
+                                    } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                                     placeholder="Benefit"
                                 />
-                                {
-                                    fields.length > 1 && <IoClose
+                                {fields.length > 1 && (
+                                    <IoClose
                                         className='text-red-500 ml-2 cursor-pointer'
                                         onClick={() => remove(index)}
                                         size={24}
                                     />
-                                }
-                                {errors.benefits?.[index]?.benefit && <p className="text-red-500 text-sm mt-1">{errors.benefits[index].benefit.message}</p>}
+                                )}
+                                {errors.tags?.[index] && (
+                                    <p className="text-red-500 text-sm mt-1">{errors.tags[index].message}</p>
+                                )}  
                             </div>
                         ))}
                     </div>

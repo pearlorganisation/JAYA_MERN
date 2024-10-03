@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EligibilityModal from "./Eligibility/EligibilityModal";
 
 const SchemeModal = ({ isOpen, onClose }) => {
   const [isResident, setIsResident] = useState();
@@ -6,7 +7,13 @@ const SchemeModal = ({ isOpen, onClose }) => {
   const [moreDisability, setIsMoreDisability] = useState();
 
   const [isBPL, setIsBPL] = useState();
-
+const [isModalOpen,setIsModalOpen]=useState(false);
+const openModal=()=>{
+  setIsModalOpen(true)
+}
+const closeModal =()=>{
+  setIsModalOpen(false)
+}
   const handleReset = () => {
     setIsResident(null);
   };
@@ -18,17 +25,17 @@ const SchemeModal = ({ isOpen, onClose }) => {
       } `}
       onClick={onClose}
     >
-      <div className="bg-white lg:w-[50%]" onClick={(e) => e.stopPropagation()}>
-        <div className="bg-white/95 p-4 rounded-lg shadow-lg w-full h-screen relative pl-20">
+      <div className="bg-white relative  lg:w-[50%]" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-white/95 p-6 rounded-lg shadow-lg w-full h-screen relative ">
           <button
-            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl"
+            className="absolute top-3 right-3 hover:text-gray-700 text-3xl text-red-500"
             onClick={onClose}
           >
             &times;
           </button>
 
-          <div className="flex justify-center items-center gap-10 container mx-auto">
-            <div>
+          <div className="flex justify-center h-full items-center gap-10 container mx-auto">
+            <div className="h-full">
               <h1 className="text-start text-[#070707] text-xl mb-5 font-poppins font-[600]">
                 Check Eligibility
               </h1>
@@ -42,7 +49,9 @@ const SchemeModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
               </div>
-              <p className="text-black mt-4">
+
+             <div className="relative h-full">
+             <p className="text-black mt-4">
                 Are you a resident of Kerala State?*
               </p>
               <div className="flex items-center space-x-4 mt-4">
@@ -152,19 +161,28 @@ const SchemeModal = ({ isOpen, onClose }) => {
               )}
 
               <div className="flex flex-row gap-6 mt-8">
-                <button className="px-4 py-2 bg-[#419A62] rounded-md text-white">
-                  {" "}
-                  Submit{" "}
+                <button className="px-4 py-2 bg-[#419A62] rounded-md text-white"    onClick={(e) => {
+                      e.preventDefault();
+                      openModal();
+                      console.log("onclick");
+                    }}>
+                Submit
                 </button>
 
                 <button className="px-4 py-2 border border-black rounded-md">
-                  {" "}
-                  Reset{" "}
+                
+                  Reset
                 </button>
               </div>
+
+
+             { isModalOpen && <EligibilityModal isOpen={isModalOpen}  onClose={closeModal}  />}
+             </div>
+
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   );

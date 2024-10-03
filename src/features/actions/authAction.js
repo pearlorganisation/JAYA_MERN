@@ -81,3 +81,20 @@ export const getProfile = createAsyncThunk(
     }
   }
 );
+
+//get all userData
+
+export const getAllUserData = createAsyncThunk(
+  "auth/getAllUserData",
+  async (_, { rejectWithValue }) => {
+    try {
+ 
+      const { data } = await instance.get("/auth/users");
+      console.log(data, "userdata");
+      return data.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+

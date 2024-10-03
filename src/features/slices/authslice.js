@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  getAllUserData,
   getProfile,
   logout,
   signIn,
@@ -13,6 +14,7 @@ const initialState = {
   isLoading: false,
   isUserLoggedIn: false,
   userData: null,
+  users:[],
   error: "",
   isSuccess: false,
   isError: false,
@@ -89,8 +91,23 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.profile = action.payload;
-      });
+      })
 
+      .addCase(getAllUserData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllUserData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      .addCase(getAllUserData.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.users = action.payload;
+      });
     builder.addCase(PURGE, () => {
       return initialState;
     });

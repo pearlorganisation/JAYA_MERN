@@ -23,8 +23,14 @@ import Editscheme from "./admin/pages/Scheme/EditScheme/Editscheme";
 import CreateScheme from "./admin/pages/Scheme/CreateScheme/CreateScheme";
 import { useSelector } from "react-redux";
 import Document from "./admin/pages/documents/Document";
-import User from "./admin/pages/user.jsx/user";
+import User from "./admin/pages/user/user";
 import AddScheme from "./admin/pages/Scheme/AddScheme/AddScheme";
+
+import AddBlog from "./admin/pages/Blogs/AddBlog/AddBlog";
+import EditBlog from "./admin/pages/Blogs/EditBlog/EditBlog";
+import Blog from "./admin/pages/Blogs/Blog";
+
+
 
 function App() {
   const { isUserLoggedIn } = useSelector((state) => state.auth);
@@ -116,6 +122,19 @@ function App() {
         {
           path:"addscheme",
           element:<AddScheme/>
+        },        
+        {
+          path:"blog",
+          element:<Blog/>
+        },
+        {
+          path:"addblog",
+          element:<AddBlog/>
+        },
+        {
+          path:"editblog/:id",
+          element:<EditBlog/>
+
         }
       ],
     },

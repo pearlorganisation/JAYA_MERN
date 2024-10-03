@@ -7,43 +7,43 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createScheme, getScheme } from '../../../../features/actions/schemesAction';
 import { useNavigate } from 'react-router-dom';
+
 const AddScheme = () => {
-    const editorRef = useRef('');
-    const{id} = useParams()
-    const navigate=useNavigate()
-const {userData,}=useSelector(state=>state.auth)
-const {status}=useSelector(state=>state.schemes.scheme)
+    const editorRef = useRef(null);
+    const { id } = useParams();
+    const navigate = useNavigate();
+ 
+  const { userData,isLoading } = useSelector(state => state.auth);
 
-
-    const dispatch= useDispatch()
-    const { register, handleSubmit, control, formState: { errors } } = useForm( );
+    const dispatch = useDispatch();
+    const { register, handleSubmit, control, formState: { errors } } = useForm({
+        defaultValues: {
+            title: '',
+            miniTitle: '',
+            tags: [], 
+            schemeBody: '',
+        },
+    });
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "benefits"
-    }); 
+        name: "tags",
+    });
 
     const onSubmit = data => {
         console.log('Form Data:', data);
         data['postedBy'] = userData?.user?._id;
-        data['tags']=data.benefits
-        // Add your submission logic here
-        dispatch(createScheme(data)).then(
-            (res)=>{
-if(res?.payload?.status){
-    navigate('/admin/schemes')
-}
+        // data['tags'] = data.benefits.map(item => item.benefit); 
+   
+        dispatch(createScheme(data)).then(res => {
+            console.log("page",res)
+            if (res?.payload?.status) {
+                navigate('/admin/schemes');
             }
-        )
+        });
     };
 
-    // useEffect(()=>{
-    //     if(status){
-    //             navigate('/admin/schemes')
-    //         }
-    // },[status])
 
-    // Jodit configuration
     const config = {
         readonly: false,
         height: 400,
@@ -58,23 +58,17 @@ if(res?.payload?.status){
         ],
     };
 
-    // useEffect(() => {
-    //   if(id){
-    //     dispatch(getScheme(id))
-    //   }
-
+   
+ 
   
-    // }, [id])
-
-        
-    
 
     return (
         <div className='container mx-auto flex flex-col justify-between p-10'>
             <h1 className='text-center font-bold text-2xl text-white rounded-md bg-green-300'>
-              Add Scheme
+                Add Scheme
             </h1>
             <form onSubmit={handleSubmit(onSubmit)} className="h-[70vh] p-5">
+              
                 <div className="mb-5">
                     <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scheme Title</label>
                     <input
@@ -92,17 +86,19 @@ if(res?.payload?.status){
                     <input
                         type="text"
                         id="miniTitle"
-                        {...register('miniTitle', { required: 'miniTitle is required' })}
+                        {...register('miniTitle', { required: 'Department Name is required' })}
                         className={`shadow-sm bg-gray-50 border ${errors.miniTitle ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                         placeholder="Department Name"
                     />
                     {errors.miniTitle && <p className="text-red-500 text-sm mt-1">{errors.miniTitle.message}</p>}
                 </div>
 
+    
                 <div className="mb-5">
                     <div className='flex flex-col gap-2 mb-2 text-sm font-medium text-gray-900'>
-                        <p className='flex justify-start items-center'>Benefits
-                            <button type='button' onClick={() => append({ benefit: '' })}>
+                        <p className='flex justify-start items-center'>
+                            Benefits
+                            <button type='button' onClick={() => append("")} className="ml-2">
                                 <IoIosAdd className='text-black hover:text-red-500' size={24} />
                             </button>
                         </p>
@@ -110,23 +106,28 @@ if(res?.payload?.status){
                         {fields.map((item, index) => (
                             <div key={item.id} className="flex items-center mb-2">
                                 <input
-                                    {...register(`benefits.${index}.benefit`, { required: 'Benefit is required' })}
-                                    className={`shadow-sm bg-gray-50 border ${errors.benefits?.[index]?.benefit ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
+                                    {...register(`tags.${index}`, { required: 'Benefit is required' })}
+                                    className={`shadow-sm bg-gray-50 border ${
+                                        errors.tags?.[index]? 'border-red-500' : 'border-gray-300'
+                                    } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                                     placeholder="Benefit"
                                 />
-                                {
-                                    fields.length > 1 && <IoClose
+                                {fields.length > 1 && (
+                                    <IoClose
                                         className='text-red-500 ml-2 cursor-pointer'
                                         onClick={() => remove(index)}
                                         size={24}
                                     />
-                                }
-                                {errors.benefits?.[index]?.benefit && <p className="text-red-500 text-sm mt-1">{errors.benefits[index].benefits.message}</p>}
+                                )}
+                                {errors.tags?.[index] && (
+                                    <p className="text-red-500 text-sm mt-1">{errors.tags[index].message}</p>
+                                )}  
                             </div>
                         ))}
                     </div>
                 </div>
 
+              
                 <div className="mb-5">
                     <Controller
                         control={control}
@@ -134,22 +135,32 @@ if(res?.payload?.status){
                         rules={{ required: 'Content is required' }}
                         render={({ field }) => (
                             <JoditEditor
+                                ref={editorRef}
                                 value={field.value}
                                 config={config}
                                 onBlur={field.onBlur}
-                                onChange={field.onChange}
+                                onChange={(content) => field.onChange(content)}
                             />
                         )}
                     />
-                    {errors.schemeBody && <p className="text-red-500 text-sm mt-1">{errors.schemeBody.message}</p>}
+                    {errors.schemeBody && (
+                        <p className="text-red-500 text-sm mt-1">{errors.schemeBody.message}</p>
+                    )}
                 </div>
-
+{isLoading? <>
+                <button
+                    type="submit"
+                    className="mt-5 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+                >
+                   .....loading
+                </button></>:<>
                 <button
                     type="submit"
                     className="mt-5 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
                 >
                     Save Scheme
-                </button>
+                </button></>}
+           
             </form>
         </div>
     );
