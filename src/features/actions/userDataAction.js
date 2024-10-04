@@ -15,7 +15,7 @@ export const createUserdata = createAsyncThunk(
     }
   }
 );
-
+//userData route
 export const getUserdata = createAsyncThunk(
   "userData/get",
   async ({ rejectWithValue }) => {
