@@ -19,7 +19,7 @@ const EditProfileModal = ({ isOpen, onClose, userData }) => {
 
   function handleSubmittion(data) {
     const formData = new FormData();
-    formData.append("userName", data.userName);
+    formData.append("username", data.userName);
     formData.append("phoneNumber", data.phoneNumber);
     formData.append("profile", imageRef.current);
     formData.append("password", data.password);

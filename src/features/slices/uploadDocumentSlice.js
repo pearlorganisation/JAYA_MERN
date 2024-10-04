@@ -10,6 +10,7 @@ import {
 const initialState = {
   isLoading: false,
   documentData: null,
+  singleDocument: null,
   error: "",
 };
 const uploadDocumentSlice = createSlice({
@@ -25,7 +26,7 @@ const uploadDocumentSlice = createSlice({
       .addCase(uploadDocument.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isUserLoggedIn = true;
-        state.documentData = action.payload;
+        state.singleDocument = action.payload;
         toast.success("Uploaded Successful!!", { position: "top-center" });
       })
       .addCase(uploadDocument.rejected, (state, action) => {

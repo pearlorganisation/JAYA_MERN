@@ -75,7 +75,7 @@ const Scheme = () => {
                   className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300"
                 >
                   <td className="px-6 py-4 text-sm font-medium max-w-xs">
-                    <p className="truncate text-gray-900">{item.title}</p>
+                    <p className="truncate text-gray-900">{item?.title}</p>
                   </td>
                   <td className="px-6 py-4 space-x-2 whitespace-nowrap text-sm text-gray-500">
                     {item?.tags?.map((tag, index) => (

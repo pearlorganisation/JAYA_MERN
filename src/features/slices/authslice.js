@@ -86,7 +86,7 @@ const authSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.profile = action.payload;
+        state.userData = { user: action.payload?.updatedProfile };
       });
 
     builder.addCase(PURGE, () => {

@@ -38,7 +38,7 @@ const SchemeDetail = () => {
           <div className=" px-6">
             <div className="flex flex-col lg:flex-row justify-between items-start mb-4">
               <p className="text-[#393939] text-base font-light order-2 lg:order-1 mt-3 lg:mt-0">
-                {scheme.data.miniTitle}
+                {scheme?.data?.miniTitle}
               </p>
               <div className="flex space-x-4 order-1">
                 <div className="p-[2px] border border-[#B6D8C2] group hover:bg-[#419A62] rounded-full">
@@ -78,12 +78,12 @@ const SchemeDetail = () => {
               </div>
             </div>
             <h2 className="text-[#107536] text-[32px] font-semibold mb-4">
-              {scheme.data.title}
+              {scheme?.data?.title}
             </h2>
 
             <div className="flex flex-col lg:flex-row  lg:justify-between items-center">
               <div className="flex flex-wrap  justify-start gap-2 mb-4 lg:w-[80%]">
-                {scheme.data.tags.map((tag, index) => (
+                {scheme?.data?.tags?.map((tag, index) => (
                   <span
                     key={index}
                     className="border-green-100 border-2 text-[#419A62] text-xs font-medium px-1 py-1 rounded-md"
@@ -111,7 +111,7 @@ const SchemeDetail = () => {
 
           <div className="text-gray-700 lg:px-6">
             {" "}
-            {parse(scheme.data.schemeBody)}
+            {scheme?.data?.schemeBody && parse(scheme?.data?.schemeBody)}{" "}
           </div>
 
           <div className="flex items-center justify-center ">

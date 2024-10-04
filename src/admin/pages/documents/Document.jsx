@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import Modal from '../documents/modal'; 
+import React, { useState } from "react";
+import Modal from "../documents/modal";
 const Document = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  
 
   return (
     <div>
@@ -86,14 +84,12 @@ const Document = () => {
               </div>
             </td>
           </tr>
-       
         </tbody>
       </table>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-0 z-50">
-          <Modal isOpen={isModalOpen} onClose={closeModal}/>
-    
+          <Modal isOpen={isModalOpen} onClose={closeModal} />
         </div>
       )}
     </div>

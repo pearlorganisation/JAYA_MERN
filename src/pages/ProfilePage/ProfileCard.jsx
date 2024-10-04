@@ -31,8 +31,11 @@ const ProfileCard = () => {
             </svg>
           </div>
         ) : (
-          <div className="rounded-full border border-red-500 p-2 size-56 object-center bg-center ">
-            <img src={userData?.user?.profile} />
+          <div className="rounded-full overflow-hidden shadow-lg border border-gray-400 size-56 object-center bg-center flex items-center justify-center">
+            <img
+              src={userData?.user?.profile}
+              className="rounded-full size-56"
+            />
           </div>
         )}
       </div>

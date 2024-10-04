@@ -9,7 +9,7 @@ import moment from "moment";
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  const { blogs } = useSelector((state) => state.blog);
+  const { blogs, isLoading } = useSelector((state) => state.blog);
 
   const navigate = useNavigate();
 
@@ -160,41 +160,42 @@ const HomePage = () => {
           assistance to farmers).
         </p>
         <div className="space-y-5">
-          {blogs.slice(0, 2)?.map((blog) => {
-            return (
-              <Link key={blog._id} to={`/blogs/${blog._id}`}>
-                <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-6">
-                  <div className="lg:w-1/3 w-full h-52 rounded-lg">
-                    <img src={blog.blogImage} className="h-52" />
-                  </div>
-
-                  <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
-                    <div className="mt-0">
-                      <h2 className="text-2xl font-semibold text-[#393939] mb-2">
-                        {blog.title}
-                      </h2>
-                      <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
-                        {blog.description}
-                      </p>
-                      <div className="flex lg:space-x-2 mt-4">
-                        {blog.tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+          {blogs.status &&
+            blogs.data.slice(0, 2)?.map((blog) => {
+              return (
+                <Link key={blog._id} to={`/blogs/${blog._id}`}>
+                  <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-6">
+                    <div className="lg:w-1/3 w-full h-52 rounded-lg">
+                      <img src={blog.blogImage} className="h-52" />
                     </div>
-                    <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
-                      {moment(blog.date).format("DD-MM-YYYY")}
-                    </p>
+
+                    <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
+                      <div className="mt-0">
+                        <h2 className="text-2xl font-semibold text-[#393939] mb-2">
+                          {blog.title}
+                        </h2>
+                        <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
+                          {blog.description}
+                        </p>
+                        <div className="flex lg:space-x-2 mt-4">
+                          {blog.tags?.map((tag) => (
+                            <span
+                              key={tag}
+                              className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
+                        {moment(blog.date).format("DD-MM-YYYY")}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })}
         </div>
         <div className="flex justify-end lg:w-[90%]">
           <button

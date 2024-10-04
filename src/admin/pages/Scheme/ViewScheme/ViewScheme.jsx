@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ViewScheme = () => {
-  return (
-    <div>ViewScheme</div>
-  )
-}
+  return <div>ViewScheme</div>;
+};
 
-export default ViewScheme
+export default ViewScheme;

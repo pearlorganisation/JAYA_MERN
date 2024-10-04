@@ -170,17 +170,6 @@ const SchemeModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              <input
-                {...register("Developer", { required: true })}
-                type="radio"
-                value="Yes"
-              />
-              <input
-                {...register("Developer", { required: true })}
-                type="radio"
-                value="No"
-              />
-
               <div className="flex flex-row gap-6 mt-8">
                 <button
                   type="submit"
@@ -206,3 +195,20 @@ const SchemeModal = ({ isOpen, onClose }) => {
 };
 
 export default SchemeModal;
+{
+  /*
+  
+
+              // <input
+              //   {...register("Developer", { required: true })}
+              //   type="radio"
+              //   value="Yes"
+              // />
+              // <input
+              //   {...register("Developer", { required: true })}
+              //   type="radio"
+              //   value="No"
+              // />
+
+  */
+}
