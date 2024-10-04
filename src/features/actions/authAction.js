@@ -5,9 +5,15 @@ export const signUp = createAsyncThunk(
   "signUp",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await instance.post(`/auth/signup`, {
-        ...data,
-      });
+      const response = await instance.post(
+        `/auth/signup`,
+        {
+          ...data,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response, "response");
       return response.data;
     } catch (error) {
@@ -20,7 +26,9 @@ export const signIn = createAsyncThunk(
   "signIn",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await instance.post(`/auth/signin`, data);
+      const response = await instance.post(`/auth/signin`, data, {
+        withCredentials: true,
+      });
       console.log(response);
       return response.data;
     } catch (error) {
