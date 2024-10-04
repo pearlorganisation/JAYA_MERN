@@ -144,7 +144,6 @@ const NewChatBotForm = () => {
                   </div>
                 </div>
               </div>
-
               {gender && (
                 <div className="col-start-6 col-end-13 p-3 rounded-lg">
                   <div className="flex items-center justify-start flex-row-reverse">

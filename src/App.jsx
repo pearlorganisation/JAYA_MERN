@@ -32,7 +32,7 @@ import AddScheme from "./admin/pages/Scheme/AddScheme/AddScheme";
 import Blog from "./admin/pages/Blogs/Blog";
 
 function App() {
-  const { isUserLoggedIn } = useSelector((state) => state.auth);
+  const { isUserLoggedIn, userData } = useSelector((state) => state.auth);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -94,7 +94,12 @@ function App() {
     },
     {
       path: "admin",
-      element: <DefaultLayout />,
+      element:
+        userData?.user?.role === "ADMIN" ? (
+          <DefaultLayout />
+        ) : (
+          <Navigate to="/" />
+        ),
       children: [
         {
           index: true,

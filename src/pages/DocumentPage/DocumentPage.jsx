@@ -95,11 +95,11 @@ const DocumentPage = () => {
                       {item?.documents?.map((document, index) => (
                         <div
                           key={index}
-                          className="border-green-400 group overflow-hidden relative  border-2 rounded-md w-72  h-44 flex flex-col justify-end"
+                          className="border-green-400 group  relative  border-2 rounded-md w-72  h-44 flex flex-col justify-end"
                         >
-                          <div className="bg-black/30 translate-x-[-100%] group-hover:translate-x-0 w-full transition-all h-full absolute">
+                          {/*  <div className="bg-black/30 translate-x-[-100%] group-hover:translate-x-0 w-full transition-all h-full absolute">
                             Preview
-                          </div>
+                          </div>*/}
                           <div className="w-20 h-20 mb-10 mx-24">
                             {/*   <h4 className="text-[#393939]  font-semibold ">
                               {document}
