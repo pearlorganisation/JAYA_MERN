@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import DOMPurify from "dompurify";
+import parse from "html-react-parser";
 const Modal = ({ schemeData, isOpen, onClose }) => {
   if (!isOpen) return null;
 
@@ -45,12 +45,7 @@ const Modal = ({ schemeData, isOpen, onClose }) => {
                 </div>
               </div>
               <h1 className="text-[#105336] text-3xl mt-5 font-[600]">About</h1>
-              <p
-                className="text-black"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(schemeData.schemeBody),
-                }}
-              ></p>
+              <p className="text-black">{parse(schemeData?.schemeBody)}</p>
             </>
           </div>
         </div>
