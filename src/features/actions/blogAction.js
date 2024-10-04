@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import instance from "../../services/axiosInterceptor";
 
 export const getBlogs = createAsyncThunk(
   "blog/get",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/blogs`
-      );
+      const { data } = await instance.get(`blogs`);
 
       return data.data;
     } catch (error) {
@@ -20,9 +18,7 @@ export const getSingleBlog = createAsyncThunk(
   "singleblog/get",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/blogs/${id}`
-      );
+      const { data } = await instance.get(`blogs/${id}`);
 
       return data.data;
     } catch (error) {
@@ -47,15 +43,11 @@ export const createBlogs = createAsyncThunk(
         }
       }
 
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/blogs`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const { data } = await instance.post(`blogs`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       return data;
     } catch (error) {
@@ -68,10 +60,7 @@ export const updateBlog = createAsyncThunk(
   "blog/put",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/blogs/${id}`,
-        data
-      );
+      const response = await instance.put(`blogs/${id}`, data);
       console.log(response, "response");
       return response?.data;
     } catch (error) {
@@ -84,9 +73,7 @@ export const deleteBlog = createAsyncThunk(
   "blog/delete",
   async (id, thunkAPI) => {
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/blogs/${id}`
-      );
+      const { data } = await instance.delete(`blogs/${id}`);
 
       return data;
     } catch (error) {

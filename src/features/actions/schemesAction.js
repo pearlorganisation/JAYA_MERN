@@ -1,11 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import instance from "../../services/axiosInterceptor";
 
 export const getSchemes = createAsyncThunk("schemes/get", async (thunkAPI) => {
   try {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme`
-    );
+    const { data } = await instance.get(`scheme`);
 
     return data;
   } catch (error) {
@@ -17,9 +15,7 @@ export const getScheme = createAsyncThunk(
   "singleschemes/get",
   async (id, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`
-      );
+      const { data } = await instance.get(`scheme/${id}`);
 
       return data;
     } catch (error) {
@@ -32,10 +28,7 @@ export const removeFromBookmark = createAsyncThunk(
   "removeScheme/put",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/schemes/removeScheme`,
-        payload
-      );
+      const { data } = await instance.put(`schemes/removeScheme`, payload);
 
       return data;
     } catch (error) {
@@ -48,10 +41,7 @@ export const createScheme = createAsyncThunk(
   "schemes/post",
   async (userdata, thunkAPI) => {
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme`,
-        userdata
-      );
+      const { data } = await instance.post(`scheme`, userdata);
 
       return data;
     } catch (error) {
@@ -64,10 +54,7 @@ export const updateScheme = createAsyncThunk(
   "schemes/put",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`,
-        data
-      );
+      const response = await instance.put(`scheme/${id}`, data);
       console.log(response, "response");
       return response?.data;
     } catch (error) {
@@ -80,9 +67,7 @@ export const deleteScheme = createAsyncThunk(
   "schemes/delete",
   async (id, thunkAPI) => {
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_DEVELOPMENT_BASE_URL}/scheme/${id}`
-      );
+      const { data } = await instance.delete(`scheme/${id}`);
 
       return data;
     } catch (error) {
