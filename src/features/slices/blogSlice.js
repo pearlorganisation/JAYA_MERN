@@ -75,7 +75,7 @@ const blogSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.isUpdated = true
-        state.scheme = action.payload;
+        state.blog = action.payload;
       })
       .addCase(createBlogs.rejected, (state, action) => {
         state.isLoading = false;

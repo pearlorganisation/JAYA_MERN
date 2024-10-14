@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../documents/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserData } from "../../../features/actions/authAction";
 const User = () => {

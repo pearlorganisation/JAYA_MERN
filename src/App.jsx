@@ -18,7 +18,6 @@ import SchemesFormPage from "./pages/SchemesPage/SchemesPage";
 import { ToastContainer } from "react-toastify";
 import DefaultLayout from "./admin/components/DefaultLayout/DefaultLayout";
 import Scheme from "./admin/pages/Scheme/Scheme";
-import ViewScheme from "./admin/pages/Scheme/ViewScheme/ViewScheme";
 import Editscheme from "./admin/pages/Scheme/EditScheme/Editscheme";
 import CreateScheme from "./admin/pages/Scheme/CreateScheme/CreateScheme";
 import { useSelector } from "react-redux";
@@ -97,10 +96,7 @@ function App() {
           path:"schemes",
           element:<Scheme/>
         },
-        {
-          path: "viewScheme",
-          element: <ViewScheme />,
-        },
+     
         {
           path: "createScheme",
           element: <CreateScheme />,

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "../documents/modal";
 import {
   deleteScheme,
   getSchemes,
@@ -8,6 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import { clearSuccessData } from "../../../features/slices/schemesSlice";
 import { toast } from 'react-toastify';
+import ViewSchemeModal from "./ViewScheme/ViewSchemeModal";
 const Scheme = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -174,7 +174,7 @@ const Scheme = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-0 z-50">
-          <Modal
+          <ViewSchemeModal
             schemeData={scheme}
             isOpen={isModalOpen}
             onClose={closeModal}

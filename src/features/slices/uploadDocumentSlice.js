@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PURGE } from "redux-persist";
 import { toast } from "sonner";
 import {
+  getAllDocument,
   getDocumentByUserId,
   uploadDocument,
 } from "../actions/uploadDocumentAction";
@@ -49,7 +50,22 @@ const uploadDocumentSlice = createSlice({
         toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
         state.error = action.payload;
-      });
+      })
+      //getAllDocument
+      .addCase(getAllDocument.pending, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllDocument.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isUserLoggedIn = true;
+        state.documentData = action.payload;
+      })
+      
+      .addCase(getAllDocument.rejected,(state,action)=>{
+       toast.error(action.payload,{position:"top-center"});
+       state.isLoading=false;
+       state.error=action.payload;
+      })
   },
 });
 

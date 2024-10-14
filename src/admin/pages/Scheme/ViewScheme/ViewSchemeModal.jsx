@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import DOMPurify from 'dompurify';
-const Modal = ({ schemeData,isOpen, onClose, }) => {
+const ViewSchemeModal = ({ schemeData,isOpen, onClose, }) => {
   if (!isOpen) return null;
  
  
@@ -24,7 +24,7 @@ const Modal = ({ schemeData,isOpen, onClose, }) => {
           <div>
           <> <p className="text-start mb-3">{schemeData?.miniTitle}</p>
   <h1 className="text-start text-[#107536] text-3xl mb-5  font-poppins font-[600]">
-{schemeData?.title}            </h1>
+          </h1>
             <div className="flex justify-between ">
             <div className="flex flex-row gap-3  ">
             
@@ -42,10 +42,8 @@ const Modal = ({ schemeData,isOpen, onClose, }) => {
             <div className="border-2 border-[#419A62] rounded-lg p-1.5 bg-[#419A62] text-[#FFFFFF] text-center">Check Eligibility</div>
             </div>
             <h1 className="text-[#105336] text-3xl mt-5 font-[600]">About</h1>
-            <p   className="text-black"
-  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(schemeData.schemeBody) }} >           
-            
- </p>
+   
+
   </>
 
             
@@ -60,4 +58,4 @@ const Modal = ({ schemeData,isOpen, onClose, }) => {
   );
 };
 
-export default Modal;
+export default  ViewSchemeModal;

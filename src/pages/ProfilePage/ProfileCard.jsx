@@ -13,8 +13,8 @@ const ProfileCard = () => {
   }
 
   return (
-    <div className="flex flex-col  justify-center lg:flex-row gap-3">
-      <div className="flex items-center justify-center">
+    <div className="flex flex-row  justify-center lg:flex-row gap-3">
+      <div className="flex items-center justify-center flex-col gap-4">
         {!userData?.user?.image ? (
           <div className="">
             <svg
@@ -24,11 +24,15 @@ const ProfileCard = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="61" cy="61" r="61" fill="#D9D9D9" />
+              <circle cx="51" cy="51" r="51" fill="#D9D9D9" />
             </svg>
           </div>
         ) : (
-          <div>{!userData?.user?.image}</div>
+          <div className=" flex justify-center">
+          <div className="flex self-center mt-10">{!userData?.user?.image}</div>
+        </div>
+        
+
         )}
       </div>
 
@@ -41,12 +45,13 @@ const ProfileCard = () => {
         </h3>
       </div>
 
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between ">
         <p className=" text-base leading-6 text-[#393939] font-normal hover:text-gray-600 lg:ml-6 lg:mt-8">
           {userData?.user?.phoneNumber}
         </p>
 
-        <div className="flex flex-row items-center gap-2 lg:ml-6 lg:mt-8">
+        <div className="flex flex-row text-center gap-2 lg:ml-6 lg:mt-8">
+  
   <svg
     width="25"
     height="25"

@@ -8,6 +8,8 @@ import moment from "moment";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
 const HomePage = () => {
+
+  
   const dispatch = useDispatch();
 
   const blogsState = useSelector((state) => state.blog.blogs);
@@ -15,6 +17,7 @@ const HomePage = () => {
   useEffect(() => {
     fetchBlogs();
   }, []);
+
 
   const fetchBlogs = () => {
     dispatch(getBlogs());
@@ -30,13 +33,13 @@ const HomePage = () => {
               {/* Chatbot Avatar */}
               <img src="./Bot.svg" alt="" className="h-54 lg:h-64" />
             </div>
-            <div className="relative text-left text-sm  md:text-2xl font-semibold !w-[100%] lg:!w-[40%] md:max-w-lg lg:-translate-x-[4rem] md:-translate-x-[5rem] lg:-translate-y-[2rem] md:-translate-y-[1.5rem] bg-[#668DCB] text-white p-3 md:px-3 md:py-2 rounded-md">
-              <p className="lg:text-xl font-normal text-xs">Hi,</p>
-              <p className=" lg:text-xl font-normal text-xs">I am sahaya</p>
-              <p className="lg:text-xl font-normal text-xs">
+            <div className="relative text-left text-sm  md:text-2xl font-semibold !w-[100%] lg:!w-[40%] md:max-w-lg lg:-translate-x-[4rem] md:-translate-x-[5rem] lg:-translate-y-[2rem] md:-translate-y-[1.5rem] bg-[#668DCB] text-white p-3 md:px-3 md:py-2 rounded-md ">
+              <p className="lg:text-xl font-normal text-xs animate-bounce text-center "> Hi,</p>
+              <p className=" lg:text-xl font-normal text-xs animate-bounce text-center ">I am sahaya</p>
+              <p className="lg:text-xl font-normal text-xs animate-bounce text-center ">
                 I am here to help you with
               </p>
-              <p className="lg:text-xl font-normal text-xs">
+              <p className="lg:text-xl font-normal text-xs animate-bounce text-center ">
                 Government Services & Schemes
               </p>
               <img
@@ -137,7 +140,10 @@ const HomePage = () => {
             <div className="flex items-center mt-20">
               <div className="relative">
                 <div className="absolute -top-20 -right-14 lg:-top-16 lg:-right-28 bg-[#668DCB] text-white p-3 rounded-lg lg:w-[12rem] w-[7rem]  lg:h-20 h-24 text-left clip-polygon">
-                  Know what you are eligible for !
+                <div className="">
+  Know what you are eligible for!
+</div>
+
                   <img
                     className="-bottom-3 -left-2 absolute sm:w-50"
                     src="./Polygon.svg"
@@ -210,7 +216,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="max-w-6xl mx-auto grid place-items-center w-[80%] mb-8">
-  <div className="relative">
+  <div className="relative flex flex-row">
     <h1 className="text-7xl relative  text-[#668DCB] font-bold pr-16 mt-8 z-20">
       <span className="text-[#668DCB]">
       <FaQuoteLeft size={38} /></span>

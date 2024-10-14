@@ -84,9 +84,6 @@ export const updateBlog = createAsyncThunk(
 
 
 
-
-
-
 export const deleteBlog= createAsyncThunk(
   "blog/delete",
   async (id, thunkAPI) => {

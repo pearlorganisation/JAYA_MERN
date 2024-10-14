@@ -18,6 +18,9 @@ const closeModal =()=>{
     setIsResident(null);
   };
 
+
+
+  
   return (
     <div
       className={`bg-black/30 z-20 fixed flex justify-end h-full w-full top-0 transform ease-in-out duration-700 ${
