@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LuSendHorizonal } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/layout/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../../features/actions/blogAction";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  const { blogs, isLoading } = useSelector((state) => state.blog);
+  const { blogs } = useSelector((state) => state.blog);
 
   const navigate = useNavigate();
 
@@ -17,24 +18,39 @@ const HomePage = () => {
     dispatch(getBlogs());
   }, []);
 
+  const [askedQuestion, setAskedQuestion] = useState("");
+
+  console.log(askedQuestion, "asked");
+
   console.log(blogs, "Home Page Blogs State");
   return (
     <div className=" w-full grid place-items-center px-4 md:py-10 md:px-16">
       <div className=" flex flex-col lg:justify-center justify-start lg:items-center">
         <div className="bg-white  rounded-lg  lg:py-6 py-6 px-2 lg:w-[80%] lg:mt-0 mt-4">
           {/* Chatbot Header */}
-          <div className="flex items-center justify-center mb-8 border-2 p-4 border-green-100 rounded-xl pb-10">
-            <div className="translate-y-10">
+          <div
+            className="flex items-center justify-center mb-8 border-2 px-4 border-green-100 rounded-xl"
+            data-aos="zoom-in"
+          >
+            <div
+              className="translate-y-10 "
+              data-aos="fade-left"
+              data-aos-duration="4000"
+            >
               {/* Chatbot Avatar */}
               <img src="./Bot.svg" alt="" className="h-54 lg:h-64" />
             </div>
             <div className="relative text-left text-sm  md:text-2xl font-semibold !w-[100%] lg:!w-[40%] md:max-w-lg lg:-translate-x-[4rem] md:-translate-x-[5rem] lg:-translate-y-[2rem] md:-translate-y-[1.5rem] bg-[#668DCB] text-white p-3 md:px-3 md:py-2 rounded-md">
-              <p className="lg:text-xl font-normal text-xs">Hi,</p>
-              <p className=" lg:text-xl font-normal text-xs">I am sahaya</p>
-              <p className="lg:text-xl font-normal text-xs">
+              <p className="lg:text-xl font-normal text-xs animate-bounce text-center ">
+                Hi,
+              </p>
+              <p className=" lg:text-xl font-normal text-xs animate-bounce text-center ">
+                I am sahaya
+              </p>
+              <p className="lg:text-xl font-normal text-xs animate-bounce text-center ">
                 I am here to help you with
               </p>
-              <p className="lg:text-xl font-normal text-xs">
+              <p className="lg:text-xl font-normal text-xs animate-bounce text-center ">
                 Government Services & Schemes
               </p>
               <img
@@ -51,9 +67,21 @@ const HomePage = () => {
               <input
                 type="text"
                 placeholder="Ask citizen..."
+                value={askedQuestion}
+                onChange={(e) => setAskedQuestion(e.target.value)}
                 className="flex-grow px-3 py-2 text-[#9b9b9b] bg-transparent focus:outline-none"
               />
-              <Link to="/schemesForm" className="">
+
+              <button
+                className=""
+                onClick={
+                  askedQuestion !== ""
+                    ? () => navigate("/schemesForm", { state: askedQuestion })
+                    : () => {
+                        toast.error("Cannot Send Message without Text");
+                      }
+                }
+              >
                 <svg
                   width="29"
                   height="31"
@@ -66,7 +94,7 @@ const HomePage = () => {
                     fill="#419A62"
                   />
                 </svg>
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -95,8 +123,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white px-6 rounded-lg   ">
-        <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-[#668DCB] mb-4">
+      <div className="bg-white px-6 rounded-lg  mt-16 ">
+        <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-[#668DCB] mb-4 font-poppins">
           You know !
         </h1>
         <div className="border-2 border-green-100 px-6 rounded-lg mt-8">
@@ -110,14 +138,18 @@ const HomePage = () => {
             assistance to farmers).
           </p>
           <div className="flex items-center lg:justify-end -translate-x-[1rem] lg:-translate-x-[6rem] mt-16 lg:mt-0">
-            <div className="flex flex-row gap-6">
-              <button className="bg-[#668DCB] text-white text-[14px] lg:text-base px-6 py-2 rounded-lg font-semibold shadow hover:bg-blue-600 transition">
-                <div className="flex flex-row gap-3">
-                  <span>Explore now !</span>
+            <div className="flex flex-row gap-6 w-auto">
+              <button
+                className="bg-[#668DCB] text-white w-full text-[14px] lg:text-base px-3 md:px-6 py-2 rounded-lg font-semibold shadow hover:bg-blue-600 transition"
+                onClick={() => navigate("/newchatbot")}
+              >
+                <div className="flex justify-center items-center gap-1">
+                  <span className="text-[10px] text-nowrap md:text-base md:w-full">
+                    Explore now !
+                  </span>
                   <span>
                     <svg
-                      width="25"
-                      height="25"
+                      className="size-4 md:size-6"
                       viewBox="0 0 25 25"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +165,7 @@ const HomePage = () => {
             </div>
             <div className="flex items-center">
               <div className="relative">
-                <div className="absolute -top-20 -right-14 lg:-top-16 lg:-right-28 bg-[#668DCB] text-white p-3 rounded-lg lg:w-[12rem] w-[7rem]  lg:h-20 h-24 text-left clip-polygon">
+                <div className="absolute animate-bounce -top-20 -right-4 lg:-top-16 lg:-right-28 bg-[#668DCB] text-white p-3 rounded-lg lg:w-[12rem] w-[7rem]  lg:h-20 h-24 text-left clip-polygon">
                   Know what you are eligible for !
                   <img
                     className="-bottom-3 -left-2 absolute"
@@ -141,7 +173,13 @@ const HomePage = () => {
                     alt=""
                   />
                 </div>
-                <img src="./LeftHBot.svg" alt="" className="pt-5 md:pt-0" />
+                <img
+                  data-aos="zoom-in"
+                  data-aos-duration="4000"
+                  src="./LeftHBot.svg"
+                  alt=""
+                  className="pt-5 md:pt-0"
+                />
               </div>
             </div>
           </div>
@@ -149,8 +187,11 @@ const HomePage = () => {
       </div>
 
       {/* Blog section */}
-      <div className="bg-white p-6 rounded-lg  w-full max-w-6xl">
-        <h1 className="text-5xl sm:text-5xl md:text-7xl lg:text-[96px] font-bold text-[#668DCB] mb-4 mt-2 lg:mt-0">
+      <div className="bg-white p-6 rounded-lg  w-full max-w-6xl mt-16">
+        <h1
+          data-aos="fade-right"
+          className="text-5xl sm:text-5xl md:text-7xl lg:text-[96px] font-bold text-[#668DCB] mb-4 mt-2 lg:mt-0"
+        >
           Blogs
         </h1>
         <p className="text-[#5e5e5e] mb-8 text-base lg:w-[84%]">
@@ -159,43 +200,42 @@ const HomePage = () => {
           (support for marginalized students), and agriculture (financial
           assistance to farmers).
         </p>
-        <div className="space-y-5">
-          {blogs.status &&
-            blogs.data.slice(0, 2)?.map((blog) => {
-              return (
-                <Link key={blog._id} to={`/blogs/${blog._id}`}>
-                  <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-6">
-                    <div className="lg:w-1/3 w-full h-52 rounded-lg">
-                      <img src={blog.blogImage} className="h-52" />
-                    </div>
-
-                    <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
-                      <div className="mt-0">
-                        <h2 className="text-2xl font-semibold text-[#393939] mb-2">
-                          {blog.title}
-                        </h2>
-                        <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
-                          {blog.description}
-                        </p>
-                        <div className="flex lg:space-x-2 mt-4">
-                          {blog.tags?.map((tag) => (
-                            <span
-                              key={tag}
-                              className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
-                        {moment(blog.date).format("DD-MM-YYYY")}
-                      </p>
-                    </div>
+        <div className="space-y-5 ">
+          {blogs?.slice(0, 2)?.map((blog) => {
+            return (
+              <Link key={blog._id} to={`/blogs/${blog._id}`}>
+                <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-6">
+                  <div className="lg:w-1/3 w-full h-52 rounded-lg">
+                    <img src={blog.blogImage} className="h-52" />
                   </div>
-                </Link>
-              );
-            })}
+
+                  <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
+                    <div className="mt-0">
+                      <h2 className="text-2xl font-semibold text-[#393939] mb-2">
+                        {blog.title}
+                      </h2>
+                      <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
+                        {blog.description}
+                      </p>
+                      <div className="flex lg:space-x-2 mt-4">
+                        {blog.tags?.map((tag) => (
+                          <span
+                            key={tag}
+                            className="border-green-100 border-2 text-[#419A62] px-3 py-1 rounded-lg text-xs lg:text-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
+                      {moment(blog.date).format("DD-MM-YYYY")}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
         <div className="flex justify-end lg:w-[90%]">
           <button
@@ -207,8 +247,8 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto grid place-items-center w-[80%] mb-8">
-        <div className="flex flex-row">
+      <div className="max-w-6xl mx-auto grid place-items-center w-[80%] mb-8 mt-16">
+        <div className="flex flex-row" data-aos="zoom-in">
           <h1 className="text-[60px] md:text-[80px] lg:text-[120px] text-[#1F3456] font-bold">
             ❛❛
           </h1>
@@ -240,6 +280,10 @@ const HomePage = () => {
           governments by engaging awareness and gaining knowledge of them in a
           better way.
         </p>
+      </div>
+
+      <div className="flex min-h-10 items-center justify-center w-full">
+        <button className="relative w-full bg-white p-4 before:absolute before:inset-x-0 before:bottom-0 before:h-1 before:bg-gradient-to-r before:from-transparent before:via-green-700 before:to-transparent"></button>
       </div>
       <Footer />
     </div>

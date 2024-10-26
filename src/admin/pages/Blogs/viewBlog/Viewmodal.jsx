@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-import DOMPurify from "dompurify";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleBlog } from "../../../../features/actions/blogAction";
 
@@ -59,12 +59,16 @@ const ViewModal = ({ blogData, isOpen, onClose }) => {
             </div>
 
             <h1 className="text-[#105336] text-3xl mt-5 font-[600]">About</h1>
-            <p
+            {/* 
+            
+             <p
               className="text-black"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(blog?.description),
               }}
             />
+            
+            */}
           </div>
         </div>
       </div>

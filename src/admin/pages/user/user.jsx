@@ -11,8 +11,8 @@ const User = () => {
   //   dispatch(getAllUserData());
   // }, []);
   return (
-    <div>
-      <div className="flex flex-row p-5 bg-[#48DE80] text-[#ffffff] justify-between font-bold">
+    <div className="px-10 py-4">
+      <div className="flex flex-row p-5 bg-[#4A9162] text-[#ffffff] justify-between font-bold rounded-md">
         <h1 className="self-center">Registered User</h1>
       </div>
       <table className="min-w-full divide-y divide-gray-200">

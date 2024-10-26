@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import Bot from "../../assets/Bot.jpg";
 import { useNavigate } from "react-router-dom";
+
+import { useLocation } from "react-router-dom";
+
 const SchemesFormPage = () => {
-  // const [showSchemes, setShowSchemes] = useState(false);
-  // const [scheme, setScheme] = useState("");
-
-  // const handleShowSchemes = () => {
-  //   setShowSchemes(true);
-  // };
-
-  // const handleSchemeChange = (value) => {
-  //   setScheme(value);
-  // };
-
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const data = location.state || {};
 
   return (
     <div className="flex flex-col flex-auto h-full py-6 px-2 lg:p-6">
@@ -27,7 +22,7 @@ const SchemesFormPage = () => {
                     <img src={Bot} />
                   </div>
                   <div className="relative mr-3 text-sm bg-white  py-1 px-3 w-16 rounded-lg">
-                    <div className="text-center">Hi !</div>
+                    <div className="text-center">{data && <p>{data} </p>}</div>
                   </div>
                 </div>
               </div>

@@ -32,9 +32,9 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="px-10 py-3">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row p-5 bg-[#48DE80] text-white justify-between items-center md:items-start font-bold rounded-md shadow-md">
+      <div className="flex flex-col md:flex-row p-5 bg-[#4A9162] text-white justify-between items-center md:items-start font-bold rounded-md shadow-md">
         <h1 className="text-2xl md:text-4xl">Manage Your Blogs</h1>
         <Link to="/admin/addblog" className="mt-4 md:mt-0">
           <svg
@@ -89,15 +89,21 @@ const Blog = () => {
                     <p className="truncate">{item.title}</p>
                   </td>
 
-                  <td className="px-4 py-4 space-x-2 whitespace-nowrap text-sm text-gray-500">
-                    {item.tags?.map((tag, index) => (
+                  <td className="px-4 py-4 mt-8 flex space-x-2 whitespace-nowrap text-sm text-gray-500">
+                    {item.tags?.slice(0, 2).map((tag, index) => (
                       <button
                         key={index}
-                        className="bg-[#48DE80] text-white rounded-md px-3 py-2.5 text-xs md:text-sm"
+                        className="bg-[#4A9162] text-white rounded-md px-3 py-2.5 text-xs md:text-sm"
                       >
                         {tag.benefit || tag}
                       </button>
                     ))}
+
+                    {item?.tags?.length > 2 && (
+                      <div className="px-2 py-2 bg-green-200 rounded-full">
+                        {item?.tags?.length - 2} More
+                      </div>
+                    )}
                   </td>
 
                   <td className="px-4 py-4">
@@ -116,7 +122,7 @@ const Blog = () => {
                       {/* Edit Button */}
                       <Link
                         to={`/admin/editblog/${item._id}`}
-                        className="text-green-500 rounded-md bg-green-600/30 px-3 py-2 hover:text-green-600 text-center"
+                        className="text-[#419A62] rounded-md bg-green-600/30 px-3 py-2 hover:text-green-600 text-center"
                       >
                         Edit
                       </Link>

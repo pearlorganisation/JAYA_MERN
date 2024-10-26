@@ -16,7 +16,7 @@ const ProfileCard = () => {
   console.log("object", userData);
 
   return (
-    <div className="flex flex-col  justify-center lg:flex-row gap-3">
+    <div className="flex flex-col  justify-start lg:flex-row gap-3">
       <div className="flex items-center justify-center">
         {!userData.user.profile ? (
           <div className="">
@@ -31,16 +31,16 @@ const ProfileCard = () => {
             </svg>
           </div>
         ) : (
-          <div className="rounded-full overflow-hidden shadow-lg border border-gray-400 size-56 object-center bg-center flex items-center justify-center">
+          <div className="rounded-full overflow-hidden shadow-lg border border-gray-400 size-32 object-center bg-center flex items-center justify-center">
             <img
               src={userData?.user?.profile}
-              className="rounded-full size-56"
+              className="rounded-full size-32"
             />
           </div>
         )}
       </div>
 
-      <div className="flex justify-center flex-col items-start gap-3 mt-3">
+      <div className="flex justify-center flex-col items-start gap-5 mt-0 ml-3">
         <h1 className="  text-base font-normal leading-6 text-[#393939]">
           {userData?.user?.username}
         </h1>
@@ -54,7 +54,7 @@ const ProfileCard = () => {
           {userData?.user?.phoneNumber}
         </p>
 
-        <div className="flex flex-row gap-2 lg:ml-6 lg:mt-8">
+        <div className="flex flex-row gap-2 lg:ml-12 lg:mt-8">
           <svg
             width="25"
             height="25"
@@ -73,7 +73,7 @@ const ProfileCard = () => {
               fill="#668DCB"
             />
           </svg>
-          <h3 className="text-center text-base leading-6 text-[#393939] font-medium hover:cursor-pointer hover:text-gray-600">
+          <h3 className="mx-1 text-center text-base leading-6 text-[#393939] font-medium hover:cursor-pointer hover:text-gray-600">
             Edit
           </h3>
         </div>

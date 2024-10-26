@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import DOMPurify from "dompurify";
 const Modal = ({ schemeData, isOpen, onClose }) => {
   if (!isOpen) return null;
 

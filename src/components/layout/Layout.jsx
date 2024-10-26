@@ -8,7 +8,7 @@ import Header from "./Header/Header";
 
 const Layout = () => {
   return (
-    <div className="grid lg:grid-cols-[18rem_auto]">
+    <div className="grid lg:grid-cols-[18rem_auto] font-poppins">
       <div className="relative ">
         <Sidebar2 />
       </div>

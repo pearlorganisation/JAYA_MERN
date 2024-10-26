@@ -1,9 +1,14 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDeleteOutline } from "react-icons/md";
 import { GoDownload } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function DropdownBasic(props) {
+export default function DropdownBasic({ doc, documentId, collectionId }) {
+  const dispatch = useDispatch();
+  const documentState = useSelector((state) => state.document);
+  console.log("dropdown data options page", documentState);
   const [isOpen, setIsOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const wrapperRef = useRef(null);
@@ -12,10 +17,16 @@ export default function DropdownBasic(props) {
     {
       linkName: "Remove",
       icon: <MdDeleteOutline />,
+      onClick: () => {
+        console.log(documentId, collectionId);
+      },
     },
     {
       linkName: "Download",
       icon: <GoDownload />,
+      onClick: () => {
+        console.log(documentId, collectionId);
+      },
     },
   ];
 
@@ -26,17 +37,17 @@ export default function DropdownBasic(props) {
     };
   });
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [wrapperRef]);
+  // useEffect(() => {
+  //   function handleClickOutside(event) {
+  //     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+  //       setIsOpen(false);
+  //     }
+  //   }
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [wrapperRef]);
 
   const handleKeyDown = (e) => {
     if (isOpen) {
@@ -90,29 +101,54 @@ export default function DropdownBasic(props) {
             isOpen ? "flex" : "hidden"
           } absolute top-full z-10 mt-1 flex w-72 list-none flex-col rounded bg-white py-2 shadow-md shadow-slate-500/10 `}
         >
-          {navigationItems.map((item, index) => {
-            return (
-              <li key={index}>
+          <li>
+            <button
+              onClick={() => {
+                console.log(documentId, collectionId, "shubham bhai");
+              }}
+              className={` ${
+                1 === currentItem
+                  ? "bg-emerald-50 text-emerald-500"
+                  : "bg-none text-slate-500"
+              } flex items-start justify-start gap-2 p-2 px-5 transition-colors duration-300 hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 focus:text-emerald-600 focus:outline-none focus-visible:outline-none`}
+              href="#"
+              aria-current={1 + 1 === currentItem ? "page" : "false"}
+            >
+              <span className="flex flex-col gap-1 overflow-hidden whitespace-nowrap">
+                <span className="truncate leading-5 flex justify-start items-center gap-2">
+                  {" "}
+                  <MdDeleteOutline />
+                  Remove
+                </span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <a
+              className={` ${
+                2 === currentItem
+                  ? "bg-emerald-50 text-emerald-500"
+                  : "bg-none text-slate-500"
+              } flex items-start justify-start gap-2 p-2 px-5 transition-colors duration-300 hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 focus:text-emerald-600 focus:outline-none focus-visible:outline-none`}
+              href="#"
+              aria-current={2 + 1 === currentItem ? "page" : "false"}
+            >
+              <span className="flex flex-col gap-1 overflow-hidden whitespace-nowrap">
                 <a
-                  className={` ${
-                    index === currentItem
-                      ? "bg-emerald-50 text-emerald-500"
-                      : "bg-none text-slate-500"
-                  } flex items-start justify-start gap-2 p-2 px-5 transition-colors duration-300 hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 focus:text-emerald-600 focus:outline-none focus-visible:outline-none`}
-                  href="#"
-                  aria-current={index + 1 === currentItem ? "page" : "false"}
+                  href={doc?.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download={doc?.title}
                 >
-                  <span className="flex flex-col gap-1 overflow-hidden whitespace-nowrap">
-                    <span className="truncate leading-5 flex justify-start items-center gap-2">
-                      {" "}
-                      {item.icon}
-                      {item.linkName}{" "}
-                    </span>
+                  <span className="truncate leading-5 flex justify-start items-center gap-2">
+                    {" "}
+                    <GoDownload />
+                    Download
                   </span>
                 </a>
-              </li>
-            );
-          })}
+              </span>
+            </a>
+          </li>
         </ul>
         {/*  <!-- End Menu list --> */}
       </div>

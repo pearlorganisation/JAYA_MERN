@@ -1,15 +1,35 @@
-import React, { useState } from "react";
-import Modal from "../documents/modal";
+import React, { useEffect, useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getAllDocument } from "../../../features/actions/uploadDocumentAction";
+import { toast } from "react-toastify";
+import Modal from "./modal";
 const Document = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const { documentData } = useSelector((state) => state.document);
+  console.log("doc", documentData);
+  const { userData } = useSelector((state) => state.auth);
+  console.log("userss", userData.user._id);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllDocument()).then((res) => {
+      console.log("all documents", res);
+    });
+  }, []);
+
+  // useEffect(()=>{
+  //   dispatch(getAllDocument())
+  // },[])
+
   return (
     <div>
-      <div className="flex flex-row p-5 bg-[#48DE80] text-[#ffffff] justify-between font-bold">
-        <h1 className="self-center">Manage Your Schemes</h1>
+      <div className="flex flex-row p-5 bg-[#4A9162] text-[#ffffff] justify-between font-bold">
+        <h1 className="self-center">Manage Your Document</h1>
         <svg
           stroke="currentColor"
           fill="currentColor"
@@ -28,62 +48,58 @@ const Document = () => {
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Scheme
+              User
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Benefit
+              Person
             </th>
+            {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            name
+            </th> */}
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Department
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Details
+              document{" "}
             </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          <tr className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <td className="px-6 py-4 text-sm font-medium max-w-xs">
-              <p className="truncate text-gray-900">
-                This is a long piece of text that will be truncated with an
-                ellipsis if it exceeds the width of the container.
-              </p>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              <button className="bg-[#48DE80] text-[#ffffff] rounded-md px-4 py-2">
-                1000/month
-              </button>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              Ministry of women welfare department
-            </td>
-            <td className="px-6">
-              <div className="flex gap-4 items-start font-bold text-md">
+          {documentData?.map((item) => (
+            <tr>
+              <td className="px-6 py-4 text-sm font-medium max-w-xs">
+                <p className="truncate text-gray-900">{item?.user}</p>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {item.name}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <a
-                  className="text-blue-500 rounded-md bg-blue-600/30 px-3 py-2 hover:text-blue-600"
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openModal();
-                  }}
+                  href={item.document}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
                 >
-                  View
+                  View Document
                 </a>
-                <a
-                  className="text-green-500 rounded-md bg-green-600/30 px-3 py-2 hover:text-green-600"
-                  href="/admin/editScheme"
-                >
-                  Edit
-                </a>
-                <a
-                  className="text-red-500 rounded-md bg-red-600/30 px-3 py-2 hover:text-red-600"
-                  href="/admin/deleteScheme"
-                >
-                  Delete
-                </a>
-              </div>
-            </td>
-          </tr>
+              </td>
+              <td className="px-6">
+                <div className="flex gap-4 items-start font-bold text-md">
+                  <button
+                    className="text-red-500 rounded-md bg-red-600/30 px-3 py-2 hover:text-red-600"
+                    // onClick={() => {
+                    //   dispatch(deleteDocument(item._id)).then((res) => {
+                    //     console.log("rdsf", res);
+                    //     if (res?.payload?.status) {
+                    //       toast.success("document deleted successfully!");
+                    //       dispatch(getAllDocument());
+                    //     }
+                    //   });
+                    // }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
 

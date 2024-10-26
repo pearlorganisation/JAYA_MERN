@@ -5,6 +5,7 @@ import { getBookmarksAction } from "../../features/actions/bookMarkAction";
 import ProfileCard from "./ProfileCard";
 import SchemeCard from "../Schemes/SchemeCard";
 import { getProfile } from "../../features/actions/authAction";
+import MyDocuments from "../MyDocuments/MyDocuments";
 
 const ProfilePage = () => {
   const [documentSwitch, setDocumentSwitch] = useState(0);
@@ -41,14 +42,16 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className=" bg-white px-2 lg:p-5">
+      <div className=" px-2 lg:px-5 bg-white">
         <div className="flex items-center justify-center">
           <div className=" grid grid-cols-2 overflow-hidden w-[100%] lg:w-[80%] ">
             <button
               onClick={() => setDocumentSwitch(0)}
               className={`${
-                documentSwitch === 0 ? "border-[#419A62]" : "border-green-200"
-              } border-b-[6px] text-center py-3 text-[#393939] font-medium text-xl leading-[30px]`}
+                documentSwitch === 0
+                  ? "before:bg-[#419A62]"
+                  : " before:bg-green-200"
+              }  text-center py-3 before:content-[""] relative before:absolute before:w-full before:h-[6px]  before:bottom-0 before:left-0 before:rounded-bl-[6px] before:rounded-tl-[6px] text-[#393939] font-medium text-xl leading-[30px]`}
             >
               {" "}
               Saved
@@ -57,8 +60,10 @@ const ProfilePage = () => {
             <button
               onClick={() => setDocumentSwitch(1)}
               className={`${
-                documentSwitch === 1 ? "border-[#419A62]" : "border-green-200"
-              }  border-b-[6px] text-center py-3 text-[#393939] font-medium text-xl leading-[30px] `}
+                documentSwitch === 1
+                  ? " before:bg-[#419A62]"
+                  : " before:bg-green-200"
+              }   text-center py-3 text-[#393939] font-medium text-xl leading-[30px]  before:content-[""] relative before:absolute before:w-full before:h-[6px]  before:bottom-0 before:left-0 before:rounded-br-[6px] before:rounded-tr-[6px] `}
             >
               My Documents
             </button>
@@ -82,8 +87,7 @@ const ProfilePage = () => {
               </div>
             ) : (
               <div className="min-h-[18rem] grid place-items-center">
-                {" "}
-                Comming Soon...
+                <MyDocuments />
               </div>
             )}
           </div>
