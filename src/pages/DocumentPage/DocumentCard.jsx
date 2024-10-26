@@ -3,6 +3,8 @@ import React from "react";
 import DropdownBasic from "../../components/Dropdown cop/Dropdown";
 
 const DocumentCard = ({ data, documentId }) => {
+
+  console.log("hurrah",data);
   function getFileExtension(url) {
     console.log(url?.split(".").pop().split("?")[0].toLowerCase());
     return url?.split(".").pop().split("?")[0].toLowerCase();

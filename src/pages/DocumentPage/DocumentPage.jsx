@@ -15,6 +15,7 @@ const DocumentPage = () => {
     (state) => state.document
   );
   const dispatch = useDispatch();
+  const [documentCollectionMap,setDocumentCollection] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileName, setFileName] = useState("My File");
   const [docuemnt, setDocument] = useState("");
@@ -23,6 +24,20 @@ const DocumentPage = () => {
   const [x, setX] = useState(0);
 
   const fileInputRef = useRef();
+
+  useEffect(()=>{
+    const documentMap = new Map();
+     
+    if(documentData.length > 0)
+      { documentData.forEach(element => {
+      documentMap.set(element._id,element);
+    });}
+
+    setDocumentCollection(documentMap);
+    
+   console.log("document data map ",documentMap);
+
+  },[documentData]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -53,7 +68,7 @@ const DocumentPage = () => {
     dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
   }, [singleDocument]);
 
-  const groupedDocuments = documentData.reduce((acc, document) => {
+  const groupedDocuments = documentData?.reduce((acc, document) => {
     const { _id: completeDocId, name, documentsCollection } = document;
     if (!acc[name]) {
       acc[name] = [];
@@ -85,7 +100,7 @@ const DocumentPage = () => {
         </div>
         <div className="p-10 flex flex-col  gap-5">
           <div className="grid  grid-cols-1 gap-3">
-            {Array.isArray(documentData) &&
+            {/* {Array.isArray(documentData) &&
               documentData?.length > 0 &&
               Object.keys(groupedDocuments).map((el) => (
                 <div key={el}>
@@ -102,7 +117,18 @@ const DocumentPage = () => {
                     ))}
                   </div>
                 </div>
-              ))}
+              ))} */}
+
+              {
+                documentData && documentCollectionMap && documentCollectionMap.size > 0 &&
+                documentData.map((el)=>{
+                  const currDocData = documentCollectionMap?.get(el?._id);
+                  return (<>
+                  <h1>{currDocData.name}</h1>
+                  <DocumentCard documentId = {el._id}  data = {currDocData.documentsCollection}/>
+                  </>
+                )})
+              }
           </div>
         </div>
 
