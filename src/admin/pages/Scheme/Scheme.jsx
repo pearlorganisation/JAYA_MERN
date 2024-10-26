@@ -29,9 +29,11 @@ const Scheme = () => {
   }, [schemes]);
 
   return (
-    <div>
-      <div className="flex flex-row p-5 bg-[#48DE80] text-[#ffffff] justify-between font-bold">
-        <h1 className="self-center">Manage Your Schemes</h1>
+    <div className="px-6 py-4">
+      <div className="flex flex-row p-5 bg-[#4A9162] text-[#ffffff] justify-between font-bold rounded-md">
+        <h1 className="self-center mx-4 text-2xl md:text-4xl">
+          Manage Your Schemes
+        </h1>
         <Link to="/admin/AddScheme">
           <svg
             stroke="currentColor"
@@ -51,16 +53,16 @@ const Scheme = () => {
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Scheme
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Benefit
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Department
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Details
             </th>
           </tr>
@@ -74,24 +76,30 @@ const Scheme = () => {
                   key={item._id}
                   className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300"
                 >
-                  <td className="px-6 py-4 text-sm font-medium max-w-xs">
+                  <td className="px-2 py-4 text-xs font-medium max-w-xs">
                     <p className="truncate text-gray-900">{item?.title}</p>
                   </td>
-                  <td className="px-6 py-4 space-x-2 whitespace-nowrap text-sm text-gray-500">
-                    {item?.tags?.map((tag, index) => (
+                  <td className="px-2 py-4 space-x-2 whitespace-nowrap text-xs text-gray-500 flex ">
+                    {item?.tags?.slice(0, 2).map((tag, index) => (
                       <button
                         key={index}
-                        className="bg-[#48DE80] text-[#ffffff] rounded-md px-4 py-2"
+                        className="bg-[#4A9162] text-[#ffffff] rounded-md px-4 py-2"
                       >
                         {tag}
                       </button>
                     ))}
+
+                    {item?.tags?.length > 2 && (
+                      <div className="px-2 py-2 bg-green-300 rounded-full">
+                        {item?.tags.length - 2} More
+                      </div>
+                    )}
                   </td>
 
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-2 py-4 whitespace-nowrap text-xs text-gray-500">
                     {item.miniTitle}
                   </td>
-                  <td className="px-6">
+                  <td className="px-4">
                     <div className="flex gap-4 items-start font-bold text-md">
                       <Link
                         className="text-blue-500 rounded-md bg-blue-600/30 px-3 py-2 hover:text-blue-600"
@@ -105,7 +113,7 @@ const Scheme = () => {
                         View
                       </Link>
                       <Link
-                        className="text-green-500 rounded-md bg-green-600/30 px-3 py-2 hover:text-green-600"
+                        className="text-[#419A62] rounded-md bg-green-600/30 px-3 py-2 hover:text-green-600"
                         to={`/admin/editScheme/${item?._id}`}
                       >
                         Edit
@@ -130,49 +138,6 @@ const Scheme = () => {
                 </tr>
               );
             })}
-          {/* 
-<tr className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <td className="px-6 py-4 text-sm font-medium max-w-xs">
-              <p className="truncate text-gray-900">
-                This is a long piece of text that will be truncated with an
-                ellipsis if it exceeds the width of the container.
-              </p>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              <button className="bg-[#48DE80] text-[#ffffff] rounded-md px-4 py-2">
-                1000/month
-              </button>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              Ministry of women welfare department
-            </td>
-            <td className="px-6">
-              <div className="flex gap-4 items-start font-bold text-md">
-                <a
-                  className="text-blue-500 rounded-md bg-blue-600/30 px-3 py-2 hover:text-blue-600"
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openModal();
-                  }}
-                >
-                  View
-                </a>
-                <a
-                  className="text-green-500 rounded-md bg-green-600/30 px-3 py-2 hover:text-green-600"
-                  href="/admin/editScheme"
-                >
-                  Edit
-                </a>
-                <a
-                  className="text-red-500 rounded-md bg-red-600/30 px-3 py-2 hover:text-red-600"
-                  href="/admin/deleteScheme"
-                >
-                  Delete
-                </a>
-              </div>
-            </td>
-          </tr> */}
         </tbody>
       </table>
 

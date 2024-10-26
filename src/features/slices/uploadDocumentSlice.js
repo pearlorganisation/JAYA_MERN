@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PURGE } from "redux-persist";
 import { toast } from "sonner";
 import {
+  addDocumentInUserCollection,
   getDocumentByUserId,
   uploadDocument,
 } from "../actions/uploadDocumentAction";
@@ -11,6 +12,7 @@ const initialState = {
   isLoading: false,
   documentData: null,
   singleDocument: null,
+  addedData: null,
   error: "",
 };
 const uploadDocumentSlice = createSlice({
@@ -26,6 +28,7 @@ const uploadDocumentSlice = createSlice({
       .addCase(uploadDocument.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isUserLoggedIn = true;
+
         state.singleDocument = action.payload;
         toast.success("Uploaded Successful!!", { position: "top-center" });
       })
@@ -37,7 +40,7 @@ const uploadDocumentSlice = createSlice({
       })
 
       //   getDocumentByUserId
-      .addCase(getDocumentByUserId.pending, (state, action) => {
+      .addCase(getDocumentByUserId.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getDocumentByUserId.fulfilled, (state, action) => {
@@ -50,7 +53,25 @@ const uploadDocumentSlice = createSlice({
         toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      // add document to user collection
+      .addCase(addDocumentInUserCollection.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addDocumentInUserCollection.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+
+        toast.error(action.payload, { position: "top-center" });
+      })
+
+      .addCase(addDocumentInUserCollection.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.addedData = action.payload;
       });
+
+    // remove document from user collection
   },
 });
 

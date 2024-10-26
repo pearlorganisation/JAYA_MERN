@@ -6,17 +6,17 @@ import {
   getDocumentByUserId,
   uploadDocument,
 } from "../../features/actions/uploadDocumentAction";
-import { FileIcon, defaultStyles } from "react-file-icon";
+
+import DocumentCard from "./DocumentCard";
 
 const DocumentPage = () => {
-  const { isUserLoggedIn, userData } = useSelector((state) => state.auth);
+  const { userData } = useSelector((state) => state.auth);
   const { singleDocument, documentData, isLoading } = useSelector(
     (state) => state.document
   );
   const dispatch = useDispatch();
-  const [uploadImage, setUploadImage] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState("My File");
   const [docuemnt, setDocument] = useState("");
   const [personName, setPersonName] = useState(userData?.user?.username || "");
 
@@ -41,6 +41,7 @@ const DocumentPage = () => {
     formData.append("user", userData?.user?._id);
     formData.append("document", docuemnt[0]);
     console.log(docuemnt[0]);
+    console.log(formData, "formdata");
     dispatch(uploadDocument(formData));
   };
   useEffect(() => {
@@ -52,12 +53,14 @@ const DocumentPage = () => {
     dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
   }, [singleDocument]);
 
-  console.log(documentData, "documentData");
-  console.log(singleDocument, "singleDocument");
-
-  function getFileExtension(url) {
-    return url.split(".").pop().split("?")[0].toLowerCase();
-  }
+  const groupedDocuments = documentData.reduce((acc, document) => {
+    const { _id: completeDocId, name, documentsCollection } = document;
+    if (!acc[name]) {
+      acc[name] = [];
+    }
+    acc[name].push({ completeDocId, name, currDoc: documentsCollection });
+    return acc;
+  }, {});
 
   return (
     <div className="min-h-screen">
@@ -76,6 +79,7 @@ const DocumentPage = () => {
             </p>
           </div>
         </div>
+
         <div className="flex items-center justify-center">
           <img src="documentImage.svg" className="" />
         </div>
@@ -83,44 +87,22 @@ const DocumentPage = () => {
           <div className="grid  grid-cols-1 gap-3">
             {Array.isArray(documentData) &&
               documentData?.length > 0 &&
-              documentData?.map((item) => {
-                console.log(item, "itemwa");
-                return (
-                  <div key={item?._id}>
-                    <h1 className="text-lg font-bold text-[#315288]">
-                      {item?.name}
-                    </h1>
+              Object.keys(groupedDocuments).map((el) => (
+                <div key={el}>
+                  <h2>{el}</h2>
 
-                    <div className="flex flex-row gap-3 flex-wrap">
-                      {item?.documents?.map((document, index) => (
-                        <div
-                          key={index}
-                          className="border-green-400 group  relative  border-2 rounded-md w-72  h-44 flex flex-col justify-end"
-                        >
-                          {/*  <div className="bg-black/30 translate-x-[-100%] group-hover:translate-x-0 w-full transition-all h-full absolute">
-                            Preview
-                          </div>*/}
-                          <div className="w-20 h-20 mb-10 mx-24">
-                            {/*   <h4 className="text-[#393939]  font-semibold ">
-                              {document}
-                            </h4>*/}
-
-                            <FileIcon
-                              className=""
-                              extension={getFileExtension(document)}
-                              {...defaultStyles.docx}
-                            />
-                          </div>
-                          <div className="flex justify-between px-2 items-center border-t-2 border-t-green-300 ">
-                            <h1>{document.name}</h1>
-                            <DropdownBasic />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                  <div className="flex flex-row gap-3 flex-wrap mt-5">
+                    {groupedDocuments[el].map((doc, index) => (
+                      <div key={index}>
+                        <DocumentCard
+                          documentId={doc.completeDocId}
+                          data={doc.currDoc}
+                        />
+                      </div>
+                    ))}
                   </div>
-                );
-              })}
+                </div>
+              ))}
           </div>
         </div>
 
@@ -193,7 +175,7 @@ const DocumentPage = () => {
                                 onChange={(e) => {
                                   setFileName(e.target.value);
                                 }}
-                                placeholder="File Name"
+                                placeholder="File  sadasdasd Name"
                                 className="border-2 border-green-200 rounded-md p-1"
                               />
                             </div>
@@ -209,7 +191,7 @@ const DocumentPage = () => {
                                 onChange={(e) => {
                                   setPersonName(e.target.value);
                                 }}
-                                placeholder="Person Name"
+                                placeholder="Persoasdasdasn Name"
                                 className="border-2 border-green-200 rounded-md p-1"
                               />
                             </div>
@@ -387,4 +369,14 @@ export default DocumentPage;
         </div>              
 
                     */
+}
+
+{
+  /*
+  
+    <div className="bg-black/30 translate-x-[-20%] group-hover:translate-x-0 w-full transition-all h-full absolute">
+                      Preview
+                    </div>
+  
+  */
 }

@@ -158,8 +158,8 @@ const Sidebar2 = () => {
                 </a>
               </li>
               <li className="px-6 py-[7.5px]">
-                <a
-                  href="/"
+                <Link
+                  to="/saved"
                   className="flex items-center  gap-3 rounded-md px-3 py-1 text-slate-700 transition-colors border-2 border-[#B6D8C2] hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
                 >
                   <div className="flex items-center self-center ">
@@ -179,7 +179,7 @@ const Sidebar2 = () => {
                   <div className="flex w-full text-[#419A62]  flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
                     Saved
                   </div>
-                </a>
+                </Link>
               </li>
               <li className="px-6 py-[7.5px]">
                 <Link

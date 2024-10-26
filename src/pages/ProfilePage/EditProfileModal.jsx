@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateProfile } from "../../features/actions/authAction";
 const EditProfileModal = ({ isOpen, onClose, userData }) => {
   const { register, handleSubmit } = useForm();
@@ -22,11 +23,6 @@ const EditProfileModal = ({ isOpen, onClose, userData }) => {
     formData.append("username", data.userName);
     formData.append("phoneNumber", data.phoneNumber);
     formData.append("profile", imageRef.current);
-    formData.append("password", data.password);
-
-    formData.forEach((element) => {
-      console.log("hi", element);
-    });
 
     dispatch(updateProfile({ email: userData.email, payload: formData }));
     onClose();
@@ -80,16 +76,6 @@ const EditProfileModal = ({ isOpen, onClose, userData }) => {
               defaultValue={userData.username}
               {...register("userName")}
               placeholder="Enter your first name"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="text"
-              className="border border-gray-300 rounded-lg w-full p-2"
-              defaultValue={"********"}
-              {...register("password")}
-              placeholder="Enter your password"
             />
           </div>
 

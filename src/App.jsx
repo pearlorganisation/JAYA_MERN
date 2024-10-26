@@ -30,8 +30,22 @@ import EditBlog from "./admin/pages/Blogs/EditBlog/EditBlog";
 import AddBlog from "./admin/pages/Blogs/AddBlog/AddBlog";
 import AddScheme from "./admin/pages/Scheme/AddScheme/AddScheme";
 import Blog from "./admin/pages/Blogs/Blog";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+import SavedSchemes from "./pages/SavedSchemes/SavedSchemes";
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      offset: 100,
+      duration: 900,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+    AOS.refresh();
+  }, []);
+
   const { isUserLoggedIn, userData } = useSelector((state) => state.auth);
   const router = createBrowserRouter([
     {
@@ -71,6 +85,10 @@ function App() {
           element: <NewChatBotForm />,
         },
         {
+          path: "/saved",
+          element: <SavedSchemes />,
+        },
+        {
           path: "/schemesForm",
           element: <SchemesFormPage />,
         },
@@ -103,7 +121,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <div>dashboard</div>,
+          element: <Scheme />,
         },
         {
           path: "schemes",
