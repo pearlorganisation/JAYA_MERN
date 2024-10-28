@@ -4,6 +4,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDeleteOutline } from "react-icons/md";
 import { GoDownload } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
+import { removeDocumentInUserCollection } from "../../features/actions/uploadDocumentAction";
 
 export default function DropdownBasic({ doc, documentId, collectionId }) {
   const dispatch = useDispatch();
@@ -104,6 +105,12 @@ export default function DropdownBasic({ doc, documentId, collectionId }) {
           <li>
             <button
               onClick={() => {
+                dispatch(
+                  removeDocumentInUserCollection({
+                    id: documentId,
+                    collectionId,
+                  })
+                );
                 console.log(documentId, collectionId, "shubham bhai");
               }}
               className={` ${

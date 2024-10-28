@@ -15,7 +15,7 @@ const DocumentPage = () => {
     (state) => state.document
   );
   const dispatch = useDispatch();
-  const [documentCollectionMap,setDocumentCollection] = useState(null);
+  const [documentCollectionMap, setDocumentCollection] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileName, setFileName] = useState("My File");
   const [docuemnt, setDocument] = useState("");
@@ -25,19 +25,19 @@ const DocumentPage = () => {
 
   const fileInputRef = useRef();
 
-  useEffect(()=>{
+  useEffect(() => {
     const documentMap = new Map();
-     
-    if(documentData.length > 0)
-      { documentData.forEach(element => {
-      documentMap.set(element._id,element);
-    });}
+
+    if (documentData.length > 0) {
+      documentData.forEach((element) => {
+        documentMap.set(element?._id, element);
+      });
+    }
 
     setDocumentCollection(documentMap);
-    
-   console.log("document data map ",documentMap);
 
-  },[documentData]);
+    console.log("document data map ", documentMap);
+  }, [documentData]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -119,16 +119,21 @@ const DocumentPage = () => {
                 </div>
               ))} */}
 
-              {
-                documentData && documentCollectionMap && documentCollectionMap.size > 0 &&
-                documentData.map((el)=>{
-                  const currDocData = documentCollectionMap?.get(el?._id);
-                  return (<>
-                  <h1>{currDocData.name}</h1>
-                  <DocumentCard documentId = {el._id}  data = {currDocData.documentsCollection}/>
+            {documentData &&
+              documentCollectionMap &&
+              documentCollectionMap?.size > 0 &&
+              documentData.map((el) => {
+                const currDocData = documentCollectionMap?.get(el?._id);
+                return (
+                  <>
+                    <h1>{currDocData?.name ?? "shubham"}</h1>
+                    <DocumentCard
+                      documentId={el?._id ?? "shubham"}
+                      data={currDocData?.documentsCollection ?? []}
+                    />
                   </>
-                )})
-              }
+                );
+              })}
           </div>
         </div>
 

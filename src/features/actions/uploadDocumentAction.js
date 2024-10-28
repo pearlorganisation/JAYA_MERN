@@ -17,11 +17,14 @@ export const uploadDocument = createAsyncThunk(
 
 export const removeDocumentInUserCollection = createAsyncThunk(
   "/removeDocumentInUserCollection",
-  async ({ id, payload }, { rejectWithValue }) => {
+  async ({ id, collectionId }, { rejectWithValue }) => {
     try {
-      const response = await instance.delete(
+      const response = await instance.patch(
         `/documents/removeDocuments/${id}`,
-        payload
+        { documentId: collectionId },
+        {
+          responseType: "json",
+        }
       );
 
       console.log(response, "response");
