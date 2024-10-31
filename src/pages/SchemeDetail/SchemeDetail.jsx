@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FaRegBookmark } from "react-icons/fa";
-import { GoShareAndroid } from "react-icons/go";
-import FeedbackForm from "../../components/FeedbackForm/FeedbackForm";
 import Bot from ".././../assets/Bot.jpg";
 import SchemeModal from "./SchemeModel";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,8 +25,6 @@ const SchemeDetail = () => {
   useEffect(() => {
     dispatch(getScheme(id));
   }, []);
-
-  console.log("Scheme single on scheme detail page", scheme);
 
   return (
     <div className="mt-0 lg:py-12 lg:px-8">
@@ -99,7 +94,6 @@ const SchemeDetail = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       openModal();
-                      console.log("onclick");
                     }}
                   >
                     Check Eligibility

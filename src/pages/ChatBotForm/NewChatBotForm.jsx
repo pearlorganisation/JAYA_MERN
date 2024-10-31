@@ -4,6 +4,38 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserdata } from "../../features/actions/userDataAction";
 import { useNavigate } from "react-router-dom";
+
+const indianStates = [
+  "Andhra pradesh",
+  "Arunachal pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "sikkim",
+  "Tamil nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar pradesh",
+  "Uttarakhand",
+  "West bengal",
+];
+
 const NewChatBotForm = () => {
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
@@ -166,7 +198,9 @@ const NewChatBotForm = () => {
                       <div>
                         <p className="font-base">Your age?</p>
                         <input
-                          type="text"
+                          type="number"
+                          min={15}
+                          max={90}
                           className="w-full p-2 mt-1 border-2 border-green-100 rounded-lg outline-none"
                           placeholder=" _ _ _ "
                           {...register("age", {
@@ -210,14 +244,7 @@ const NewChatBotForm = () => {
                           <option value="" className="mb-4 pt-8">
                             Select your state{" "}
                           </option>
-                          {[
-                            "Andhra pradesh",
-                            "Arunachal pradesh",
-                            "Assam",
-                            "Bihar",
-                            "Chhattisgarh",
-                            "Goa",
-                          ].map((state) => (
+                          {indianStates.map((state) => (
                             <option key={state} value={state} className="py-2">
                               {state}
                             </option>

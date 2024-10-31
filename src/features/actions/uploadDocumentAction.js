@@ -10,7 +10,7 @@ export const uploadDocument = createAsyncThunk(
       console.log(response, "response");
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message || error.message);
     }
   }
 );
@@ -40,7 +40,7 @@ export const addDocumentInUserCollection = createAsyncThunk(
   async ({ id, payload }, { rejectWithValue }) => {
     try {
       const response = await instance.patch(
-        `/documents/addDocuments/${id}`,
+        `/documents/addDocument/${id}`,
         payload
       );
 

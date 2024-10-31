@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import React, { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -25,16 +26,6 @@ const memoizedComponent = memo(function ({ scheme, map }) {
       })
     );
   };
-
-  console.log("scvhemshfsjkhfksdjsadfsdfhjsdhfsd scheme carddd");
-  // useEffect(()=>{
-
-  //   if(isSuccess)
-  //   {
-  //     dispatch(resetIsSuccess(false));
-  //   }
-
-  // },[isSuccess]);
 
   const removeBookMark = () => {
     dispatch(

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import {
   addDocumentInUserCollection,
   getDocumentByUserId,
+  removeDocumentInUserCollection,
   uploadDocument,
 } from "../actions/uploadDocumentAction";
 
@@ -12,7 +13,6 @@ const initialState = {
   isLoading: false,
   documentData: null,
   singleDocument: null,
-  addedData: null,
   error: "",
 };
 const uploadDocumentSlice = createSlice({
@@ -34,6 +34,7 @@ const uploadDocumentSlice = createSlice({
       })
       .addCase(uploadDocument.rejected, (state, action) => {
         console.log(action?.payload, "action.payload");
+        console.log(action.error, "error action");
         toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
         state.error = action.payload;
@@ -68,10 +69,25 @@ const uploadDocumentSlice = createSlice({
 
       .addCase(addDocumentInUserCollection.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.addedData = action.payload;
-      });
+      })
 
-    // remove document from user collection
+      // remove document from user collection
+      .addCase(removeDocumentInUserCollection.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeDocumentInUserCollection.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+
+        toast.error(action.payload, { position: "top-center" });
+      })
+
+      .addCase(removeDocumentInUserCollection.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.documentData = state.documentData.filter(
+          (document) => document != action.payload
+        );
+      });
   },
 });
 

@@ -140,7 +140,7 @@ const HomePage = () => {
           <div className="flex items-center lg:justify-end -translate-x-[1rem] lg:-translate-x-[6rem] mt-16 lg:mt-0">
             <div className="flex flex-row gap-6 w-auto">
               <button
-                className="bg-[#668DCB] text-white w-full text-[14px] lg:text-base px-3 md:px-6 py-2 rounded-lg font-semibold shadow hover:bg-blue-600 transition"
+                className="bg-[#668DCB] text-white w-full text-[14px] lg:text-base px-3 md:px-6 py-2 rounded-md font-semibold shadow hover:bg-blue-600 transition"
                 onClick={() => navigate("/newchatbot")}
               >
                 <div className="flex justify-center items-center gap-1">

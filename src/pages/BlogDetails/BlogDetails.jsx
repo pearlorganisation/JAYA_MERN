@@ -15,7 +15,6 @@ const BlogDetails = () => {
 
   const { singleBlog } = useSelector((state) => state.blog);
 
-  console.log("Single Blog Page", singleBlog);
   return (
     <div className="flex flex-col lg:space-x-6 items-center mb-6">
       <div className="flex items-center justify-center w-full h-52 rounded-lg">

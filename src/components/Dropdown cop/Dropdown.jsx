@@ -9,7 +9,7 @@ import { removeDocumentInUserCollection } from "../../features/actions/uploadDoc
 export default function DropdownBasic({ doc, documentId, collectionId }) {
   const dispatch = useDispatch();
   const documentState = useSelector((state) => state.document);
-  console.log("dropdown data options page", documentState);
+
   const [isOpen, setIsOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const wrapperRef = useRef(null);

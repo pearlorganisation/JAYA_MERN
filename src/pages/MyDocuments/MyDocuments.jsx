@@ -15,7 +15,7 @@ const MyDocuments = () => {
     if (singleDocument?.status) {
       setShowModal(false);
     }
-  }, [singleDocument]);
+  }, [singleDocument, documentData]);
 
   useEffect(() => {
     dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
@@ -31,23 +31,30 @@ const MyDocuments = () => {
   }, {});
   return (
     <div className="p-10 flex flex-col  gap-5">
-      <div className="grid  grid-cols-1 gap-3">
-        {Array.isArray(documentData) &&
-          documentData?.length > 0 &&
-          Object.keys(groupedDocuments).map((el) => (
-            <div key={el}>
-              <h2>{el}</h2>
+      {documentData?.length === 0 ? (
+        <div>
+          {" "}
+          <h1> No Documents Found </h1>{" "}
+        </div>
+      ) : (
+        <div className="grid  grid-cols-1 gap-3">
+          {Array.isArray(documentData) &&
+            documentData?.length > 0 &&
+            Object.keys(groupedDocuments).map((el) => (
+              <div key={el}>
+                <h2>{el}</h2>
 
-              <div className="flex flex-row gap-3 flex-wrap mt-5">
-                {groupedDocuments[el].map((doc, index) => (
-                  <div key={index}>
-                    <DocumentCard data={doc.currDoc} />
-                  </div>
-                ))}
+                <div className="flex flex-row gap-3 flex-wrap mt-5">
+                  {groupedDocuments[el].map((doc, index) => (
+                    <div key={index}>
+                      <DocumentCard data={doc.currDoc} />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };
