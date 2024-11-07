@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import parse from "html-react-parser";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 const Modal = ({ schemeData, isOpen, onClose }) => {

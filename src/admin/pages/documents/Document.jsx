@@ -16,11 +16,11 @@ const Document = () => {
   console.log("userss", userData.user._id);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllDocument()).then((res) => {
-      console.log("all documents", res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllDocument()).then((res) => {
+  //     console.log("all documents", res);
+  //   });
+  // }, []);
 
   // useEffect(()=>{
   //   dispatch(getAllDocument())

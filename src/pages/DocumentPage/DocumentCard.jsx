@@ -39,6 +39,7 @@ const DocumentCard = ({ data, documentId }) => {
                 </a>
                 <div className="flex justify-between px-2 items-center border-t-2 border-t-green-300 ">
                   <h1>{doc.title}</h1>
+
                   <DropdownBasic
                     documentId={documentId}
                     collectionId={doc._id}

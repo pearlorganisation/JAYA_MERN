@@ -7,7 +7,7 @@ export const uploadDocument = createAsyncThunk(
     try {
       const response = await instance.post(`/documents`, data);
 
-      console.log(response, "response");
+      console.log(response, "response after upload ");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message || error.message);
@@ -27,10 +27,10 @@ export const removeDocumentInUserCollection = createAsyncThunk(
         }
       );
 
-      console.log(response, "response");
+      console.log(response, "response after remove");
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message || error.message);
     }
   }
 );
@@ -47,7 +47,7 @@ export const addDocumentInUserCollection = createAsyncThunk(
       console.log(response, "response");
       return response.data?.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message || error.message);
     }
   }
 );

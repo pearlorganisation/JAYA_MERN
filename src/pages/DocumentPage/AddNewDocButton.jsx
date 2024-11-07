@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Bot from "../../assets/Bot.jpg";
 import DocumentCard from "./DocumentCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,12 +16,12 @@ const AddNewDocButton = ({ el, currDocData }) => {
   const addDocFileRef = useRef();
   const personIdRef = useRef(null);
   const dispatch = useDispatch();
-  const [fileName, setFileName] = useState("My File");
+  const fileName = useRef("My File");
   const handleAddDocument = () => {
     const formData = new FormData();
 
     formData.append("document", docuemnt);
-    formData.append("documentTitle", fileName);
+    formData.append("documentTitle", fileName.current.value);
 
     dispatch(
       addDocumentInUserCollection({
@@ -31,8 +31,6 @@ const AddNewDocButton = ({ el, currDocData }) => {
     );
 
     setAddCollectionModal(false);
-
-    dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
   };
 
   const [docuemnt, setDocument] = useState("");
@@ -45,12 +43,13 @@ const AddNewDocButton = ({ el, currDocData }) => {
     console.log(event.target, "image details");
     const fileData = event.target.files[0];
 
-    console.log(fileData[0], "file data");
+    console.log(fileData, "file data");
     if (fileData) {
       setDocument(fileData);
       setAddCollectionModal(true);
     }
   };
+
   return (
     <>
       <div className="flex flex-row justify-between">
@@ -74,10 +73,12 @@ const AddNewDocButton = ({ el, currDocData }) => {
           ></input>
         </button>
       </div>
-      <DocumentCard
-        documentId={el?._id ?? "shubham"}
-        data={currDocData?.documentsCollection ?? []}
-      />
+      {currDocData && (
+        <DocumentCard
+          documentId={el?._id ?? "shubham"}
+          data={currDocData?.documentsCollection ?? []}
+        />
+      )}
 
       <div className="px-6 mt-2 mb-2 w-full">
         {addCollectionModal ? (
@@ -102,10 +103,8 @@ const AddNewDocButton = ({ el, currDocData }) => {
                           </h1>{" "}
                           <input
                             type="text"
-                            value={fileName}
-                            onChange={(e) => {
-                              setFileName(e.target.value);
-                            }}
+                            // value={fileName.current}
+                            ref={fileName}
                             placeholder="File Nmae"
                             className="border-2 border-green-200 rounded-md p-1"
                           />

@@ -12,7 +12,9 @@ import {
 const initialState = {
   isLoading: false,
   documentData: null,
-  singleDocument: null,
+  // singleDocument: null,
+  isSuccess: false,
+  isError: false,
   error: "",
 };
 const uploadDocumentSlice = createSlice({
@@ -24,12 +26,15 @@ const uploadDocumentSlice = createSlice({
       //upload Document
       .addCase(uploadDocument.pending, (state, action) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(uploadDocument.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isSuccess = true;
         state.isUserLoggedIn = true;
 
-        state.singleDocument = action.payload;
+        // state.singleDocument = action.payload;
+        // state.documentData = action.payload;
         toast.success("Uploaded Successful!!", { position: "top-center" });
       })
       .addCase(uploadDocument.rejected, (state, action) => {
@@ -37,6 +42,8 @@ const uploadDocumentSlice = createSlice({
         console.log(action.error, "error action");
         toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
         state.error = action.payload;
       })
 
@@ -46,11 +53,11 @@ const uploadDocumentSlice = createSlice({
       })
       .addCase(getDocumentByUserId.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isUserLoggedIn = true;
+        state.isError = false;
         state.documentData = action.payload;
       })
       .addCase(getDocumentByUserId.rejected, (state, action) => {
-        console.log(action?.payload, "action.payload");
+        // console.log(action?.payload, "action.payload");
         toast.error(action.payload, { position: "top-center" });
         state.isLoading = false;
         state.error = action.payload;
@@ -59,6 +66,7 @@ const uploadDocumentSlice = createSlice({
       // add document to user collection
       .addCase(addDocumentInUserCollection.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(addDocumentInUserCollection.rejected, (state, action) => {
         state.isLoading = false;
@@ -67,26 +75,36 @@ const uploadDocumentSlice = createSlice({
         toast.error(action.payload, { position: "top-center" });
       })
 
-      .addCase(addDocumentInUserCollection.fulfilled, (state, action) => {
+      .addCase(addDocumentInUserCollection.fulfilled, (state) => {
         state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+
+        toast.success("Document Added Successfully !!");
       })
 
       // remove document from user collection
       .addCase(removeDocumentInUserCollection.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(removeDocumentInUserCollection.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-
+        state.isError = true;
+        // state.isSuccess = false;
         toast.error(action.payload, { position: "top-center" });
       })
 
       .addCase(removeDocumentInUserCollection.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.documentData = state.documentData.filter(
-          (document) => document != action.payload
-        );
+
+        // state.documentData = state.documentData.filter(
+        //   (document) => document != action.payload
+        // );
+
+        state.isError = false;
+        state.isSuccess = true;
       });
   },
 });

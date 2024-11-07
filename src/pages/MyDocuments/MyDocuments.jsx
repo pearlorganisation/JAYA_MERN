@@ -17,9 +17,9 @@ const MyDocuments = () => {
     }
   }, [singleDocument, documentData]);
 
-  useEffect(() => {
-    dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
-  }, [singleDocument]);
+  // useEffect(() => {
+  //   dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
+  // }, [singleDocument]);
 
   const groupedDocuments = documentData.reduce((acc, document) => {
     const { _id: completeDocId, name, documentsCollection } = document;

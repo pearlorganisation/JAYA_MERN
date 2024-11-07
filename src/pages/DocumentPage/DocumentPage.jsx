@@ -3,35 +3,26 @@ import { useEffect, useRef, useState } from "react";
 import Bot from "../../assets/Bot.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addDocumentInUserCollection,
   getDocumentByUserId,
   uploadDocument,
 } from "../../features/actions/uploadDocumentAction";
 
-import DocumentCard from "./DocumentCard";
 import AddNewDocButton from "./AddNewDocButton";
 
 const DocumentPage = () => {
   const { userData } = useSelector((state) => state.auth);
-  const { singleDocument, documentData, isLoading } = useSelector(
+  const { isSuccess, documentData, isLoading } = useSelector(
     (state) => state.document
   );
   const dispatch = useDispatch();
-  const [documentCollectionMap, setDocumentCollection] = useState(null);
+  const [documentCollectionMap, setDocumentCollectionMap] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const [addCollectionModal, setAddCollectionModal] = useState(false);
   const [fileName, setFileName] = useState("My File");
   const [docuemnt, setDocument] = useState("");
   const [personName, setPersonName] = useState(userData?.user?.username || "");
 
-  const [x, setX] = useState(0);
-
   const fileInputRef = useRef();
-  const addDocFileRef = useRef();
-
-  // const [personId, setPersonId] = useState("");
-  const personIdRef = useRef(null);
 
   useEffect(() => {
     const documentMap = new Map();
@@ -42,10 +33,8 @@ const DocumentPage = () => {
       });
     }
 
-    setDocumentCollection(documentMap);
-
-    console.log("document data map ", documentMap);
-  }, [documentData]);
+    setDocumentCollectionMap(documentMap);
+  }, [documentData, isSuccess]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -54,8 +43,6 @@ const DocumentPage = () => {
       setDocument(fileData);
       setShowModal(true);
     }
-
-    setX(x + 1);
   };
 
   const handleDocument = () => {
@@ -70,14 +57,15 @@ const DocumentPage = () => {
   };
 
   useEffect(() => {
-    if (singleDocument?.status) {
+    if (isSuccess) {
+      dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
       setShowModal(false);
     }
-  }, [singleDocument]);
+  }, [isSuccess]);
 
   useEffect(() => {
     dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
-  }, [singleDocument]);
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -105,11 +93,17 @@ const DocumentPage = () => {
             {documentData &&
               documentCollectionMap &&
               documentCollectionMap?.size > 0 &&
-              documentData.map((el) => {
+              documentData?.map((el) => {
                 const currDocData = documentCollectionMap?.get(el?._id);
                 return (
                   <>
-                    <AddNewDocButton currDocData={currDocData} el={el} />
+                    {
+                      <AddNewDocButton
+                        key={el._id}
+                        currDocData={currDocData}
+                        el={el}
+                      />
+                    }
                   </>
                 );
               })}
@@ -182,7 +176,7 @@ const DocumentPage = () => {
                                   onChange={(e) => {
                                     setFileName(e.target.value);
                                   }}
-                                  placeholder="File  sadasdasd Name"
+                                  placeholder="Enter File Name"
                                   className="border-2 border-green-200 rounded-md p-1"
                                 />
                               </div>
@@ -198,7 +192,7 @@ const DocumentPage = () => {
                                   onChange={(e) => {
                                     setPersonName(e.target.value);
                                   }}
-                                  placeholder="Persoasdasdasn Name"
+                                  placeholder="Enter Person Name"
                                   className="border-2 border-green-200 rounded-md p-1"
                                 />
                               </div>
