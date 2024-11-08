@@ -20,7 +20,10 @@ const DocumentCard = ({ data, documentId }) => {
                   rel="noopener noreferrer"
                 >
                   {(getFileExtension(doc.path) === "jpg" ||
-                    getFileExtension(doc.path) === "png") && (
+                    getFileExtension(doc.path) === "png" ||
+                    getFileExtension(doc.path) === "jpeg" ||
+                    getFileExtension(doc.path) === "webp" ||
+                    getFileExtension(doc.path) === "jfif") && (
                     <img
                       src={doc.path}
                       alt="Preview"
