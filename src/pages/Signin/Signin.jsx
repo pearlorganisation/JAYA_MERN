@@ -3,6 +3,7 @@ import * as yup from "yup";
 
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../features/actions/authAction";
+import { Link } from "react-router-dom";
 
 const signInSchema = yup.object({
   email: yup
@@ -133,12 +134,12 @@ const Signin = () => {
           <div className="flex items-center justify-center">
             <p className="text-sm font-light text-[#696F79] mt-2">
               Don’t have an account ?{" "}
-              <a
-                href="signup"
+              <Link
+                to={`/signup`}
                 className="font-medium text-[#2C73EB] hover:underline dark:text-blue-500"
               >
                 Sign up Here
-              </a>
+              </Link>
             </p>
           </div>
         </form>

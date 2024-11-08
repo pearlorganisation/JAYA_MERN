@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../services/axiosInterceptor";
+import { toast } from "sonner";
 
 export const signUp = createAsyncThunk(
   "signUp",
@@ -17,7 +18,9 @@ export const signUp = createAsyncThunk(
       console.log(response, "response");
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.log(error.response.data.message, "sign up error");
+      toast.error(error.response.data.message || error.message);
+      return rejectWithValue(error.response.data.message || error.message);
     }
   }
 );

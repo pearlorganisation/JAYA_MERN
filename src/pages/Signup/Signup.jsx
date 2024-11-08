@@ -3,8 +3,8 @@ import * as yup from "yup";
 
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../features/actions/authAction";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const signUpSchema = yup.object({
   username: yup.string().required("Username is required"),
@@ -19,7 +19,11 @@ const signUpSchema = yup.object({
 });
 
 const Signup = () => {
-  const { userData, isLoading, isSuccess } = useSelector((state) => state.auth);
+  const { userData, isLoading, isSuccess, error } = useSelector(
+    (state) => state.auth
+  );
+
+  const [redirected, setRedirected] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,16 +36,22 @@ const Signup = () => {
     },
     validationSchema: signUpSchema,
     onSubmit: (values) => {
-      console.log(values, "values");
       dispatch(signUp(values));
     },
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/signin");
-    }
-  }, [isSuccess]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     navigate("/signin", { replace: true });
+  //   }
+  // }, [isSuccess, navigate]);
+
+  // useEffect(() => {
+  //   if (isSuccess && !redirected) {
+  //     setRedirected(true);
+  //     navigate("/signin", { replace: true });
+  //   }
+  // }, [isSuccess, redirected, navigate]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2  lg:gap-12 px-10 ">
@@ -189,12 +199,12 @@ const Signup = () => {
           <div className="flex items-center justify-center">
             <p className="text-base font-medium text-[#696F79] mt-1 lg:mt-0 mb-4">
               Already have an account ?{" "}
-              <a
-                href="signup"
+              <Link
+                to={"/signin"}
                 className="font-medium text-[#2C73EB] hover:underline dark:text-blue-500"
               >
                 Login Here
-              </a>
+              </Link>
             </p>
           </div>
         </form>
