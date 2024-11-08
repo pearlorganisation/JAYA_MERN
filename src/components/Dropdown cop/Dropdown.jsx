@@ -80,12 +80,6 @@ export default function DropdownBasic({ doc, documentId, collectionId }) {
     }
   };
 
-  // useEffect(() => {
-  //   if (Array.isArray(documentState?.documentData)) {
-  //     dispatch(getAllDocument(documentState?.documentData[0]?.user));
-  //   }
-  // }, [documentState]);
-
   return (
     <>
       {/* <!-- Component: Basic dropdown menu--> */}
@@ -95,7 +89,6 @@ export default function DropdownBasic({ doc, documentId, collectionId }) {
           className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded   text-sm font-medium tracking-wide text-black transition duration-300  "
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen ? " true" : "false"}
-          ref={wrapperRef}
         >
           <svg
             width="20"
@@ -113,6 +106,7 @@ export default function DropdownBasic({ doc, documentId, collectionId }) {
         {/*  <!--  End Dropdown trigger --> */}
         {/*  <!-- Start Menu list --> */}
         <ul
+          ref={wrapperRef}
           className={`${
             isOpen ? "flex" : "hidden"
           } absolute bottom-full right-0 z-10 mt-1 flex w-40 list-none flex-col rounded bg-white py-2 shadow-md shadow-slate-500/10 `}

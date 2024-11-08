@@ -97,7 +97,6 @@ const AddNewDocButton = ({ el, currDocData }) => {
                           </h1>{" "}
                           <input
                             type="text"
-                            // value={fileName.current}
                             ref={fileName}
                             placeholder="File Name"
                             className="border-2 border-green-200 rounded-md p-1"

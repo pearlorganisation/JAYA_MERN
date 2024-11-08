@@ -34,24 +34,6 @@ const MyDocuments = () => {
     dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
   }, []);
 
-  // useEffect(() => {
-  //   if (singleDocument?.status) {
-  //     setShowModal(false);
-  //   }
-  // }, [singleDocument, documentData]);
-
-  // useEffect(() => {
-  //   dispatch(getDocumentByUserId({ userId: userData?.user?._id }));
-  // }, [singleDocument]);
-
-  // const groupedDocuments = documentData?.reduce((acc, document) => {
-  //   const { _id: completeDocId, name, documentsCollection } = document;
-  //   if (!acc[name]) {
-  //     acc[name] = [];
-  //   }
-  //   acc[name].push({ completeDocId, name, currDoc: documentsCollection });
-  //   return acc;
-  // }, {});
   return (
     <div className="p-10 flex flex-col  gap-5">
       {documentData?.length === 0 ? (
