@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../../features/actions/blogAction";
 import moment from "moment";
 import { toast } from "react-toastify";
+import parse from "html-react-parser";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -206,7 +207,7 @@ const HomePage = () => {
               <Link key={blog._id} to={`/blogs/${blog._id}`}>
                 <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-6">
                   <div className="lg:w-1/3 w-full h-52 rounded-lg">
-                    <img src={blog.blogImage} className="h-52" />
+                    <img src={blog.blogImage} className="h-52 w-full" />
                   </div>
 
                   <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
@@ -215,7 +216,7 @@ const HomePage = () => {
                         {blog.title}
                       </h2>
                       <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
-                        {blog.description}
+                        {blog && parse(blog.description)}
                       </p>
                       <div className="flex lg:space-x-2 mt-4">
                         {blog.tags?.map((tag) => (
@@ -229,7 +230,7 @@ const HomePage = () => {
                       </div>
                     </div>
                     <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
-                      {moment(blog.date).format("DD-MM-YYYY")}
+                      {moment(blog.createdAt).format("DD-MM-YYYY")}
                     </p>
                   </div>
                 </div>

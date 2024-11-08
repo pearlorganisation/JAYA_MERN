@@ -65,7 +65,6 @@ const ProfileCard = () => {
             onClick={(e) => {
               e.preventDefault(); // Prevent any default behavior
               openModal(); // Call the function to open the modal
-              console.log("click"); // Log the click event
             }}
           >
             <path
@@ -73,7 +72,13 @@ const ProfileCard = () => {
               fill="#668DCB"
             />
           </svg>
-          <h3 className="mx-1 text-center text-base leading-6 text-[#393939] font-medium hover:cursor-pointer hover:text-gray-600">
+          <h3
+            onClick={(e) => {
+              e.preventDefault(); // Prevent any default behavior
+              openModal(); // Call the function to open the modal
+            }}
+            className="mx-1 text-center text-base leading-6 text-[#393939] font-medium hover:cursor-pointer hover:text-gray-600"
+          >
             Edit
           </h3>
         </div>

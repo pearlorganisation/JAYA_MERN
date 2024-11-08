@@ -28,7 +28,7 @@ const SavedSchemes = () => {
     }
   }, [isSuccess]);
   return (
-    <div>
+    <div className="lg:px-12">
       <div className="flex flex-col py-4 gap-5">
         {bookmarksData && bookmarksData.length == 0 && (
           <div className="flex items-center justify-center mt-4">

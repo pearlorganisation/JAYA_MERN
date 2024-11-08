@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getBlogs } from "../../features/actions/blogAction";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 
 const BlogsPage = () => {
   const { blogs } = useSelector((state) => state.blog);
-  console.log("Blogs Page", blogs);
 
   return (
     <div className="px-6 py-4 md:px-0 md:py-0">
@@ -43,7 +42,7 @@ const BlogsPage = () => {
                     <Link to={`/blogs/${blog._id}`} key={blog._id} className="">
                       <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mb-6">
                         <div className="bg-gray-200 lg:w-1/3 w-full h-52 rounded-lg">
-                          <img src={blog.blogImage} className="h-52" />
+                          <img src={blog.blogImage} className="h-52 w-full" />
                         </div>
 
                         <div className="flex flex-col mt-4 lg:mt-0 justify-between lg:w-[50%]">
@@ -52,7 +51,7 @@ const BlogsPage = () => {
                               {blog?.title}
                             </h2>
                             <p className="text-[#393939] text-base mb-2 mt-6 lg:mt-0">
-                              {blog?.description}
+                              {blog?.description && parse(blog?.description)}
                             </p>
                             <div className="flex lg:space-x-2 mt-4">
                               {blog?.tags?.map((tag) => (
@@ -66,7 +65,7 @@ const BlogsPage = () => {
                             </div>
                           </div>
                           <p className="text-[#5e5e5e] text-xs lg:mt-1 mt-2">
-                            {moment(blog?.date).format("DD-MM-YYYY")}
+                            {moment(blog?.createdAt).format("DD-MM-YYYY")}
                           </p>
                         </div>
                       </div>

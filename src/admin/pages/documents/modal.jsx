@@ -32,13 +32,6 @@ const Modal = ({ schemeData, isOpen, onClose }) => {
                       {ite}{" "}
                     </div>
                   ))}
-
-                  {/* <div className="border-2 border-[#B6D8C2] rounded-lg p-1.5 text-[#419A62]">
-                70% Reservation
-              </div>
-              <div className="border-2 border-[#B6D8C2] rounded-lg p-1.5 text-[#419A62]">
-                Scholarship
-              </div> */}
                 </div>
 
                 <div className="border-2 border-[#419A62] rounded-lg p-1.5 bg-[#419A62] text-[#FFFFFF] text-center">

@@ -1,11 +1,33 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { persistor } from "../../features/store";
 import { useDispatch } from "react-redux";
 
 const UserProfile = ({ user }) => {
   const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState(false);
+
+  const wrapperRef = useRef(null);
+
+  // useEffect(() => {
+  //   window.addEventListener("keydown", handleKeyDown);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // });
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
+
   return (
     <div>
       <div className="space-x-3 relative">
@@ -13,7 +35,11 @@ const UserProfile = ({ user }) => {
         <img
           onClick={() => setDropdown(!dropdown)}
           className="cursor-pointer inline-block size-[46px] rounded-full"
-          src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+          src={
+            user?.profile
+              ? user?.profile
+              : `https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=`
+          }
           alt="Avatar"
         />
         {dropdown ? (

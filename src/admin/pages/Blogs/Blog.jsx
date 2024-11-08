@@ -19,11 +19,13 @@ import ViewModal from "./viewBlog/Viewmodal";
 const Blog = () => {
   const dispatch = useDispatch();
   const { blogs } = useSelector((state) => state.blog);
-  console.log("blogdata", blogs);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const [blog, setBlog] = useState(null);
   const [id, setId] = useState(null);
 
   useEffect(() => {
@@ -76,8 +78,8 @@ const Blog = () => {
 
           {/* Table Body */}
           <tbody className="bg-white divide-y divide-gray-200">
-            {Array.isArray(blogs) && blogs.length > 0 ? (
-              blogs.map((item) => (
+            {Array.isArray(blogs) && blogs?.length > 0 ? (
+              blogs?.map((item) => (
                 <tr
                   key={item._id}
                   className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300"
@@ -113,6 +115,7 @@ const Blog = () => {
                         onClick={(e) => {
                           e.preventDefault();
                           openModal();
+                          setBlog(item);
                           setId(item._id);
                         }}
                       >
@@ -163,7 +166,11 @@ const Blog = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 p-4">
-          <ViewModal blogData={id} isOpen={isModalOpen} onClose={closeModal} />
+          <ViewModal
+            blogData={blog}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+          />
         </div>
       )}
     </div>

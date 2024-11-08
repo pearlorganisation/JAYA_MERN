@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Bot from "../../assets/Bot.jpg";
 import DocumentCard from "./DocumentCard";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addDocumentInUserCollection,
-  getDocumentByUserId,
-} from "../../features/actions/uploadDocumentAction";
+import { addDocumentInUserCollection } from "../../features/actions/uploadDocumentAction";
 
 const AddNewDocButton = ({ el, currDocData }) => {
-  const { userData } = useSelector((state) => state.auth);
-  const { singleDocument, documentData, isLoading } = useSelector(
-    (state) => state.document
-  );
+  const { isLoading } = useSelector((state) => state.document);
   const addDocFileRef = useRef();
   const personIdRef = useRef(null);
   const dispatch = useDispatch();
@@ -53,7 +47,7 @@ const AddNewDocButton = ({ el, currDocData }) => {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <h1>{currDocData?.name ?? "shubham"}</h1>
+        <h1>{currDocData?.name ?? ""}</h1>
 
         <button
           onClick={() => addDocFileRef.current.click()}
@@ -105,7 +99,7 @@ const AddNewDocButton = ({ el, currDocData }) => {
                             type="text"
                             // value={fileName.current}
                             ref={fileName}
-                            placeholder="File Nmae"
+                            placeholder="File Name"
                             className="border-2 border-green-200 rounded-md p-1"
                           />
                         </div>

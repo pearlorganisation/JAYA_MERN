@@ -16,7 +16,7 @@ const Scheme = () => {
   const [scheme, setScheme] = useState(null);
 
   const { schemes } = useSelector((state) => state.schemes);
-  console.log("first", schemes);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

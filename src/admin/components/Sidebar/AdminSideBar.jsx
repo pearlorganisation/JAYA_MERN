@@ -54,10 +54,6 @@ const AdminSideBar = () => {
           className="flex items-center gap-2 whitespace-nowrap p-6 text-xl font-medium focus:outline-none"
         >
           <h1> ADMIN </h1>
-          {/* <img
-            src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?size=338&ext=jpg&ga=GA1.1.1819120589.1728259200&semt=ais_hybrid"
-            alt=""
-          />*/}
         </Link>
         <nav
           aria-label="side navigation"

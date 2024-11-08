@@ -1,16 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { GoDownload } from "react-icons/go";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllDocument,
-  removeDocumentInUserCollection,
-} from "../../features/actions/uploadDocumentAction";
+import { useDispatch } from "react-redux";
+import { removeDocumentInUserCollection } from "../../features/actions/uploadDocumentAction";
 
 export default function DropdownBasic({ doc, documentId, collectionId }) {
   const dispatch = useDispatch();
-  const documentState = useSelector((state) => state.document);
 
   const [isOpen, setIsOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
@@ -33,8 +29,6 @@ export default function DropdownBasic({ doc, documentId, collectionId }) {
     },
   ];
 
-  // console.log(documentState, "document state");
-
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -42,17 +36,17 @@ export default function DropdownBasic({ doc, documentId, collectionId }) {
     };
   });
 
-  // useEffect(() => {
-  //   function handleClickOutside(event) {
-  //     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-  //       setIsOpen(false);
-  //     }
-  //   }
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [wrapperRef]);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   const handleKeyDown = (e) => {
     if (isOpen) {
