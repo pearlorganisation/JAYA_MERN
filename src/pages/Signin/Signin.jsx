@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../features/actions/authAction";
 
 const signInSchema = yup.object({
@@ -15,6 +15,8 @@ const signInSchema = yup.object({
 
 const Signin = () => {
   const dispatch = useDispatch();
+
+  const { isLoading } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -110,12 +112,24 @@ const Signin = () => {
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md mt-1 lg:mt-0"
-          >
-            Sign In
-          </button>
+
+          {isLoading ? (
+            <button
+              disabled
+              className="bg-gray-500 w-full text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+            >
+              Loading ...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md mt-1 lg:mt-0"
+            >
+              Sign In
+            </button>
+          )}
+
           <div className="flex items-center justify-center">
             <p className="text-sm font-light text-[#696F79] mt-2">
               Don’t have an account ?{" "}

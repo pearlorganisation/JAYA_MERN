@@ -19,7 +19,7 @@ const signUpSchema = yup.object({
 });
 
 const Signup = () => {
-  const { isUserLoggedIn, userData } = useSelector((state) => state.auth);
+  const { userData, isLoading, isSuccess } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ const Signup = () => {
   });
 
   useEffect(() => {
-    if (userData?.status) {
+    if (isSuccess) {
       navigate("/signin");
     }
-  }, [userData]);
+  }, [isSuccess]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2  lg:gap-12 px-10 ">
@@ -168,12 +168,24 @@ const Signup = () => {
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md mt-1 lg:mt-0"
-          >
-            Register Account
-          </button>
+
+          {isLoading ? (
+            <button
+              disabled
+              className="bg-gray-500 w-full text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+            >
+              Loading ...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="w-full text-white bg-[#315288] hover:bg-[#3663ac] px-4 py-3  rounded-md mt-1 lg:mt-0"
+            >
+              Register Account
+            </button>
+          )}
+
           <div className="flex items-center justify-center">
             <p className="text-base font-medium text-[#696F79] mt-1 lg:mt-0 mb-4">
               Already have an account ?{" "}

@@ -49,15 +49,18 @@ const authSlice = createSlice({
       //signUp
       .addCase(signUp.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isSuccess = true;
         toast.success("Successful Created!!", { position: "top-center" });
         state.userData = action.payload;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        state.isSuccess = false;
       })
       .addCase(getProfile.pending, (state) => {
         state.isLoading = true;
