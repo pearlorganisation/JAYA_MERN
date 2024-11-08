@@ -50,13 +50,14 @@ const MyDocuments = () => {
               const currDocData = documentCollectionMap?.get(el?._id);
               return (
                 <>
-                  {
-                    <AddNewDocButton
-                      key={el._id}
-                      currDocData={currDocData}
-                      el={el}
+                  <h1>{currDocData?.name ?? ""}</h1>
+
+                  {currDocData && (
+                    <DocumentCard
+                      documentId={el?._id ?? "shubham"}
+                      data={currDocData?.documentsCollection ?? []}
                     />
-                  }
+                  )}
                 </>
               );
             })}
