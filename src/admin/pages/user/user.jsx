@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../documents/modal";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllUserData } from "../../../features/actions/userAction";
 // import { getAllUserData } from "../../../features/actions/authAction";
 const User = () => {
-  // const { users } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
 
-  // console.log("userdata", users);
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getAllUserData());
-  // }, []);
+  console.log("userdata in admin panel", users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUserData());
+  }, []);
   return (
     <div className="px-10 py-4">
       <div className="flex flex-row p-5 bg-[#4A9162] text-[#ffffff] justify-between font-bold rounded-md">
@@ -30,7 +31,7 @@ const User = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {/*    {users?.map((item) => (
+          {users?.data?.map((item) => (
             <>
               <tr className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300">
                 <td
@@ -47,7 +48,7 @@ const User = () => {
                 </td>
               </tr>
             </>
-          ))}*/}
+          ))}
         </tbody>
       </table>
     </div>

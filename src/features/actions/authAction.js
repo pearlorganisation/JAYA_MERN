@@ -65,14 +65,13 @@ export const logout = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   "auth/updateProfile",
   async ({ email, payload }, { rejectWithValue }) => {
-    console.log("sdsadas", email, payload);
     try {
       const response = await instance.patch(`/auth/profile/${email}`, payload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -84,9 +83,8 @@ export const getProfile = createAsyncThunk(
   "auth/getProfile",
   async ({ email }, { rejectWithValue }) => {
     try {
-      console.log("asfas", email);
       const { data } = await instance.get(`/auth/profile/${email}`);
-      console.log(data, "asdasdasda");
+
       return data;
     } catch (error) {
       return rejectWithValue(error);

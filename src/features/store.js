@@ -9,6 +9,7 @@ import persistStore from "redux-persist/es/persistStore";
 import schemesReducer from "./slices/schemesSlice";
 import bookmarksReducers from "./slices/bookMarkSlice";
 import userDataReducer from "./slices/userDataSlice";
+import userReducer from "./slices/userSlice";
 
 const persistConfig = {
   key: "root",
@@ -28,6 +29,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   auth: authReducer,
+  user: userReducer,
   bookmarks: bookmarksReducers,
   document: documentReducer,
   blog: blogReducer,

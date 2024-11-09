@@ -10,21 +10,25 @@ const Document = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const { documentData } = useSelector((state) => state.document);
-  console.log("doc", documentData);
   const { userData } = useSelector((state) => state.auth);
-  console.log("userss", userData.user._id);
+  const { alldocuments } = useSelector((state) => state.document);
+
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllDocument()).then((res) => {
-  //     console.log("all documents", res);
-  //   });
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllDocument());
+  }, []);
 
-  // useEffect(()=>{
-  //   dispatch(getAllDocument())
-  // },[])
+  console.log(alldocuments.data, "all docs state");
+
+  const allDocumentsWithUserName = alldocuments.data.flatMap((user) =>
+    user.documentsCollection.map((doc) => ({
+      ...doc, // Copy the document fields
+      userName: user.name, // Add the user's name to the document
+    }))
+  );
+
+  console.log(allDocumentsWithUserName, "all documents with user names");
 
   return (
     <div>
@@ -48,10 +52,13 @@ const Document = () => {
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              User
+              User ID
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Person
+              For Person
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              TITLE
             </th>
             {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             name
@@ -62,17 +69,20 @@ const Document = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {documentData?.map((item) => (
-            <tr>
+          {allDocumentsWithUserName.map((item, index) => (
+            <tr key={index}>
               <td className="px-6 py-4 text-sm font-medium max-w-xs">
-                <p className="truncate text-gray-900">{item?.user}</p>
+                <p className="truncate text-gray-900">{item?._id}</p>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.name}
+                {item.userName}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {item.title}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <a
-                  href={item.document}
+                  href={item.path}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-500 hover:underline"

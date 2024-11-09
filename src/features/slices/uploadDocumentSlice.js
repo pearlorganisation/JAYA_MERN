@@ -4,6 +4,7 @@ import { PURGE } from "redux-persist";
 import { toast } from "sonner";
 import {
   addDocumentInUserCollection,
+  getAllDocument,
   getDocumentByUserId,
   removeDocumentInUserCollection,
   uploadDocument,
@@ -12,7 +13,7 @@ import {
 const initialState = {
   isLoading: false,
   documentData: null,
-  // singleDocument: null,
+  alldocuments: null,
   isSuccess: false,
   isError: false,
   error: "",
@@ -92,19 +93,32 @@ const uploadDocumentSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         state.isError = true;
-        // state.isSuccess = false;
         toast.error(action.payload, { position: "top-center" });
       })
 
       .addCase(removeDocumentInUserCollection.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        // state.documentData = state.documentData.filter(
-        //   (document) => document != action.payload
-        // );
-
         state.isError = false;
         state.isSuccess = true;
+      })
+
+      .addCase(getAllDocument.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(getAllDocument.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.isError = true;
+        toast.error(action.payload, { position: "top-center" });
+      })
+
+      .addCase(getAllDocument.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.alldocuments = action.payload;
       });
   },
 });
