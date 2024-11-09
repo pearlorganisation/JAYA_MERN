@@ -19,12 +19,12 @@ const Document = () => {
     dispatch(getAllDocument());
   }, []);
 
-  console.log(alldocuments.data, "all docs state");
+  console.log(alldocuments?.data, "all docs state");
 
-  const allDocumentsWithUserName = alldocuments.data.flatMap((user) =>
-    user.documentsCollection.map((doc) => ({
+  const allDocumentsWithUserName = alldocuments?.data?.flatMap((user) =>
+    user?.documentsCollection?.map((doc) => ({
       ...doc, // Copy the document fields
-      userName: user.name, // Add the user's name to the document
+      userName: user?.name, // Add the user's name to the document
     }))
   );
 
@@ -69,7 +69,7 @@ const Document = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {allDocumentsWithUserName.map((item, index) => (
+          {allDocumentsWithUserName?.map((item, index) => (
             <tr key={index}>
               <td className="px-6 py-4 text-sm font-medium max-w-xs">
                 <p className="truncate text-gray-900">{item?._id}</p>
